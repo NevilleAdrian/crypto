@@ -1,12 +1,14 @@
-import '../../core/app_navigation/app_navigator.dart';
-import '../../core/app_navigation/app_route.dart';
-import '../../features/dashboard/data/models/args.dart';
+import '../../../core/app_navigation/app_navigator.dart';
+import '../../../core/app_navigation/app_route.dart';
+import '../../../features/dashboard/data/models/args.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:flutter/cupertino.dart';
 
+// TODO: CONVERT TO CLASS BASED
 Padding buildNFT(
   String title,
   double price,

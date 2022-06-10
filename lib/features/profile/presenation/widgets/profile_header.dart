@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:de_marketplace/features/profile/data/model/profile.dart';
-import 'package:de_marketplace/shared/utils/fonts.dart';
+import '../../data/model/profile.dart';
+import '../../../../shared/utils/fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

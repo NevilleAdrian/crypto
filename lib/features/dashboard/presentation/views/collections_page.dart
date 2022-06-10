@@ -1,13 +1,13 @@
 import 'package:bottom_sheet/bottom_sheet.dart';
-import 'package:de_marketplace/features/profile/data/model/profile.dart';
+import '../../../profile/data/model/profile.dart';
+import '../../../../shared/widgets/appbar.dart';
+import '../../../../shared/widgets/homePage/collections_nfts.dart';
 import '../../data/models/args.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../widgets/appbar.dart';
 import '../../../profile/presenation/widgets/profile_header.dart';
 
 import 'package:flutter/cupertino.dart';
-import '../../../../widgets/homePage/collections_nfts.dart';
 
 class DetailsPage extends StatefulWidget {
   final Args? args;

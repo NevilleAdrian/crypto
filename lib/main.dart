@@ -1,4 +1,4 @@
-import 'package:de_marketplace/core/app_navigation/app_navigator.dart';
+import 'core/app_navigation/app_navigator.dart';
 
 import 'core/app_navigation/app_router.dart';
 import 'package:flutter/material.dart';

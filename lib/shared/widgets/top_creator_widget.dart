@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// TODO: CONVERT TO CLASS BASED
 Center buildTopCreator(
   String author,
   String authorImg,
@@ -26,8 +27,6 @@ Center buildTopCreator(
           ),
           child: Stack(
             children: [
-
-
 //              Align(
 //                alignment: Alignment.bottomRight,
 //                child: Padding(
@@ -62,7 +61,6 @@ Center buildTopCreator(
 //                  ),
 //                ),
 //              ),
-
 
               Align(
                 alignment: Alignment.centerLeft,

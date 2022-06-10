@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+// TODO: CONVERT TO CLASS BASED
 Center buildVideoThumbnail(bool isDarkMode, bool avideo, Size size) {
   double width = size.width * 0.85;
   double height = size.height * 0.2;
@@ -16,12 +17,11 @@ Center buildVideoThumbnail(bool isDarkMode, bool avideo, Size size) {
       ),
       child: InkWell(
         onTap: () {
-          if(avideo){
+          if (avideo) {
             print('play video');
-          }else{
+          } else {
             print('open collection');
           }
-
         },
         child: Stack(
           children: [
@@ -118,8 +118,6 @@ Center buildVideoThumbnail(bool isDarkMode, bool avideo, Size size) {
 //                ),
 //              ),
 //            ),
-
-
           ],
         ),
       ),

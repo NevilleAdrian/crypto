@@ -1,9 +1,10 @@
+import '../../../../shared/widgets/appbar.dart';
+
 import '../../../../core/app_navigation/app_navigator.dart';
 import '../../data/models/args.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../widgets/appbar.dart';
 import 'package:unicons/unicons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:accordion/accordion.dart';

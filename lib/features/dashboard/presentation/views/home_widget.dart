@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'category.dart';
-import '../top_creator_widget.dart';
-import 'featured_banner_widget.dart';
-import 'collections_verified.dart';
+import '../../../../shared/widgets/homePage/category.dart';
+import '../../../../shared/widgets/top_creator_widget.dart';
+import '../../../../shared/widgets/homePage/featured_banner_widget.dart';
+import '../../../../shared/widgets/homePage/collections_verified.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
