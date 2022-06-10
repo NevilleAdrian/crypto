@@ -1,30 +1,20 @@
+import '../../../../core/app_navigation/app_navigator.dart';
+import '../../data/models/args.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import 'package:google_fonts/google_fonts.dart';
-import 'package:de_marketplace/widgets/appbar.dart';
-import 'package:de_marketplace/widgets/top_creator_widget.dart';
+import '../../../../widgets/appbar.dart';
 import 'package:unicons/unicons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:accordion/accordion.dart';
 
-
-
 class ListingPage extends StatelessWidget {
-  final bool isDarkMode;
-  final String collectionName;
-  final String collectionId;
-  final String collectionProfileImg;
-  final Size size;
-
   const ListingPage({
     Key? key,
-    required this.isDarkMode,
-    required this.collectionName,
-    required this.collectionId,
-    required this.collectionProfileImg,
-
-    required this.size,
+    this.args,
   }) : super(key: key);
+
+  final Args? args;
 
   @override
   Widget build(BuildContext context) {
@@ -34,115 +24,19 @@ class ListingPage extends StatelessWidget {
         Brightness.dark; //check if device is in dark or light mode
     Color defaultFontColor = isDarkMode ? Colors.white : Colors.black;
 
-
-
 //  COLLECTION DATA
 //  info
-//    String collectionName = "Solarians";
-
-    String collectionDesc = "The First On-Chain Generative NFTs on Solana";
 
 //  numbers
     String price = "2.9";
-    String collectionVolumne = "◎83.3K";
 
 //  images
     String collectionBanner = "assets/collections/solarian.gif";
 
-//  socials
-    String collectionTwitter = "https://twitter.com/SolariansNFT";
-    String collectionDiscord = "https://twitter.com/SolariansNFT";
-    String collectionWebsite = "https://twitter.com/SolariansNFT";
-
-//  others
-    bool verifEyed = true;
-
-    List listOfSimpleObjects =
-    [
-      {
-        "aString": "Blah, blah, blah.",
-        "anInt": 1,
-        "aDouble": 1.0,
-        "aListOfStrings": ["one", "two", "three"],
-        "aListOfInts": [1, 2, 3],
-        "aListOfDoubles": [1.0, 2.0, 3.0]
-      },
-      {
-        "anInt": 1,
-        "aDouble": 1.0,
-        "aListOfStrings": ["one", "two", "three"],
-        "aListOfInts": [1, 2, 3],
-        "aListOfDoubles": [1.0, 2.0, 3.0]
-      },
-      {
-        "aString": "Blah, blah, blah.",
-        "aDouble": 1.0,
-        "aListOfStrings": ["one", "two", "three"],
-        "aListOfInts": [1, 2, 3],
-        "aListOfDoubles": [1.0, 2.0, 3.0]
-      },
-      {
-        "aString": "Blah, blah, blah.",
-        "anInt": 1,
-        "aListOfStrings": ["one", "two", "three"],
-        "aListOfInts": [1, 2, 3],
-        "aListOfDoubles": [1.0, 2.0, 3.0]
-      },
-      {
-        "aString": "Blah, blah, blah.",
-        "anInt": 1,
-        "aDouble": 1.0,
-        "aListOfInts": [1, 2, 3],
-        "aListOfDoubles": [1.0, 2.0, 3.0]
-      },
-      {
-        "aString": "Blah, blah, blah.",
-        "anInt": 1,
-        "aDouble": 1.0,
-        "aListOfStrings": ["one", "two", "three"],
-        "aListOfDoubles": [1.0, 2.0, 3.0]
-      },
-      {
-        "aString": "Blah, blah, blah.",
-        "anInt": 1,
-        "aDouble": 1.0,
-        "aListOfStrings": ["one", "two", "three"],
-        "aListOfInts": [1, 2, 3]
-      },
-      {
-        "aString": "Blah, blah, blah.",
-        "anInt": 1,
-        "aDouble": 1.0,
-        "aListOfStrings": [],
-        "aListOfInts": [1, 2, 3],
-        "aListOfDoubles": [1.0, 2.0, 3.0]
-      },
-      {
-        "aString": "Blah, blah, blah.",
-        "anInt": 1,
-        "aDouble": 1.0,
-        "aListOfStrings": ["one", "two", "three"],
-        "aListOfInts": [],
-        "aListOfDoubles": [1.0, 2.0, 3.0]
-      },
-      {
-        "aString": "Blah, blah, blah.",
-        "anInt": 1,
-        "aDouble": 1.0,
-        "aListOfStrings": ["one", "two", "three"],
-        "aListOfInts": [1, 2, 3],
-        "aListOfDoubles": []
-      }
-    ];
-
-
-
-    return
-
-      Scaffold(
+    return Scaffold(
       appBar: buildAppBar(
         InkWell(
-          onTap: () => Get.back(),
+          onTap: () => AppNavigator.pop(),
           child: Icon(
             UniconsLine.arrow_circle_left,
             color: isDarkMode
@@ -166,82 +60,69 @@ class ListingPage extends StatelessWidget {
           child: SafeArea(
             child: ListView(
               children: [
-
-                const SizedBox(height:20),
-
+                const SizedBox(height: 20),
 
                 InkWell(
-                  onTap: () => Get.back(),
-                  child:
-                    Text(
-                      collectionName,
-                      textAlign: TextAlign.center,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.poppins(
-                        color: isDarkMode ? Colors.white : Colors.black,
-                        fontSize: size.width * 0.04,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  onTap: () => AppNavigator.pop(),
+                  child: Text(
+                    args?.collectionName ?? '',
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.poppins(
+                      color: isDarkMode ? Colors.white : Colors.black,
+                      fontSize: size.width * 0.04,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-
+                ),
 
                 Align(
                   alignment: Alignment.center,
-                  child:
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 35),
-                        child:
-                          SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child:
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "019-7 the Timey",
-                                      textAlign: TextAlign.center,
-                                      style: GoogleFonts.poppins(
-                                        color: isDarkMode ? Colors.white : Colors.black,
-                                        fontSize: size.width * 0.055,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ]
-                              )
-                          ),
-                      ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 35),
+                    child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                "019-7 the Timey",
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.poppins(
+                                  color:
+                                      isDarkMode ? Colors.white : Colors.black,
+                                  fontSize: size.width * 0.055,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ])),
+                  ),
                 ),
-
 
                 Text(
                   "Guds...wsxg",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(
-                    color: isDarkMode ? Colors.white.withOpacity(0.6) : Colors.black.withOpacity(0.6),
+                    color: isDarkMode
+                        ? Colors.white.withOpacity(0.6)
+                        : Colors.black.withOpacity(0.6),
                     fontSize: size.width * 0.035,
                   ),
                 ),
 
-
-                const SizedBox(height:20),
-
+                const SizedBox(height: 20),
 
                 Align(
                   alignment: Alignment.center,
-                  child:
-                  Padding(
+                  child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 100),
-                    child:
-                    SingleChildScrollView(
+                    child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child:
-                        Row(
+                        child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-
                               Icon(
                                 UniconsLine.heart,
                                 color: isDarkMode
@@ -249,10 +130,7 @@ class ListingPage extends StatelessWidget {
                                     : const Color(0xff3b22a1), //icon bg color
                                 size: size.height * 0.03,
                               ),
-
-                              const SizedBox(width:20),
-
-
+                              const SizedBox(width: 20),
                               Icon(
                                 CupertinoIcons.link,
                                 color: isDarkMode
@@ -260,9 +138,7 @@ class ListingPage extends StatelessWidget {
                                     : const Color(0xff3b22a1), //icon bg color
                                 size: size.height * 0.03,
                               ),
-
-                              const SizedBox(width:20),
-
+                              const SizedBox(width: 20),
                               Icon(
                                 UniconsLine.refresh,
                                 color: isDarkMode
@@ -270,9 +146,7 @@ class ListingPage extends StatelessWidget {
                                     : const Color(0xff3b22a1), //icon bg color
                                 size: size.height * 0.03,
                               ),
-
-                              const SizedBox(width:20),
-
+                              const SizedBox(width: 20),
                               Icon(
                                 CupertinoIcons.flag,
                                 color: isDarkMode
@@ -280,75 +154,54 @@ class ListingPage extends StatelessWidget {
                                     : const Color(0xff3b22a1), //icon bg color
                                 size: size.height * 0.03,
                               ),
-
-
-
-                            ]
-                        )
-                    ),
+                            ])),
                   ),
                 ),
 
-
-                const SizedBox(height:20),
-
+                const SizedBox(height: 20),
 
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 110),
-                  child:
-                    Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 110),
+                    child: Container(
                         width: 20,
                         height: 50,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10),),
-                          border: Border.all(color: Colors.blueAccent, width: 1),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                          border:
+                              Border.all(color: Colors.blueAccent, width: 1),
                         ),
-                        child:
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              CupertinoIcons.checkmark_shield_fill,
+                              color: Colors.blueAccent,
+                              size: 20,
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              "Verifeyed",
+                              style: TextStyle(
+                                  color: Colors.blueAccent, fontSize: 15),
+                            ),
+                          ],
+                        ))),
 
-                                const Icon(
-                                  CupertinoIcons.checkmark_shield_fill,
-                                  color: Colors.blueAccent,
-                                  size: 20,
-                                ),
-
-                                const SizedBox(width:10),
-
-                                const Text(
-                                  "Verifeyed",
-                                  style: TextStyle(
-                                    color: Colors.blueAccent,
-                                    fontSize: 15
-                                  ),
-                                ),
-
-                              ],
-                            )
-                      )
-                ),
-
-
-                const SizedBox(height:20),
-
-
+                const SizedBox(height: 20),
 
                 SizedBox(
                   width: size.width,
                   height: size.height * 0.35,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(20)),
-                      child: Image.asset(
-                        collectionBanner,
-                        fit: BoxFit.contain,
-                      ),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    child: Image.asset(
+                      collectionBanner,
+                      fit: BoxFit.contain,
                     ),
+                  ),
                 ),
-
-
-
-
 
 //                Padding(
 //                  padding: EdgeInsets.only(top: size.height * 0.01),
@@ -362,8 +215,6 @@ class ListingPage extends StatelessWidget {
 //                  ),
 //                ),
 
-
-
                 Accordion(
                   headerBackgroundColorOpened: Colors.transparent,
                   maxOpenSections: 1,
@@ -371,59 +222,61 @@ class ListingPage extends StatelessWidget {
                   disableScrolling: true,
                   contentBackgroundColor: Colors.transparent,
                   contentBorderColor: Colors.transparent,
-                  headerPadding: EdgeInsets.only(left: 20, right: 10, top: 30, bottom: 0),
+                  headerPadding: const EdgeInsets.only(
+                    left: 20,
+                    right: 10,
+                    top: 30,
+                    bottom: 0,
+                  ),
                   headerBackgroundColor: Colors.transparent,
 //                  leftIcon: Icon(Icons.audiotrack, color: Colors.white),
                   children: [
                     AccordionSection(
                       isOpen: false,
-                      header: Text('ABOUT THE COLLECTION', style: TextStyle(color: defaultFontColor, fontSize: 17)),
-                      content: const Text('This is the introduction right here ...', textAlign: TextAlign.left),
+                      header: Text('ABOUT THE COLLECTION',
+                          style:
+                              TextStyle(color: defaultFontColor, fontSize: 17)),
+                      content: const Text(
+                          'This is the introduction right here ...',
+                          textAlign: TextAlign.left),
                     ),
                     AccordionSection(
                       isOpen: false,
-                      header: Text('MINT ID', style: TextStyle(color: defaultFontColor, fontSize: 17)),
+                      header: Text('MINT ID',
+                          style:
+                              TextStyle(color: defaultFontColor, fontSize: 17)),
                       content: Row(
                         children: [
-
-
                           Expanded(
-                            child:
-                              SingleChildScrollView(
+                            child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
-                              child:
-                                Row(
+                              child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text("sodinxinoisdnodisnfodsinfodifnsdfsf sdofkno dsfin sod sdof idnofi noin"),
-                                  ],
+                                children: const [
+                                  Text(
+                                      "sodinxinoisdnodisnfodsinfodifnsdfsf sdofkno dsfin sod sdof idnofi noin"),
+                                ],
                               ),
                             ),
                           ),
-
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Icon(Icons.copy, size: 20, color: Colors.green[200]),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Icon(Icons.copy,
+                                size: 20, color: Colors.green[200]),
                           )
-
-
                         ],
                       ),
                     ),
                   ],
                 ),
 
-
                 Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30),
-                  child:
-
-                  Column(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       Text(
                         "CURRENT PRICE:",
                         textAlign: TextAlign.left,
@@ -434,7 +287,6 @@ class ListingPage extends StatelessWidget {
                           fontWeight: FontWeight.w300,
                         ),
                       ),
-
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: Text(
@@ -447,13 +299,11 @@ class ListingPage extends StatelessWidget {
                           ),
                         ),
                       ),
-
-
                       Padding(
                         padding: EdgeInsets.only(top: size.height * 0.005),
                         child: InkWell(
-                          onTap: () =>
-                              print('place a bid'), //TODO: add place a bid action
+                          onTap: () => print(
+                              'place a bid'), //TODO: add place a bid action
                           child: Center(
                             child: Container(
                               height: size.height * 0.075,
@@ -480,16 +330,9 @@ class ListingPage extends StatelessWidget {
                           ),
                         ),
                       ),
-
                     ],
                   ),
-
                 ),
-
-
-
-
-
 
                 Accordion(
                   headerBackgroundColorOpened: Colors.transparent,
@@ -498,29 +341,30 @@ class ListingPage extends StatelessWidget {
                   disableScrolling: true,
                   contentBackgroundColor: Colors.transparent,
                   contentBorderColor: Colors.transparent,
-                  headerPadding: EdgeInsets.only(left: 20, right: 10, top: 20, bottom: 20),
+                  headerPadding: const EdgeInsets.only(
+                      left: 20, right: 10, top: 20, bottom: 20),
                   headerBackgroundColor: Colors.transparent,
 //                  leftIcon: Icon(Icons.audiotrack, color: Colors.white),
                   children: [
                     AccordionSection(
                       isOpen: false,
-                      header: const Text('ATTRIBUTES', style: TextStyle(color: Colors.white, fontSize: 17)),
-                      content: const Text('This is the introduction right here ...', textAlign: TextAlign.left,),
+                      header: const Text('ATTRIBUTES',
+                          style: TextStyle(color: Colors.white, fontSize: 17)),
+                      content: const Text(
+                        'This is the introduction right here ...',
+                        textAlign: TextAlign.left,
+                      ),
                     ),
                     AccordionSection(
                       isOpen: false,
-                      header: const Text('SALES HISTORY', style: TextStyle(color: Colors.white, fontSize: 17)),
-                      content:
-                      Row(
-                        children: [
-
-                        ],
+                      header: const Text('SALES HISTORY',
+                          style: TextStyle(color: Colors.white, fontSize: 17)),
+                      content: Row(
+                        children: const [],
                       ),
                     ),
                   ],
                 ),
-
-
               ],
             ),
           ),

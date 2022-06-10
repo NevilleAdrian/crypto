@@ -1,30 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:de_marketplace/widgets/appbar.dart';
-import 'package:de_marketplace/widgets/homePage/collections_verified.dart';
-import 'package:de_marketplace/widgets/homePage/category.dart';
-import 'package:de_marketplace/widgets/homePage/home_widget.dart';
-import 'package:de_marketplace/widgets/top_creator_widget.dart';
-import 'package:de_marketplace/widgets/homePage/video_thumbnail_widget.dart';
+import '../../../../widgets/appbar.dart';
+import '../../../../widgets/homePage/home_widget.dart';
 import 'package:unicons/unicons.dart';
 
-import 'package:de_marketplace/pages/collections_explore.dart';
-
+import '../../../collections/presentation/views/collections_explore.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
-
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key, menuScreenContext}) : super(key: key);
-
+class Dashboard extends StatelessWidget {
+  const Dashboard({Key? key, menuScreenContext}) : super(key: key);
 
   List<Widget> _buildScreens(context) {
     Size size = MediaQuery.of(context).size; //check the size of device
     return [
-      buildHome(context),
-
-      buildCollectionExplore(context),
-
+      const HomeScreen(),
+      const CollectionExplore(),
       Center(
         child: Container(
           height: size.height * 0.08,
@@ -44,7 +35,6 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-
       Center(
         child: Container(
           height: size.height * 0.08,
@@ -70,36 +60,31 @@ class HomePage extends StatelessWidget {
   List<PersistentBottomNavBarItem> _navBarsItems(isDarkMode) {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.home),
+        icon: const Icon(CupertinoIcons.home),
         title: ("Home"),
-        activeColorPrimary: isDarkMode ? CupertinoColors.white : CupertinoColors.black,
+        activeColorPrimary:
+            isDarkMode ? CupertinoColors.white : CupertinoColors.black,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.table),
+        icon: const Icon(CupertinoIcons.table),
+        title: ("Collections"),
+        activeColorPrimary:
+            isDarkMode ? CupertinoColors.white : CupertinoColors.black,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(CupertinoIcons.calendar),
         title: ("Calendar"),
-        activeColorPrimary: isDarkMode ? CupertinoColors.white : CupertinoColors.black,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-
-      //SOLO
-//      PersistentBottomNavBarItem(
-//        activeColorPrimary: isDarkMode ? CupertinoColors.white : CupertinoColors.black,
-//        icon: isDarkMode ? Image.asset("assets/icons/solo-white.png", width: 23,) : Image.asset("assets/icons/solo-black.png", width: 23),
-//        inactiveIcon: Image.asset("assets/icons/solo-grey.png", width: 23),
-//        title: ("Solo"),
-//      ),
-
-      PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.calendar),
-        title: ("Calendar"),
-        activeColorPrimary: isDarkMode ? CupertinoColors.white : CupertinoColors.black,
+        activeColorPrimary:
+            isDarkMode ? CupertinoColors.white : CupertinoColors.black,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.profile_circled),
+        icon: const Icon(CupertinoIcons.profile_circled),
         title: ("Settings"),
-        activeColorPrimary: isDarkMode ? CupertinoColors.white : CupertinoColors.black,
+        activeColorPrimary:
+            isDarkMode ? CupertinoColors.white : CupertinoColors.black,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       )
     ];
@@ -109,7 +94,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     PersistentTabController? _controller;
     bool? _hideNavBar;
-    BuildContext? testContext;
 
     Size size = MediaQuery.of(context).size; //check the size of device
     var brightness = MediaQuery.of(context).platformBrightness;
@@ -136,8 +120,8 @@ class HomePage extends StatelessWidget {
         items: _navBarsItems(isDarkMode),
         confineInSafeArea: true,
         backgroundColor: isDarkMode
-            ?Colors.black.withOpacity(0.8)
-            :Colors.white.withOpacity(0.8),
+            ? Colors.black.withOpacity(0.8)
+            : Colors.white.withOpacity(0.8),
         handleAndroidBackButtonPress: true,
         resizeToAvoidBottomInset: true,
         stateManagement: true,
@@ -145,7 +129,7 @@ class HomePage extends StatelessWidget {
             ? 0.0
             : kBottomNavigationBarHeight,
         hideNavigationBarWhenKeyboardShows: true,
-        margin: EdgeInsets.all(0.0),
+        margin: EdgeInsets.zero,
         popActionScreens: PopActionScreensType.all,
         bottomScreenMargin: 0.0,
         onWillPop: (context) async {
@@ -157,7 +141,7 @@ class HomePage extends StatelessWidget {
               width: 50.0,
               color: Colors.white,
               child: ElevatedButton(
-                child: Text("Close"),
+                child: const Text("Close"),
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -166,15 +150,12 @@ class HomePage extends StatelessWidget {
           );
           return false;
         },
-        selectedTabScreenContext: (context) {
-          testContext = context;
-        },
+        selectedTabScreenContext: (context) {},
         hideNavigationBar: _hideNavBar,
         decoration: NavBarDecoration(
             colorBehindNavBar: Colors.indigo,
 //            borderRadius: BorderRadius.circular(20.0)
-            borderRadius: BorderRadius.circular(0.0)
-        ),
+            borderRadius: BorderRadius.circular(0.0)),
         popAllScreensOnTapOfSelectedTab: true,
         itemAnimationProperties: const ItemAnimationProperties(
           duration: Duration(milliseconds: 400),
@@ -186,9 +167,8 @@ class HomePage extends StatelessWidget {
           duration: Duration(milliseconds: 200),
         ),
         navBarStyle:
-        NavBarStyle.style12, // Choose the nav bar style with this property
+            NavBarStyle.style12, // Choose the nav bar style with this property
       ),
     );
-
   }
 }

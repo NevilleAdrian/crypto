@@ -1,12 +1,10 @@
+import '../../core/app_navigation/app_navigator.dart';
+import '../../core/app_navigation/app_route.dart';
+import '../../features/dashboard/data/models/args.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:de_marketplace/pages/details_page.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:image/image.dart' as image_builder;
-import 'dart:io' as dart_io;
-import 'package:async/async.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/cupertino.dart';
 
 Padding buildCollections(
   String title,
@@ -43,17 +41,16 @@ Padding buildCollections(
               ),
             ),
             child: InkWell(
-              onTap: () {
-                Get.to(
-                  () => ListingPage(
-                    isDarkMode: isDarkMode,
-                    collectionName: title,
-                    collectionId: "solarians-1234",
-                    collectionProfileImg: nftImg,
-                    size: size,
-                  ),
-                );
-              },
+              onTap: () => AppNavigator.pushNamed(
+                collectionsViewRoute,
+                arguments: Args(
+                  isDarkMode: isDarkMode,
+                  collectionName: title,
+                  collectionId: "solarians-1234",
+                  collectionProfileImg: nftImg,
+                  size: size,
+                ),
+              ),
               child: Stack(
                 children: [
                   ClipRRect(
@@ -106,8 +103,6 @@ Padding buildCollections(
 //                      ),
 //                    ),
 //                  ),
-
-
                 ],
               ),
             ),
@@ -169,11 +164,11 @@ Padding buildCollections(
                       children: [
                         Padding(
                           padding:
-                          EdgeInsets.symmetric(horizontal: width * 0.01),
+                              EdgeInsets.symmetric(horizontal: width * 0.01),
                           child: Icon(
-                              CupertinoIcons.down_arrow,
-                              color: Colors.white.withOpacity(0.5),
-                              size: 15,
+                            CupertinoIcons.down_arrow,
+                            color: Colors.white.withOpacity(0.5),
+                            size: 15,
                           ),
                         ),
                         Image.asset(

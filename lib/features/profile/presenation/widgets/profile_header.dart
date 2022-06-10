@@ -1,39 +1,21 @@
-import 'package:flutter/material.dart';
-import 'package:de_marketplace/pages/profile_colors.dart';
-import 'package:de_marketplace/pages/profile_fonts.dart';
-import 'package:de_marketplace/pages/profile_icons.dart';
-import 'package:de_marketplace/pages/models.dart';
-import 'dart:math';
 import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 
+import 'package:de_marketplace/features/profile/data/model/profile.dart';
+import 'package:de_marketplace/shared/utils/fonts.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class ProfileHeader extends StatelessWidget {
-
   final Profile profile;
 
-  ProfileHeader(this.profile);
+  const ProfileHeader({
+    Key? key,
+    required this.profile,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final topPadding = MediaQuery
-        .of(context)
-        .padding
-        .top;
-
-    final headerGradient = RadialGradient(
-      center: Alignment.topLeft,
-      radius: 0.4,
-      colors: <Color>[
-        const Color(0xFF8860EB),
-        const Color(0xFF8881EB),
-      ],
-      stops: <double>[
-        0.4, 1.0,
-      ],
-      tileMode: TileMode.repeated,
-    );
-
+    final topPadding = MediaQuery.of(context).padding.top;
 
     const headerHeight = 260.0;
 
@@ -44,18 +26,18 @@ class ProfileHeader extends StatelessWidget {
       height: headerHeight,
       decoration: BoxDecoration(
         boxShadow: <BoxShadow>[
-          BoxShadow(spreadRadius: 2.0,
+          BoxShadow(
+              spreadRadius: 2.0,
               blurRadius: 4.0,
               offset: const Offset(0.0, 1.0),
-              color: isDarkMode ? Colors.black38 : const Color(0xfff8f8f8) ),
+              color: isDarkMode ? Colors.black38 : const Color(0xfff8f8f8)),
         ],
       ),
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-        ClipRRect(
-          child:
-            Container(
+          ClipRRect(
+            child: Container(
               height: headerHeight,
               decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -63,33 +45,35 @@ class ProfileHeader extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-
-              child:
-              BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors:
-                          isDarkMode ?
-                          [ Colors.black.withOpacity(0.9), Colors.black.withOpacity(0.75), Colors.black.withOpacity(0.4), Colors.black.withOpacity(0.75), Colors.black.withOpacity(0.9),]
-                              :
-                          [ const Color(0xfff8f8f8), const Color(0xfff8f8f8).withOpacity(0.7), const Color(0xfff8f8f8).withOpacity(0.4), const Color(0xfff8f8f8).withOpacity(0.6), const Color(0xfff8f8f8),]
-                          ,
-
-                        )
-                    ),
-
-                  ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: isDarkMode
+                        ? [
+                            Colors.black.withOpacity(0.9),
+                            Colors.black.withOpacity(0.75),
+                            Colors.black.withOpacity(0.4),
+                            Colors.black.withOpacity(0.75),
+                            Colors.black.withOpacity(0.9),
+                          ]
+                        : [
+                            const Color(0xfff8f8f8),
+                            const Color(0xfff8f8f8).withOpacity(0.7),
+                            const Color(0xfff8f8f8).withOpacity(0.4),
+                            const Color(0xfff8f8f8).withOpacity(0.6),
+                            const Color(0xfff8f8f8),
+                          ],
+                  )),
                 ),
-
+              ),
             ),
-
           ),
 
-        // linear gradient
+          // linear gradient
 //          Container(
 //            height: headerHeight,
 //            decoration: const BoxDecoration(
@@ -114,7 +98,6 @@ class ProfileHeader extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -123,7 +106,6 @@ class ProfileHeader extends StatelessWidget {
                     _buildBellIcon(isDarkMode),
                   ],
                 ),
-
                 Padding(
                   padding: const EdgeInsets.only(bottom: 15.0),
                   child: _buildTitle(isDarkMode),
@@ -149,7 +131,10 @@ class ProfileHeader extends StatelessWidget {
       children: <Widget>[
         IconButton(
             icon: Icon(
-              Icons.notifications_active, color: isDarkMode ? Colors.white: Colors.black, size: 25.0,),
+              Icons.notifications_active,
+              color: isDarkMode ? Colors.white : Colors.black,
+              size: 25.0,
+            ),
             onPressed: () {}),
       ],
     );
@@ -162,7 +147,10 @@ class ProfileHeader extends StatelessWidget {
       children: <Widget>[
         IconButton(
             icon: Icon(
-              Icons.favorite_border, color: isDarkMode ? Colors.white: Colors.black, size: 25.0,),
+              Icons.favorite_border,
+              color: isDarkMode ? Colors.white : Colors.black,
+              size: 25.0,
+            ),
             onPressed: () {}),
       ],
     );
@@ -175,54 +163,47 @@ class ProfileHeader extends StatelessWidget {
       children: <Widget>[
         IconButton(
             icon: Icon(
-              Icons.refresh, color: isDarkMode ? Colors.white: Colors.black, size: 25.0,),
+              Icons.refresh,
+              color: isDarkMode ? Colors.white : Colors.black,
+              size: 25.0,
+            ),
             onPressed: () {}),
       ],
     );
   }
 
-
   Widget _buildTitle(isDarkMode) {
-    return
-      Align(
+    return Align(
         alignment: Alignment.centerLeft,
-        child:
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child:
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("Solarians",
-                style: TextStyle(
-                fontFamily: ProfileFontNames.TimeBurner,
-                fontWeight: FontWeight.w700,
-                color: isDarkMode ? Colors.white: Colors.black,
-                fontSize: 35.0,
-                letterSpacing: 1.0))
-              ]
-            )
-        )
-    );
+        child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text("Solarians",
+                      style: TextStyle(
+                          fontFamily: AppFontNames.timeBurner,
+                          fontWeight: FontWeight.w700,
+                          color: isDarkMode ? Colors.white : Colors.black,
+                          fontSize: 35.0,
+                          letterSpacing: 1.0))
+                ])));
   }
 
   /// The avatar consists of the profile image, the users name and location
   Widget _buildAvatar(isDarkMode) {
-    final mainTextStyle = TextStyle(fontFamily: ProfileFontNames.TimeBurner,
-        color: Colors.white,
-        fontWeight: FontWeight.w700,
-        fontSize: 20.0);
     final subTextStyle = TextStyle(
-        fontFamily: ProfileFontNames.TimeBurner,
+        fontFamily: AppFontNames.timeBurner,
         fontSize: 16.0,
-        color: isDarkMode ? Colors.white: Colors.black,
+        color: isDarkMode ? Colors.white : Colors.black,
         fontWeight: FontWeight.w700);
 
     return Row(
       children: <Widget>[
         Container(
-          width: 70.0, height: 60.0,
+          width: 70.0,
+          height: 60.0,
           decoration: BoxDecoration(
             image: const DecorationImage(
                 image: AssetImage("assets/images/solarians-profile.png"),
@@ -230,7 +211,9 @@ class ProfileHeader extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(20.0)),
             boxShadow: <BoxShadow>[
               BoxShadow(
-                  color: isDarkMode ? Colors.black: Colors.grey, blurRadius: 5.0, spreadRadius: 1.0),
+                  color: isDarkMode ? Colors.black : Colors.grey,
+                  blurRadius: 5.0,
+                  spreadRadius: 1.0),
             ],
           ),
         ),
@@ -238,25 +221,17 @@ class ProfileHeader extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
+            SizedBox(
               width: 230,
               height: 80,
-              child:
-              Center(
-                child:
-                SingleChildScrollView(
+              child: Center(
+                child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                  child:
-                  Column(
-                      children: [
-                        Text(
-                            profile.topText,
-                            style: subTextStyle
-                        ),
-                      ]
-                  ),
+                  child: Column(children: [
+                    Text(profile.topText, style: subTextStyle),
+                  ]),
                 ),
-                ),
+              ),
             ),
           ],
         ),
@@ -265,42 +240,39 @@ class ProfileHeader extends StatelessWidget {
   }
 
   Widget _buildCollectionStats(isDarkMode) {
-    return
-    Center(
-     child:
-    SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child:
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          _buildCollectionStat("Floor", "◎315", isDarkMode),
-          _buildVerticalDivider(isDarkMode),
-          _buildCollectionStat("Volume", "◎3150", isDarkMode),
-          _buildVerticalDivider(isDarkMode),
-          _buildCollectionStat("Supply", "10", isDarkMode),
-          _buildVerticalDivider(isDarkMode),
-          _buildCollectionStat("Listed", "10", isDarkMode),
+    return Center(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            _buildCollectionStat("Floor", "◎315", isDarkMode),
+            _buildVerticalDivider(isDarkMode),
+            _buildCollectionStat("Volume", "◎3150", isDarkMode),
+            _buildVerticalDivider(isDarkMode),
+            _buildCollectionStat("Supply", "10", isDarkMode),
+            _buildVerticalDivider(isDarkMode),
+            _buildCollectionStat("Listed", "10", isDarkMode),
 
 //        _buildVerticalDivider(isDarkMode),
 //        _buildCollectionStat("Total Likes", profile.totalLikesString),
-
-
-        ],
-      ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildCollectionStat(String title, String value, bool isDarkMode) {
     final titleStyle = TextStyle(
-        fontSize: 16.0,
-        color: isDarkMode ? Colors.white: Colors.black,);
+      fontSize: 16.0,
+      color: isDarkMode ? Colors.white : Colors.black,
+    );
     final valueStyle = TextStyle(
-        fontSize: 14.0,
-        fontWeight: FontWeight.w700,
-        color: isDarkMode ? Colors.white: Colors.black,);
+      fontSize: 14.0,
+      fontWeight: FontWeight.w700,
+      color: isDarkMode ? Colors.white : Colors.black,
+    );
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -315,7 +287,7 @@ class ProfileHeader extends StatelessWidget {
     return Container(
       height: 30.0,
       width: 1.0,
-      color: isDarkMode ? Colors.white: Colors.black,
+      color: isDarkMode ? Colors.white : Colors.black,
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
     );
   }
@@ -329,5 +301,4 @@ class HeaderGradientPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
-
 }

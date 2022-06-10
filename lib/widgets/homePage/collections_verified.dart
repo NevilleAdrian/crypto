@@ -1,33 +1,25 @@
+import '../../core/app_navigation/app_navigator.dart';
+import '../../core/app_navigation/app_route.dart';
+import '../../features/dashboard/data/models/args.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 //import 'package:de_marketplace/pages/details_page.dart';
 
-import 'package:de_marketplace/pages/collections_page.dart';
-
 import 'package:flutter/cupertino.dart';
-import 'package:image/image.dart' as image_builder;
-import 'dart:io' as dart_io;
-import 'package:async/async.dart';
-
-import 'package:flutter_svg/avd.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 
 Padding buildCollections(
-  String title,
-  double price,
-  String author,
-  String authorImg,
-  String nftImg,
-  Color defaultFontColor,
-  bool isDarkMode,
-  Size size,
-  String aspect
-) {
+    String title,
+    double price,
+    String author,
+    String authorImg,
+    String nftImg,
+    Color defaultFontColor,
+    bool isDarkMode,
+    Size size,
+    String aspect) {
   double width = size.width * 0.6;
-  double col_height = size.width * 0.6;
   double height = size.height * 0.2;
 
 //  final bytes = await dart_io.File(image).readAsBytes();
@@ -35,12 +27,16 @@ Padding buildCollections(
 //  final image = await image_builder.decodeImage(bytes))!;
 
   return Padding(
-    padding: aspect!='slim' ? EdgeInsets.only(left: size.width * 0.055) : EdgeInsets.all(6),
+    padding: aspect != 'slim'
+        ? EdgeInsets.only(left: size.width * 0.055)
+        : const EdgeInsets.all(6),
     child: Container(
       width: width - 90,
       height: 100,
       decoration: BoxDecoration(
-        color: isDarkMode ? Colors.white.withOpacity(0.1) : Colors.black.withOpacity(0.15),
+        color: isDarkMode
+            ? Colors.white.withOpacity(0.1)
+            : Colors.black.withOpacity(0.15),
         borderRadius: const BorderRadius.all(
           Radius.circular(10),
         ),
@@ -52,80 +48,72 @@ Padding buildCollections(
             width: width,
             decoration: BoxDecoration(
               color: isDarkMode ? Colors.white.withOpacity(0.05) : Colors.black,
-              borderRadius: BorderRadius.all(
+              borderRadius: const BorderRadius.all(
                 Radius.circular(10),
               ),
             ),
             child: InkWell(
-              onTap: () {
-                Get.to(
-                  () =>
-                    DetailsPage(
-                      isDarkMode: isDarkMode,
-                      collectionName: "Solarians",
-                      collectionId: "solarians-1234",
-                      collectionProfileImg: "assets/images/solarians.png",
-                    ),
-
-
-//                  DetailsPage(
-//                    isDarkMode: isDarkMode,
-//                    collectionName: title,
-//                    collectionId: "solarians-1234",
-//                    collectionProfileImg: nftImg,
-//                    size: size,
-//                  ),
-                );
-              },
+              onTap: () => AppNavigator.pushNamed(
+                detailsViewRoute,
+                arguments: Args(
+                  isDarkMode: isDarkMode,
+                  collectionName: "Solarians",
+                  collectionId: "solarians-1234",
+                  collectionProfileImg: "assets/images/solarians.png",
+                  size: size,
+                ),
+              ),
               child: Stack(
                 children: [
-
-                  aspect!='slim' ?
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                    child: Image.asset(
-                      nftImg,
-                      height: 150,
-                      fit: BoxFit.fitHeight,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          height: height,
-                          width: width,
-                          decoration: BoxDecoration(
-                            color: isDarkMode
-                                ? Colors.white.withOpacity(0.05)
-                                : Colors.black,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(0),
-                            ),
+                  aspect != 'slim'
+                      ? ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10)),
+                          child: Image.asset(
+                            nftImg,
+                            height: 150,
+                            fit: BoxFit.fitHeight,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                height: height,
+                                width: width,
+                                decoration: BoxDecoration(
+                                  color: isDarkMode
+                                      ? Colors.white.withOpacity(0.05)
+                                      : Colors.black,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(0),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
-                  )
-                  :
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-                    child: Image.asset(
-                      nftImg,
+                        )
+                      : ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10)),
+                          child: Image.asset(
+                            nftImg,
 //                      height: 150,
-                      fit: BoxFit.fill,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          height: height,
-                          width: width,
-                          decoration: BoxDecoration(
-                            color: isDarkMode
-                                ? Colors.white.withOpacity(0.05)
-                                : Colors.black,
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(0),
-                            ),
+                            fit: BoxFit.fill,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                height: height,
+                                width: width,
+                                decoration: BoxDecoration(
+                                  color: isDarkMode
+                                      ? Colors.white.withOpacity(0.05)
+                                      : Colors.black,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(0),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
-                  ),
+                        ),
 
 //                  Align(
 //                    alignment: Alignment.bottomRight,
@@ -153,19 +141,17 @@ Padding buildCollections(
 //                      ),
 //                    ),
 //                  ),
-
                 ],
               ),
             ),
           ),
-
           SizedBox(
             width: width,
             height: 60,
             child: Row(
               children: [
                 SizedBox(
-                  width: width * 1/2,
+                  width: width * 1 / 2,
                   child: Padding(
                     padding: EdgeInsets.only(left: width * 0.02),
                     child: Text(
@@ -174,7 +160,7 @@ Padding buildCollections(
                       maxLines: 2,
                       style: GoogleFonts.poppins(
                         color: defaultFontColor,
-                        fontSize: aspect!='slim' ? width * 0.05 : 15,
+                        fontSize: aspect != 'slim' ? width * 0.05 : 15,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -191,16 +177,13 @@ Padding buildCollections(
                   child: Align(
                     child: Row(
                       children: [
-
                         Image.asset(
                           'assets/icons/verif.png',
                           height: height * 0.2,
                           width: width * 0.08,
                         ),
 
-
                         const SizedBox(width: 3),
-
 
 //                        Padding(
 //                          padding:
@@ -236,8 +219,6 @@ Padding buildCollections(
 //                            ),
 //                          ),
 //                        ),
-
-
                       ],
                     ),
                   ),

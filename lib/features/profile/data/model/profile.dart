@@ -38,7 +38,7 @@ class Profile {
 }
 
 Profile getProfile() {
-  return new Profile()
+  return Profile()
     ..firstName = "The First On-Chain Generative NFTs on Solana"
     ..lastName = "NFTs on Solana"
     ..location = "New York"

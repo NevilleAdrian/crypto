@@ -1,6 +1,8 @@
+import 'package:de_marketplace/core/app_navigation/app_navigator.dart';
+
+import 'core/app_navigation/app_router.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:de_marketplace/pages/home_page.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,12 +18,18 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
-      defaultTransition: Transition.rightToLeft,
-      transitionDuration: Duration(milliseconds: 500),
-      debugShowCheckedModeBanner: false,
-      title: 'Digital Eyes Marketplace',
-      home: HomePage(),
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          navigatorKey: AppNavigator.key,
+          debugShowCheckedModeBanner: false,
+          title: 'Digital Eyes Marketplace',
+          onGenerateRoute: AppRouter.generateRoutes,
+        );
+      },
     );
   }
 }
