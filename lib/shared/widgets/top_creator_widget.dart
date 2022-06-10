@@ -27,41 +27,6 @@ Center buildTopCreator(
           ),
           child: Stack(
             children: [
-//              Align(
-//                alignment: Alignment.bottomRight,
-//                child: Padding(
-//                  padding: EdgeInsets.only(
-//                    right: width * 0.04,
-//                    bottom: height * 0.1,
-//                  ),
-//                  child: InkWell(
-//                    onTap: () {
-//                      print('follow'); //TODO: add follow action
-//                    },
-//                    child: Container(
-//                      height: height * 0.25,
-//                      width: width * 0.25,
-//                      decoration: const BoxDecoration(
-//                        color: Colors.white,
-//                        borderRadius: BorderRadius.all(
-//                          Radius.circular(20),
-//                        ),
-//                      ),
-//                      child: Align(
-//                        child: Text(
-//                          "Follow",
-//                          style: GoogleFonts.lato(
-//                            color: Colors.black,
-//                            fontSize: width * 0.04,
-//                            fontWeight: FontWeight.bold,
-//                          ),
-//                        ),
-//                      ),
-//                    ),
-//                  ),
-//                ),
-//              ),
-
               Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(

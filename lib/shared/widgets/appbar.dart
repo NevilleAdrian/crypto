@@ -10,12 +10,6 @@ PreferredSize buildAppBar(Widget leading, bool isDarkMode, Size size) {
       backgroundColor: isDarkMode
           ? const Color(0xff06090d)
           : const Color(0xfff8f8f8), //appbar bg color
-//      leading: Padding(
-//        padding: EdgeInsets.only(
-//          left: size.width * 0.05,
-//        ),
-//        child: leading,
-//      ),
 
       automaticallyImplyLeading: false,
       titleSpacing: 0,
@@ -28,10 +22,6 @@ PreferredSize buildAppBar(Widget leading, bool isDarkMode, Size size) {
           isDarkMode
               ? 'assets/icons/DEdark.png'
               : 'assets/icons/DElight-2.png', //logo
-
-          //        isDarkMode
-          //            ? 'assets/icons/de-icon.png'
-          //            : 'assets/icons/SobGOGdark.png', //logo
           height: size.height * 0.06,
           width: size.width * 0.40,
         ),

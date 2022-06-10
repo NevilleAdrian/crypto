@@ -87,37 +87,6 @@ Center buildVideoThumbnail(bool isDarkMode, bool avideo, Size size) {
                 ),
               ),
             ),
-
-//            Align(
-//              alignment: Alignment.bottomLeft,
-//              child: Padding(
-//                padding: EdgeInsets.only(
-//                  bottom: size.height * 0.01,
-//                  left: size.width * 0.05,
-//                ),
-//                child: Column(
-//                  mainAxisAlignment: MainAxisAlignment.end,
-//                  crossAxisAlignment: CrossAxisAlignment.start,
-//                  children: [
-//                    Text(
-//                      "By:",
-//                      style: GoogleFonts.poppins(
-//                        color: Colors.white60,
-//                        fontSize: size.width * 0.04,
-//                      ),
-//                    ),
-//                    Text(
-//                      "Martin Gogołowicz", //author
-//                      style: GoogleFonts.poppins(
-//                        color: Colors.white,
-//                        fontSize: size.width * 0.04,
-//                        fontWeight: FontWeight.bold,
-//                      ),
-//                    ),
-//                  ],
-//                ),
-//              ),
-//            ),
           ],
         ),
       ),

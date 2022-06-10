@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:de_marketplace/shared/utils/size_manager.dart';
+
 import '../../data/model/profile.dart';
 import '../../../../shared/utils/fonts.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,18 +19,18 @@ class ProfileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final topPadding = MediaQuery.of(context).padding.top;
 
-    const headerHeight = 260.0;
+    const headerHeight = 240.0;
 
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
 
     return Container(
-      height: headerHeight,
+      height: SizeMg.height(headerHeight),
       decoration: BoxDecoration(
         boxShadow: <BoxShadow>[
           BoxShadow(
-              spreadRadius: 2.0,
-              blurRadius: 4.0,
+              spreadRadius: SizeMg.radius(2.0),
+              blurRadius: SizeMg.radius(4.0),
               offset: const Offset(0.0, 1.0),
               color: isDarkMode ? Colors.black38 : const Color(0xfff8f8f8)),
         ],
@@ -72,25 +74,6 @@ class ProfileHeader extends StatelessWidget {
               ),
             ),
           ),
-
-          // linear gradient
-//          Container(
-//            height: headerHeight,
-//            decoration: const BoxDecoration(
-//              gradient: LinearGradient(
-//                  colors: <Color>[ //7928D1
-//                    const Color(0xFF7928D1), const Color(0xFF9A4DFF)],
-//                  stops: <double>[0.3, 0.5],
-//                  begin: Alignment.topRight, end: Alignment.bottomLeft
-//              ),
-//            ),
-//          ),
-          // radial gradient
-
-          CustomPaint(
-            painter: HeaderGradientPainter(),
-          ),
-
           Padding(
             padding: EdgeInsets.only(
                 top: topPadding, left: 15.0, right: 15.0, bottom: 20.0),
@@ -291,14 +274,4 @@ class ProfileHeader extends StatelessWidget {
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
     );
   }
-}
-
-class HeaderGradientPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    // TODO: paint background radial gradient
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

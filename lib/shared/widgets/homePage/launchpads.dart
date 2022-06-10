@@ -20,10 +20,6 @@ Padding buildCollections(
   double width = size.width * 0.7;
   double height = size.height * 0.2;
 
-//  final bytes = await dart_io.File(image).readAsBytes();
-//
-//  final image = await image_builder.decodeImage(bytes))!;
-
   return Padding(
     padding: EdgeInsets.only(left: size.width * 0.055),
     child: SizedBox(
@@ -76,33 +72,6 @@ Padding buildCollections(
                       },
                     ),
                   ),
-
-//                  Align(
-//                    alignment: Alignment.bottomRight,
-//                    child: Padding(
-//                      padding: const EdgeInsets.all(8.0),
-//                      child: Container(
-//                        height: height * 0.1,
-//                        width: width * 0.25,
-//                        decoration: BoxDecoration(
-//                          color: Colors.grey.withOpacity(0.8),
-//                          borderRadius: const BorderRadius.all(
-//                            Radius.circular(5),
-//                          ),
-//                        ),
-//                        child: Align(
-//                          child: Text(
-//                            "01:30:02",
-//                            style: GoogleFonts.inconsolata(
-//                              color: Colors.white,
-//                              fontSize: width * 0.055,
-//                              fontWeight: FontWeight.bold,
-//                            ),
-//                          ),
-//                        ),
-//                      ),
-//                    ),
-//                  ),
                 ],
               ),
             ),
@@ -142,43 +111,7 @@ Padding buildCollections(
                           height: height * 0.12,
                           width: width * 0.08,
                         ),
-
                         const SizedBox(width: 3),
-
-//                        Padding(
-//                          padding:
-//                          EdgeInsets.symmetric(horizontal: width * 0.01),
-//                          child: Icon(
-//                              CupertinoIcons.down_arrow,
-//                              color: Colors.white.withOpacity(0.5),
-//                              size: 15,
-//                          ),
-//                        ),
-//                        Padding(
-//                          padding:
-//                              EdgeInsets.symmetric(horizontal: width * 0.01),
-//                          child: Text(
-//                            " $price",
-//                            style: GoogleFonts.poppins(
-//                              color: isDarkMode ? Colors.white : Colors.black,
-//                              fontSize: width * 0.045,
-//                              fontWeight: FontWeight.bold,
-//                            ),
-//                          ),
-//                        ),
-
-//                        Padding(
-//                          padding:
-//                          EdgeInsets.symmetric(horizontal: width * 0.01),
-//                          child: Text(
-//                            " $price",
-//                            style: GoogleFonts.poppins(
-//                              color: isDarkMode ? Colors.white : Colors.black,
-//                              fontSize: width * 0.045,
-//                              fontWeight: FontWeight.bold,
-//                            ),
-//                          ),
-//                        ),
                       ],
                     ),
                   ),

@@ -53,10 +53,7 @@ class _CollectionDetailsState extends State<DetailsPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              width: size.width,
-              child: ProfileHeader(profile: profile),
-            ),
+            ProfileHeader(profile: profile),
             Container(
               color: isDarkMode ? Colors.black : const Color(0xfff8f8f8),
               child: GridView.count(
