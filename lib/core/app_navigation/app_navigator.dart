@@ -37,16 +37,4 @@ abstract class AppNavigator {
   static void pop([result]) {
     if (canPop) return key.currentState!.pop(result);
   }
-
-  // static void showLoadingIndicator() {
-  //   key.currentState.overlay.insert(_loadingOverlay);
-  // }
-
-  // static void removeLoadingIndicator([result]) {
-  //   _loadingOverlay.remove();
-  // }
-
-  // static final _loadingOverlay = OverlayEntry(
-  //   builder: (_) => const LoadingIndicatorView(),
-  // );
 }
