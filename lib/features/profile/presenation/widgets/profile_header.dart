@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:de_marketplace/shared/utils/size_manager.dart';
+import '../../../../shared/utils/size_manager.dart';
 
 import '../../data/model/profile.dart';
 import '../../../../shared/utils/fonts.dart';

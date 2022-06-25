@@ -75,7 +75,7 @@ Column buildFeaturedBanner(bool isDarkMode, String collectionName,
                       vertical: size.height * 0.025,
                     ),
                     child: Text(
-                      "sdfsdsdfdsfsdfsdf",
+                      "",
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                       style: GoogleFonts.poppins(

@@ -4,8 +4,11 @@ import 'core/app_navigation/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'core/dependencies/injector.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  registerDependencies();
   runApp(const App());
 }
 
