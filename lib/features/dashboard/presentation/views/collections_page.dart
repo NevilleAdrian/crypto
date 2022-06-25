@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 
 import '../../../profile/presenation/widgets/profile_header.dart';
 
-import 'package:flutter/cupertino.dart';
-
 class DetailsPage extends StatefulWidget {
   final Args? args;
 

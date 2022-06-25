@@ -4,7 +4,6 @@ import '../../../../shared/utils/size_manager.dart';
 
 import '../../data/model/profile.dart';
 import '../../../../shared/utils/fonts.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProfileHeader extends StatelessWidget {
