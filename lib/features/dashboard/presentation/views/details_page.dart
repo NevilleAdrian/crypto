@@ -213,9 +213,40 @@ class ListingPage extends StatelessWidget {
 //                    defaultFontColor,
 //                    isDarkMode,
 //                    size,
-//                  ),
-//                ),
+//
+                const SizedBox(height: 20),
 
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30,),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "CURRENT PRICE:",
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.poppins(
+                          color: defaultFontColor.withOpacity(0.6),
+                          fontSize: size.width * 0.04,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Text(
+                          "◎$price",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                            color: defaultFontColor,
+                            fontSize: size.width * 0.06,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Accordion(
                   headerBackgroundColorOpened: Colors.transparent,
                   maxOpenSections: 1,
@@ -226,7 +257,7 @@ class ListingPage extends StatelessWidget {
                   headerPadding: const EdgeInsets.only(
                     left: 20,
                     right: 10,
-                    top: 30,
+                    top: 10,
                     bottom: 0,
                   ),
                   headerBackgroundColor: Colors.transparent,
@@ -234,7 +265,8 @@ class ListingPage extends StatelessWidget {
                   children: [
                     AccordionSection(
                       isOpen: false,
-                      header: Text('ABOUT THE COLLECTION',
+                      rightIcon: Icon(Icons.arrow_drop_down),
+                      header: Text('About Collection Name',
                           style:
                               TextStyle(color: defaultFontColor, fontSize: 17)),
                       content: const Text(
@@ -243,7 +275,69 @@ class ListingPage extends StatelessWidget {
                     ),
                     AccordionSection(
                       isOpen: false,
-                      header: Text('MINT ID',
+                      rightIcon: Icon(Icons.arrow_drop_down),
+
+                      header: Text('Attributes',
+                          style:
+                              TextStyle(color: defaultFontColor, fontSize: 17)),
+                      content: Row(
+                        children: [
+                          Expanded(
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: const [
+                                  Text(
+                                      "sodinxinoisdnodisnfodsinfodifnsdfsf sdofkno dsfin sod sdof idnofi noin"),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Icon(Icons.copy,
+                                size: 20, color: Colors.green[200]),
+                          )
+                        ],
+                      ),
+                    ),
+                    AccordionSection(
+                      isOpen: false,
+                      rightIcon: Icon(Icons.arrow_drop_down),
+
+                      header: Text('Details',
+                          style:
+                              TextStyle(color: defaultFontColor, fontSize: 17)),
+                      content: Row(
+                        children: [
+                          Expanded(
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: const [
+                                  Text(
+                                      "sodinxinoisdnodisnfodsinfodifnsdfsf sdofkno dsfin sod sdof idnofi noin"),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Icon(Icons.copy,
+                                size: 20, color: Colors.green[200]),
+                          )
+                        ],
+                      ),
+                    ),
+                    AccordionSection(
+                      isOpen: false,
+                      rightIcon: Icon(Icons.arrow_drop_down),
+
+                      header: Text('Sales History',
                           style:
                               TextStyle(color: defaultFontColor, fontSize: 17)),
                       content: Row(
@@ -272,66 +366,36 @@ class ListingPage extends StatelessWidget {
                   ],
                 ),
 
+
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "CURRENT PRICE:",
-                        textAlign: TextAlign.left,
-                        overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.poppins(
-                          color: defaultFontColor.withOpacity(0.6),
-                          fontSize: size.width * 0.04,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Text(
-                          "◎$price",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                            color: defaultFontColor,
-                            fontSize: size.width * 0.06,
-                            fontWeight: FontWeight.bold,
+                  padding: EdgeInsets.only(top: size.height * 0.005),
+                  child: InkWell(
+                    onTap: () => print(
+                        'place a bid'), //TODO: add place a bid action
+                    child: Center(
+                      child: Container(
+                        height: size.height * 0.075,
+                        width: size.width * 0.7,
+                        decoration: const BoxDecoration(
+                          color: Color(0xff4FBBEB),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: size.height * 0.005),
-                        child: InkWell(
-                          onTap: () => print(
-                              'place a bid'), //TODO: add place a bid action
-                          child: Center(
-                            child: Container(
-                              height: size.height * 0.075,
-                              width: size.width * 0.7,
-                              decoration: const BoxDecoration(
-                                color: Color(0xff4FBBEB),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                              child: Align(
-                                child: Text(
-                                  "Connect Wallet",
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.white,
-                                    fontSize: size.width * 0.05,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
+                        child: Align(
+                          child: Text(
+                            "Connect Wallet",
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: size.width * 0.05,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ),
 
