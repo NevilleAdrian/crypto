@@ -1,3 +1,5 @@
+import 'package:de_marketplace/features/dashboard/presentation/views/events.dart';
+
 import '../../../../shared/widgets/appbar.dart';
 import 'home_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,25 +18,7 @@ class Dashboard extends StatelessWidget {
     return [
       const HomeScreen(),
       const CollectionExplore(),
-      Center(
-        child: Container(
-          height: size.height * 0.08,
-          width: size.width * 0.8,
-          decoration: BoxDecoration(
-            color: const Color(0xff3b22a1).withOpacity(0.3),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(20),
-            ),
-          ),
-          child: const Align(
-            child: Text(
-              "MINT CALENDAR",
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ),
-      ),
+     const EventScreen(),
       Center(
         child: Container(
           height: size.height * 0.08,

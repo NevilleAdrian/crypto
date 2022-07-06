@@ -1,3 +1,6 @@
+import 'package:de_marketplace/core/providers/app_provider/app_provider.dart';
+import 'package:provider/provider.dart';
+
 import 'core/app_navigation/app_navigator.dart';
 
 import 'core/app_navigation/app_router.dart';
@@ -21,18 +24,21 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        return MaterialApp(
-          navigatorKey: AppNavigator.key,
-          debugShowCheckedModeBanner: false,
-          title: 'Digital Eyes Marketplace',
-          onGenerateRoute: AppRouter.generateRoutes,
-        );
-      },
+    return MultiProvider(
+      providers: appProviders,
+      child: ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MaterialApp(
+            navigatorKey: AppNavigator.key,
+            debugShowCheckedModeBanner: false,
+            title: 'Digital Eyes Marketplace',
+            onGenerateRoute: AppRouter.generateRoutes,
+          );
+        },
+      ),
     );
   }
 }

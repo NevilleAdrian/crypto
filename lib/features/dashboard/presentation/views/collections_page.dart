@@ -1,4 +1,6 @@
 import 'package:bottom_sheet/bottom_sheet.dart';
+import 'package:de_marketplace/core/providers/tab_provider/tab_provider.dart';
+import 'package:de_marketplace/features/dashboard/presentation/widgets/tab_bar/tab_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../profile/data/model/profile.dart';
 import '../../../../shared/widgets/appbar.dart';
@@ -26,7 +28,12 @@ class _CollectionDetailsState extends State<DetailsPage> {
   bool isUseSafeArea = false;
 
   final children = ["Items", "Activity"];
-  String type = 'Items';
+
+  @override
+  void initState() {
+    TabProvider.tab(context).changeTabBar('Items');
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,44 +70,15 @@ class _CollectionDetailsState extends State<DetailsPage> {
             const SizedBox(
               height: 10,
             ),
-            SizedBox(
-              height: 40,
-              child: ListView.separated(
-                separatorBuilder: (context, _) => const SizedBox(
-                  width: 30,
+            TabBars(
+                children: children,
+                type: TabProvider.tab(context, listen: true).type,
+                isDarkMode: isDarkMode,
                 ),
-                scrollDirection: Axis.horizontal,
-                itemCount: children.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) => TabMenu(
-                  text: children[index],
-                  style: type == children[index]
-                      ? TextStyle(
-                          fontSize: 16.0,
-                          color: isDarkMode ? Colors.white : Colors.black,
-                        )
-                      : const TextStyle(fontSize: 16.0, color: Colors.grey),
-                  onTap: () {
-                    setState(() {
-                      type = children[index];
-                    });
-                    print('type:$type');
-                  },
-                  decoration: BoxDecoration(
-                      border: type == children[index]
-                          ? Border(
-                              bottom: BorderSide(
-                                  width: 1.8,
-                                  color:
-                                      isDarkMode ? Colors.white : Colors.black))
-                          : Border(bottom: BorderSide.none)),
-                ),
-              ),
-            ),
             const SizedBox(
               height: 25,
             ),
-            type == 'Items'
+            TabProvider.tab(context, listen: true).type == 'Items'
                 ? Container(
                     color: isDarkMode ? Colors.black : const Color(0xfff8f8f8),
                     child: GridView.count(
@@ -128,7 +106,6 @@ class _CollectionDetailsState extends State<DetailsPage> {
                     child: ListView.separated(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-
                         itemBuilder: (context, index) => Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -193,7 +170,8 @@ class _CollectionDetailsState extends State<DetailsPage> {
                         separatorBuilder: (context, _) => SizedBox(
                               height: 30,
                             ),
-                        itemCount: 10),
+                        itemCount: 10
+                    ),
                   ),
           ],
         ),
