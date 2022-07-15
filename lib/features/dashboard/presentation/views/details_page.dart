@@ -413,8 +413,10 @@ class ListingPage extends StatelessWidget {
                   children: [
                     AccordionSection(
                       isOpen: false,
-                      header: const Text('ATTRIBUTES',
-                          style: TextStyle(color: Colors.white, fontSize: 17)),
+                      rightIcon: Icon(Icons.arrow_drop_down),
+
+                      header:  Text('ATTRIBUTES',
+                          style: TextStyle(color: defaultFontColor, fontSize: 17)),
                       content: const Text(
                         'This is the introduction right here ...',
                         textAlign: TextAlign.left,
@@ -422,8 +424,10 @@ class ListingPage extends StatelessWidget {
                     ),
                     AccordionSection(
                       isOpen: false,
-                      header: const Text('SALES HISTORY',
-                          style: TextStyle(color: Colors.white, fontSize: 17)),
+                      rightIcon: Icon(Icons.arrow_drop_down),
+
+                      header:  Text('SALES HISTORY',
+                          style: TextStyle(color: defaultFontColor, fontSize: 17)),
                       content: Row(
                         children: const [],
                       ),

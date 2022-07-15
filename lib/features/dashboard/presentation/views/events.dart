@@ -56,98 +56,164 @@ class _CollectionDetailsState extends State<EventScreen> {
             const SizedBox(
               height: 25,
             ),
-            TabProvider.tab(context, listen: true).eventType == 'Trending'
-                ? Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    color: isDarkMode ? Colors.black : const Color(0xfff8f8f8),
-                    child: ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) => Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    height: 500,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        border:
-                                            Border.all(color: Colors.black)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.stretch,
-                                      children: [
-                                        Expanded(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                image: const DecorationImage(
-                                                    image: AssetImage(
-                                                        'assets/collections/solarian.gif'),
-                                                    fit: BoxFit.cover)),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Text('Cheddar Block Games',
-                                                  style: GoogleFonts.poppins(
-                                                    color: defaultFontColor,
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                  )),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                'Advised by the former Head of Twitter Gaming and Sport, We are launching the worlds first ever...',
-                                                style: GoogleFonts.poppins(
-                                                  color: Colors.grey,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              FlatButton(
-                                                color: Colors.black,
-                                                  padding: EdgeInsets.all(10),
-                                                  onPressed: (){},
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Icon(Icons.star, color: Colors.white,),
-                                                      SizedBox(width: 7,),
-                                                      Text('Lauchpad', style: TextStyle(color: Colors.white),)
-                                                    ],
-                                                  ),
 
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                            ],
+
+      TabProvider.tab(context, listen: true).eventType == 'Trending'
+                ? Container(
+        margin: EdgeInsets.symmetric(horizontal: 20),
+        color: isDarkMode ? Colors.black : const Color(0xfff8f8f8),
+        child: ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 500,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border:
+                        Border.all(color: Colors.black)),
+                    child: Column(
+                      crossAxisAlignment:
+                      CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.circular(20),
+                                image: const DecorationImage(
+                                    image: AssetImage(
+                                        'assets/collections/solarian.gif'),
+                                    fit: BoxFit.cover)),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.center,
+                            children: [
+                              Text('Cheddar Block Games',
+                                  style: GoogleFonts.poppins(
+                                    color: defaultFontColor,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                'Advised by the former Head of Twitter Gaming and Sport, We are launching the worlds first ever...',
+                                style: GoogleFonts.poppins(
+                                  color: Colors.grey,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 50),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    FlatButton(
+                                      color: defaultFontColor,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10)
+                                      ),
+                                      padding: EdgeInsets.all(10),
+                                      onPressed: (){},
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.star, color: isDarkMode ? Colors.black : Colors.white,),
+                                          SizedBox(width: 7,),
+                                          Text('Lauchpad', style: TextStyle(color: isDarkMode ? Colors.black : Colors.white),)
+                                        ],
+                                      ),
+
+                                    ),
+                                    SizedBox(width: 20,),
+                                    FlatButton(
+                                      color: defaultFontColor,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10)
+                                      ),
+                                      padding: EdgeInsets.all(10),
+                                      onPressed: (){},
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.support ,color: isDarkMode ? Colors.black : Colors.white,),
+                                          SizedBox(width: 7,),
+                                          Text('1011', style: TextStyle(color: isDarkMode ? Colors.black : Colors.white),)
+                                        ],
+                                      ),
+
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.android_outlined,
+                                    color: defaultFontColor,
+                                  ),
+                                  SizedBox(width: 10,),
+                                  Icon(Icons.apple,
+                                    color: defaultFontColor,
+
+                                  ),
+                                  SizedBox(width: 10,),
+
+                                  Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: defaultFontColor),
+                                        borderRadius: BorderRadius.circular(20)
+                                    ),
+                                    child: Row(
+                                      children:  [
+                                        Icon(Icons.doorbell_rounded,
+                                          color: defaultFontColor,
+                                        ),
+                                        SizedBox(width: 10,),
+                                        Text('July 06, 2022 13:20',
+                                          style: TextStyle(color: defaultFontColor
                                           ),
                                         )
                                       ],
                                     ),
-                                  ),
-                                )
-                              ],
-                            ),
-                        separatorBuilder: (context, _) => SizedBox(
-                              height: 30,
-                            ),
-                        itemCount: 10),
-                  )
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+            separatorBuilder: (context, _) => SizedBox(
+              height: 30,
+            ),
+            itemCount: 10),
+      )
                 : Container(
               margin: EdgeInsets.symmetric(horizontal: 20),
               color: isDarkMode ? Colors.black : const Color(0xfff8f8f8),
@@ -208,23 +274,88 @@ class _CollectionDetailsState extends State<EventScreen> {
                                     const SizedBox(
                                       height: 10,
                                     ),
-                                    FlatButton(
-                                      color: Colors.black,
-                                      padding: EdgeInsets.all(10),
-                                      onPressed: (){},
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 50),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          Icon(Icons.star, color: Colors.white,),
-                                          SizedBox(width: 7,),
-                                          Text('Lauchpad', style: TextStyle(color: Colors.white),)
+                                          FlatButton(
+                                            color: defaultFontColor,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(10)
+                                            ),
+                                            padding: EdgeInsets.all(10),
+                                            onPressed: (){},
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Icon(Icons.star, color: isDarkMode ? Colors.black : Colors.white,),
+                                                SizedBox(width: 7,),
+                                                Text('Lauchpad', style: TextStyle(color: isDarkMode ? Colors.black : Colors.white),)
+                                              ],
+                                            ),
+
+                                          ),
+                                          SizedBox(width: 20,),
+                                          FlatButton(
+                                            color: defaultFontColor,
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(10)
+                                            ),
+                                            padding: EdgeInsets.all(10),
+                                            onPressed: (){},
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Icon(Icons.support ,color: isDarkMode ? Colors.black : Colors.white,),
+                                                SizedBox(width: 7,),
+                                                Text('1011', style: TextStyle(color: isDarkMode ? Colors.black : Colors.white),)
+                                              ],
+                                            ),
+
+                                          ),
+
                                         ],
                                       ),
-
                                     ),
+
                                     const SizedBox(
                                       height: 10,
                                     ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.android_outlined,
+                                          color: defaultFontColor,
+                                        ),
+                                        SizedBox(width: 10,),
+                                        Icon(Icons.apple,
+                                          color: defaultFontColor,
+
+                                        ),
+                                        SizedBox(width: 10,),
+
+                                        Container(
+                                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(color: defaultFontColor),
+                                            borderRadius: BorderRadius.circular(20)
+                                          ),
+                                          child: Row(
+                                            children:  [
+                                              Icon(Icons.doorbell_rounded,
+                                                color: defaultFontColor,
+                                              ),
+                                              SizedBox(width: 10,),
+                                              Text('July 06, 2022 13:20',
+                                                style: TextStyle(color: defaultFontColor
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    )
                                   ],
                                 ),
                               )
