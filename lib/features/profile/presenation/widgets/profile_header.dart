@@ -1,12 +1,12 @@
 import 'dart:ui';
 
 import 'package:bottom_sheet/bottom_sheet.dart';
-
-import '../../../../shared/utils/size_manager.dart';
-
-import '../../data/model/profile.dart';
-import '../../../../shared/utils/fonts.dart';
+import 'package:de_marketplace/features/profile/data/model/profile.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../shared/utils/fonts.dart';
+import '../../../../shared/utils/size_manager.dart';
 
 class ProfileHeader extends StatelessWidget {
   final Profile profile;
@@ -20,10 +20,12 @@ class ProfileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final topPadding = MediaQuery.of(context).padding.top;
 
-    const headerHeight = 240.0;
+    const headerHeight = 350.0;
 
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
+
+    Color defaultFontColor = isDarkMode ? Colors.white : Colors.black;
 
     List<Widget> _children = [
       const _TextField(),
@@ -99,23 +101,26 @@ class ProfileHeader extends StatelessWidget {
         anchors: [.2, 0.5, .8],
       );
     }
+
     Widget _buildPopupIcon(isDarkMode) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          InkWell(
-            onTap: () => _showSheetWithoutList(),
-            child: Icon(
-              Icons.manage_search,
-              size: 30.0,
-              color:  isDarkMode ? Colors.white : Colors.black,
-            ),
-          )
-        ],
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            InkWell(
+              onTap: () => _showSheetWithoutList(),
+              child: Icon(
+                Icons.manage_search,
+                size: 30.0,
+                color: isDarkMode ? Colors.white : Colors.black,
+              ),
+            )
+          ],
+        ),
       );
     }
-
 
     return Container(
       height: SizeMg.height(headerHeight),
@@ -177,11 +182,14 @@ class ProfileHeader extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    _buildPopupIcon(isDarkMode),
-                    _buildRefreshIcon(isDarkMode),
-                    _buildFavIcon(isDarkMode),
-                    _buildBellIcon(isDarkMode),
+                    // _buildPopupIcon(isDarkMode),
+                    // _buildRefreshIcon(isDarkMode),
+                    // _buildFavIcon(isDarkMode),
+                    // _buildBellIcon(isDarkMode),
                   ],
+                ),
+                SizedBox(
+                  height: 30,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 15.0),
@@ -190,6 +198,77 @@ class ProfileHeader extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20.0),
                   child: _buildAvatar(isDarkMode),
+                ),
+                Center(
+                  child: Container(
+                      // width: 170,
+                      margin: const EdgeInsets.only(bottom: 20.0),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10),
+                        ),
+                        color: Colors.blueAccent,
+                        border: Border.all(color: Colors.blueAccent, width: 1),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            CupertinoIcons.checkmark_shield_fill,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          SizedBox(width: 10),
+                          Text(
+                            "Verifeyed",
+                            style: TextStyle(color: Colors.white, fontSize: 15),
+                          ),
+                        ],
+                      )),
+                ),
+                Center(
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        isDarkMode
+                            ? Image.asset(
+                                'assets/images/browser_white.png',
+                                height: 22,
+                              )
+                            : Image.asset(
+                                'assets/images/browser_black.png',
+                                height: 22,
+                              ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        isDarkMode
+                            ? Image.asset(
+                                'assets/images/twitter_white.png',
+                                height: 22,
+                              )
+                            : Image.asset(
+                                'assets/images/twitter_black.png',
+                                height: 22,
+                              ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        isDarkMode
+                            ? Image.asset(
+                                'assets/images/discord_white.png',
+                                height: 22,
+                              )
+                            : Image.asset(
+                                'assets/images/discord_black.png',
+                                height: 29,
+                              ),
+                      ],
+                    ),
+                  ),
                 ),
                 _buildCollectionStats(isDarkMode),
               ],

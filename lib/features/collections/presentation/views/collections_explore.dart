@@ -1,6 +1,7 @@
-import '../../../../shared/widgets/homePage/collections_verified.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../shared/widgets/homePage/collections_verified.dart';
 
 class CollectionExplore extends StatelessWidget {
   const CollectionExplore({Key? key}) : super(key: key);
@@ -32,24 +33,24 @@ class CollectionExplore extends StatelessWidget {
                     ),
                   ),
                 ),
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Icon(Icons.sort,
-                          color: isDarkMode ? Colors.white : Colors.black,
-                          size: 30),
-                    ),
-                    const SizedBox(width: 10),
-                    InkWell(
-                      onTap: () {},
-                      child: Icon(Icons.filter_alt_outlined,
-                          color: isDarkMode ? Colors.white : Colors.black,
-                          size: 30),
-                    ),
-                    const SizedBox(width: 10),
-                  ],
-                )
+                // Row(
+                //   children: [
+                //     InkWell(
+                //       onTap: () {},
+                //       child: Icon(Icons.sort,
+                //           color: isDarkMode ? Colors.white : Colors.black,
+                //           size: 30),
+                //     ),
+                //     const SizedBox(width: 10),
+                //     InkWell(
+                //       onTap: () {},
+                //       child: Icon(Icons.filter_alt_outlined,
+                //           color: isDarkMode ? Colors.white : Colors.black,
+                //           size: 30),
+                //     ),
+                //     const SizedBox(width: 10),
+                //   ],
+                // )
               ],
             ),
             const SizedBox(height: 30),

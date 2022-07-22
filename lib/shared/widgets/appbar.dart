@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 
 // TODO: CONVERT TO CLASS BASED
-PreferredSize buildAppBar(Widget leading, bool isDarkMode, Size size) {
+PreferredSize buildAppBar(Widget? leading, bool isDarkMode, Size size) {
   return PreferredSize(
     preferredSize: const Size.fromHeight(40.0), //appbar size
     child: AppBar(

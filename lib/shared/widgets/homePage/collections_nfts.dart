@@ -1,10 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../../core/app_navigation/app_navigator.dart';
 import '../../../core/app_navigation/app_route.dart';
 import '../../../features/dashboard/data/models/args.dart';
-
-import 'package:flutter/material.dart';
-
-import 'package:google_fonts/google_fonts.dart';
 
 // TODO: CONVERT TO CLASS BASED
 Padding buildNFT(
@@ -114,7 +113,7 @@ Padding buildNFT(
                           ),
                           const Spacer(),
                           Container(
-                            height: height * 0.15,
+                            height: height * 0.30,
                             decoration: const BoxDecoration(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(5),

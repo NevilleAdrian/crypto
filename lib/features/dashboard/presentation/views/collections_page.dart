@@ -1,4 +1,6 @@
 import 'package:bottom_sheet/bottom_sheet.dart';
+import 'package:de_marketplace/core/app_navigation/app_navigator.dart';
+import 'package:de_marketplace/core/app_navigation/app_route.dart';
 import 'package:de_marketplace/core/providers/tab_provider/tab_provider.dart';
 import 'package:de_marketplace/features/dashboard/presentation/widgets/tab_bar/tab_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -101,78 +103,90 @@ class _CollectionDetailsState extends State<DetailsPage> {
                       }),
                     ),
                   )
-                : Container(
-                    padding: const EdgeInsets.all(8),
-                    child: ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) => Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: 70,
-                                      width: 60,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  'https://images.pexels.com/photos/12610341/pexels-photo-12610341.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'))),
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'DeGod 7602',
-                                          style: GoogleFonts.poppins(
-                                            color: isDarkMode
-                                                ? Colors.white
-                                                : Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text('3.33',
-                                            style: TextStyle(
-                                              fontSize: 16.0,
-                                              color: isDarkMode
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            )),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        Text('about 3 hours ago',
-                                            style: TextStyle(
-                                              fontSize: 16.0,
-                                              color: isDarkMode
-                                                  ? Colors.white
-                                                  : Colors.black,
-                                            ))
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                const Text('Sale',
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      color: Colors.green,
-                                    ))
-                              ],
-                            ),
-                        separatorBuilder: (context, _) => SizedBox(
-                              height: 30,
-                            ),
-                        itemCount: 10
-                    ),
+                : InkWell(
+                onTap: () => AppNavigator.pushNamed(
+                  collectionsViewRoute,
+                  arguments: Args(
+                    isDarkMode: isDarkMode,
+                    collectionName: 'Solarians',
+                    collectionId: "solarians-1234",
+                    collectionProfileImg: 'assets/collections/solarian.gif',
+                    size: size,
                   ),
+                ),
+                  child: Container(
+                      padding: const EdgeInsets.all(8),
+                      child: ListView.separated(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) => Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        height: 70,
+                                        width: 60,
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: NetworkImage(
+                                                    'https://images.pexels.com/photos/12610341/pexels-photo-12610341.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'))),
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'DeGod 7602',
+                                            style: GoogleFonts.poppins(
+                                              color: isDarkMode
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text('3.33',
+                                              style: TextStyle(
+                                                fontSize: 16.0,
+                                                color: isDarkMode
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              )),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text('about 3 hours ago',
+                                              style: TextStyle(
+                                                fontSize: 16.0,
+                                                color: isDarkMode
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                              ))
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  const Text('Sale',
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                        color: Colors.green,
+                                      ))
+                                ],
+                              ),
+                          separatorBuilder: (context, _) => SizedBox(
+                                height: 30,
+                              ),
+                          itemCount: 10
+                      ),
+                    ),
+                ),
           ],
         ),
       ),
