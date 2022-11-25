@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/app_navigation/app_navigator.dart';
-import '../../../core/app_navigation/app_route.dart';
-import '../../../features/dashboard/data/models/args.dart';
-
 // TODO: CONVERT TO CLASS BASED
 Padding buildNFT(
-  String title,
-  double price,
-  String author,
-  String authorImg,
-  String nftImg,
-  Color defaultFontColor,
-  bool isDarkMode,
-  Size size,
-) {
+    String title,
+    String? collectionName,
+    double price,
+    String author,
+    String authorImg,
+    String nftImg,
+    Color defaultFontColor,
+    bool isDarkMode,
+    Size size,
+    [Function()? onTap]) {
   double width = size.width * 0.6;
   double height = size.height * 0.2;
 
@@ -36,16 +33,7 @@ Padding buildNFT(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           InkWell(
-            onTap: () => AppNavigator.pushNamed(
-              collectionsViewRoute,
-              arguments: Args(
-                isDarkMode: isDarkMode,
-                collectionName: title,
-                collectionId: "solarians-1234",
-                collectionProfileImg: nftImg,
-                size: size,
-              ),
-            ),
+            onTap: onTap,
             child: Stack(children: [
               Column(children: [
                 Container(
@@ -64,7 +52,7 @@ Padding buildNFT(
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(10),
                             topRight: Radius.circular(10)),
-                        child: Image.asset(
+                        child: Image.network(
                           nftImg,
                           height: 170,
                           width: width,
@@ -145,7 +133,7 @@ Padding buildNFT(
                               child: Padding(
                                 padding: EdgeInsets.only(left: width * 0.02),
                                 child: Text(
-                                  "DRONE \nSolarians",
+                                  collectionName ?? "Solarians",
                                   style: GoogleFonts.poppins(
                                     color: defaultFontColor.withOpacity(0.6),
                                     fontSize: 10,
@@ -163,7 +151,7 @@ Padding buildNFT(
                             child: Padding(
                               padding: EdgeInsets.only(left: width * 0.02),
                               child: Text(
-                                "◎4.44",
+                                "◎$price",
                                 style: GoogleFonts.poppins(
                                   color: defaultFontColor,
                                   fontSize: 10,
@@ -171,31 +159,34 @@ Padding buildNFT(
                               ),
                             ),
                           ),
-                          const Spacer(),
-                          Container(
-                            height: height * 0.15,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                            ),
-                            child: Align(
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "Last ◎3",
-                                    style: GoogleFonts.poppins(
-                                      color: defaultFontColor,
-                                      fontSize: 10,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 3),
-                                ],
-                              ),
-                            ),
-                          ),
+                          // const Spacer(),
+                          // Container(
+                          //   height: height * 0.15,
+                          //   decoration: const BoxDecoration(
+                          //     borderRadius: BorderRadius.all(
+                          //       Radius.circular(5),
+                          //     ),
+                          //   ),
+                          //   child: Align(
+                          //     child: Row(
+                          //       children: [
+                          //         Text(
+                          //           "Last ◎3",
+                          //           style: GoogleFonts.poppins(
+                          //             color: defaultFontColor,
+                          //             fontSize: 10,
+                          //           ),
+                          //         ),
+                          //         const SizedBox(width: 3),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
+                      SizedBox(
+                        height: 10,
+                      )
                     ])),
               ]),
             ]),
@@ -217,7 +208,6 @@ Padding buildNFT(
                       ),
                     ),
                   ),
-                  const Spacer(),
                   SizedBox(
                     child: Padding(
                       padding: EdgeInsets.only(right: width * 0.02),

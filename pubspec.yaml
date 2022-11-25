@@ -46,7 +46,17 @@ dependencies:
   pull_to_refresh: ^2.0.0
   unicons: ^2.0.2
   provider: ^5.0.0
-
+  http: ^0.13.3
+  url_launcher:
+#  get_time_ago:
+  timeago: ^3.2.2
+  uni_links: ^0.5.1
+  solana: ^0.26.0
+  bs58: ^1.0.2
+  get: ^4.6.5
+  firebase_dynamic_links: ^5.0.5
+  firebase_core: ^2.2.0
+  phantom_connect: ^0.0.8
 
 dev_dependencies:
   flutter_lints: ^1.0.0

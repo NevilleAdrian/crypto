@@ -1,8 +1,4 @@
-import '../../../core/app_navigation/app_navigator.dart';
-import '../../../core/app_navigation/app_route.dart';
-import '../../../features/dashboard/data/models/args.dart';
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 
 // TODO: CONVERT TO CLASS BASED
@@ -11,11 +7,12 @@ Padding buildCollections(
     double price,
     String author,
     String authorImg,
-    String nftImg,
+    String? nftImg,
     Color defaultFontColor,
     bool isDarkMode,
     Size size,
-    String aspect) {
+    String aspect,
+    {Function()? onTap}) {
   double width = size.width * 0.6;
   double height = size.height * 0.2;
 
@@ -46,16 +43,7 @@ Padding buildCollections(
               ),
             ),
             child: InkWell(
-              onTap: () => AppNavigator.pushNamed(
-                detailsViewRoute,
-                arguments: Args(
-                  isDarkMode: isDarkMode,
-                  collectionName: "Solarians",
-                  collectionId: "solarians-1234",
-                  collectionProfileImg: "assets/images/solarians.png",
-                  size: size,
-                ),
-              ),
+              onTap: onTap,
               child: Stack(
                 children: [
                   aspect != 'slim'
@@ -63,10 +51,13 @@ Padding buildCollections(
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10)),
-                          child: Image.asset(
-                            nftImg,
+                          child: Image.network(
+                            nftImg != null || nftImg != ''
+                                ? nftImg!
+                                : 'https://images.pexels.com/photos/12638731/pexels-photo-12638731.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
                             height: 150,
-                            fit: BoxFit.fitHeight,
+                            fit: BoxFit.fitWidth,
+                            width: 300,
                             errorBuilder: (context, error, stackTrace) {
                               return Container(
                                 height: height,
@@ -88,7 +79,9 @@ Padding buildCollections(
                               topLeft: Radius.circular(10),
                               topRight: Radius.circular(10)),
                           child: Image.asset(
-                            nftImg,
+                            nftImg != null || nftImg != ''
+                                ? nftImg!
+                                : 'https://images.pexels.com/photos/12638731/pexels-photo-12638731.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
                             fit: BoxFit.fill,
                             errorBuilder: (context, error, stackTrace) {
                               return Container(
@@ -110,9 +103,10 @@ Padding buildCollections(
               ),
             ),
           ),
-          SizedBox(
+          Container(
             width: width,
-            height: 60,
+            padding: EdgeInsets.only(top: 15),
+            // height: 0,
             child: Row(
               children: [
                 SizedBox(

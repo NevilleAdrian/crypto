@@ -1,3 +1,4 @@
+import 'package:de_marketplace/core/providers/auth_provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -18,6 +19,10 @@ class _CollectionDetailsState extends State<EventScreen> {
   @override
   void initState() {
     // TabProvider.tab(context).changeEventTabBar("Trending");
+    Auth.authProvider(context).setLatestOffset(10);
+    Auth.authProvider(context).setTrendingOffset(10);
+    Auth.authProvider(context).setVerifiedOffset(10);
+
     super.initState();
   }
 

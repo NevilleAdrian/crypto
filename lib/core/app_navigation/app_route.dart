@@ -6,3 +6,4 @@
 const String dashboardViewRoute = '/';
 const String collectionsViewRoute = '/collectionsViewRoute';
 const String detailsViewRoute = '/detailsViewRoute';
+// const String dashboardRoute = '/detailsViewRoute';

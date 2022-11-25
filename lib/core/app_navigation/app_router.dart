@@ -1,11 +1,11 @@
 import 'dart:io' show Platform;
 
-import 'app_route.dart';
-import '../../features/dashboard/presentation/views/collections_page.dart';
-import '../../features/dashboard/presentation/views/details_page.dart';
-import '../../features/dashboard/presentation/views/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../features/dashboard/presentation/views/details_page.dart';
+import '../../features/dashboard/presentation/views/home.dart';
+import 'app_route.dart';
 
 abstract class AppRouter {
   static Route<dynamic> generateRoutes(RouteSettings settings) {
@@ -15,6 +15,13 @@ abstract class AppRouter {
           settings: settings,
           view: const Dashboard(),
         );
+      case '/profile':
+        return getPageRoute(
+          settings: settings,
+          view: const Dashboard(
+            index: 3,
+          ),
+        );
 
       case collectionsViewRoute:
         return getPageRoute(
@@ -22,11 +29,11 @@ abstract class AppRouter {
           view: const ListingPage(),
         );
 
-      case detailsViewRoute:
-        return getPageRoute(
-          settings: settings,
-          view: const DetailsPage(),
-        );
+      // case detailsViewRoute:
+      //   return getPageRoute(
+      //     settings: settings,
+      //     view: const DetailsPage(),
+      //   );
 
       default:
         return getPageRoute(

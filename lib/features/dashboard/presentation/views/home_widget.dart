@@ -1,11 +1,72 @@
+import 'package:de_marketplace/core/providers/auth_provider/auth_provider.dart';
+import 'package:de_marketplace/features/dashboard/data/models/args.dart';
+import 'package:de_marketplace/features/dashboard/presentation/views/collections_page.dart';
+import 'package:de_marketplace/shared/ui_widgets/future_helper.dart';
+import 'package:de_marketplace/shared/utils/constants.dart';
+import 'package:de_marketplace/shared/utils/functions.dart';
 import 'package:flutter/material.dart';
-import '../../../../shared/widgets/homePage/category.dart';
-import '../../../../shared/widgets/top_creator_widget.dart';
-import '../../../../shared/widgets/homePage/featured_banner_widget.dart';
-import '../../../../shared/widgets/homePage/collections_verified.dart';
 
-class HomeScreen extends StatelessWidget {
+import '../../../../shared/widgets/homePage/category.dart';
+import '../../../../shared/widgets/homePage/collections_verified.dart';
+import '../../../../shared/widgets/homePage/featured_banner_widget.dart';
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late Future<dynamic> futureData;
+  var _scrollController = ScrollController();
+
+  Future<dynamic> futureTask() async {
+    //Initialize provider
+    Auth auth = Auth.authProvider(context);
+
+    //Make call to get videos
+    try {
+      var result = await auth.getTopCollections();
+      var trendingResult = await auth.getTrendingCollections();
+      var verifiedResult = await auth.getTopVerifiedCollections();
+
+      setState(() {
+        auth.setLatestCollection(result);
+        auth.setTrendingCollections(trendingResult);
+        auth.setTopVerifiedCollections(verifiedResult);
+      });
+
+      //Return future value
+      return Future.value(result);
+    } catch (ex) {}
+  }
+
+  @override
+  void initState() {
+    futureData = futureTask();
+
+    _scrollController.addListener(() async {
+      if (_scrollController.position.atEdge) {
+        if (_scrollController.position.pixels == 0) {
+          // You're at the top.
+          print('top');
+        } else {
+          // You're at the bottom.
+          setState(() {
+            int offset = 10;
+            int trendingOffset = 0;
+            int verifiedOffset = 0;
+            Auth.authProvider(context).setLatestOffset(offset += 10);
+            Auth.authProvider(context).setTrendingOffset(trendingOffset += 10);
+            Auth.authProvider(context).setVerifiedOffset(verifiedOffset += 10);
+            print('bottom');
+          });
+        }
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,343 +87,428 @@ class HomeScreen extends StatelessWidget {
                 : const Color(0xfff8f8f8), //background color
           ),
           child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 0),
-              child: ListView(
-                children: [
+            child: FutureHelper(
+              task: futureData,
+              loader: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [circularProgressIndicator(color: defaultFontColor)],
+              ),
+              builder: (context, _) => Padding(
+                padding: const EdgeInsets.only(top: 0),
+                child: ListView(
+                  children: [
 //                buildVideoThumbnail(isDarkMode, true, size),
 
-                  buildFeaturedBanner(isDarkMode, "Solarians",
-                      "assets/images/solarians.png", size),
+                    buildFeaturedBanner(isDarkMode, "Solarians",
+                        "assets/images/solarians.png", size),
 
-                  buildCategory(
-                      "Latest Collections", "", false, defaultFontColor, size),
+                    buildCategory("Latest Collections", "", false,
+                        defaultFontColor, size),
 
-                  const SizedBox(height: 10),
+                    const SizedBox(height: 10),
 
-                  SizedBox(
-                    width: size.width,
-                    height: size.height * 0.25,
-                    child: ListView.builder(
-                      primary: false,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      itemBuilder: (context, i) {
-                        //! example bids
-                        if (i == 0) {
+                    SizedBox(
+                      width: size.width,
+                      height: size.height * 0.25,
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        primary: false,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: Auth.authProvider(context, listen: true)
+                            .latestCollections
+                            .length,
+                        itemBuilder: (context, i) {
+                          dynamic collection =
+                              Auth.authProvider(context, listen: true)
+                                  .latestCollections;
+
                           return buildCollections(
-                              'Solarians',
-                              0.2,
-                              'Ohme Ohmy',
-                              'assets/images/avatar1.jpg',
-                              'assets/images/solarians-profile.png',
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                              '');
-                        } else if (i == 1) {
-                          return buildCollections(
-                              'Spectrum Labs Studio - Chapter I',
-                              3,
+                              collection[i]['name'],
+                              20.0,
                               'Nicole Boa',
                               'assets/images/avatar2.jpg',
-                              'assets/collections/spectrum-lab.png',
+                              checkImage(collection[i]['thumbnail'])
+                                  ? collection[i]['thumbnail']
+                                  : '$IMAGE_KIT_ENDPOINT_URL${collection[i]['thumbnail']}',
                               defaultFontColor,
                               isDarkMode,
                               size,
-                              '');
-                        } else if (i == 2) {
-                          return buildCollections(
-                              'Poker Neko',
-                              3,
-                              'Nicole Boa',
-                              'assets/images/avatar2.jpg',
-                              'assets/collections/kitties.png',
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                              '');
-                        } else {
-                          return buildCollections(
-                              'Dragon Watch Heroes',
-                              1,
-                              'Nicole Boa',
-                              'assets/images/avatar2.jpg',
-                              'assets/collections/dragonwatchheroes.jpeg',
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                              '');
-                        }
-                      },
+                              '',
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailsPage(
+                                            args: Args(
+                                              isDarkMode: isDarkMode,
+                                              collectionName: collection[i]
+                                                  ['name'],
+                                              collectionId: "solarians-1234",
+                                              collectionProfileImg:
+                                                  "assets/images/solarians.png",
+                                              size: size,
+                                              collectionImg: checkImage(
+                                                      collection[i]
+                                                          ['thumbnail'])
+                                                  ? collection[i]['thumbnail']
+                                                  : '$IMAGE_KIT_ENDPOINT_URL${collection[i]['thumbnail']}',
+                                            ),
+                                          ))));
+                        },
+                      ),
                     ),
-                  ),
 
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
-                  buildCategory("Top Verified Collections", "", true,
-                      defaultFontColor, size),
+                    buildCategory("Trending Collections", "", true,
+                        defaultFontColor, size),
 
-                  const SizedBox(height: 10),
+                    const SizedBox(height: 10),
 
-                  SizedBox(
-                    width: size.width,
-                    height: size.height * 0.25,
-                    child: ListView.builder(
-                      primary: false,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      itemBuilder: (context, i) {
-                        //! example bids
-                        if (i == 0) {
+                    SizedBox(
+                      width: size.width,
+                      height: size.height * 0.25,
+                      child: ListView.builder(
+                        primary: false,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: Auth.authProvider(context, listen: true)
+                            .trendingCollections
+                            .length,
+                        itemBuilder: (context, i) {
+                          //! example bids
+                          dynamic collection =
+                              Auth.authProvider(context, listen: true)
+                                  .trendingCollections;
+
                           return buildCollections(
-                              'Dragon Watch Heroes',
-                              1,
+                              collection[i]['name'],
+                              20.0,
                               'Nicole Boa',
                               'assets/images/avatar2.jpg',
-                              'assets/collections/dragonwatchheroes.jpeg',
+                              checkImage(collection[i]['thumbnail'])
+                                  ? collection[i]['thumbnail']
+                                  : '$IMAGE_KIT_ENDPOINT_URL${collection[i]['thumbnail']}',
                               defaultFontColor,
                               isDarkMode,
                               size,
-                              '');
-                        } else if (i == 1) {
-                          return buildCollections(
-                              'Alpha Puppies',
-                              3,
-                              'Nicole Boa',
-                              'assets/images/avatar2.jpg',
-                              'assets/collections/alphapuppies.gif',
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                              '');
-                        } else if (i == 2) {
-                          return buildCollections(
-                              'Poker Neko',
-                              3,
-                              'Nicole Boa',
-                              'assets/images/avatar2.jpg',
-                              'assets/collections/kitties.png',
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                              '');
-                        } else {
-                          return buildCollections(
-                              'Solarians',
-                              0.2,
-                              'Ohme Ohmy',
-                              'assets/images/avatar1.jpg',
-                              'assets/images/solarians-profile.png',
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                              '');
-                        }
-                      },
+                              '',
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailsPage(
+                                            args: Args(
+                                              isDarkMode: isDarkMode,
+                                              collectionName: collection[i]
+                                                  ['name'],
+                                              collectionId: "solarians-1234",
+                                              collectionProfileImg:
+                                                  "assets/images/solarians.png",
+                                              size: size,
+                                              collectionImg: checkImage(
+                                                      collection[i]
+                                                          ['thumbnail'])
+                                                  ? collection[i]['thumbnail']
+                                                  : '$IMAGE_KIT_ENDPOINT_URL${collection[i]['thumbnail']}',
+                                            ),
+                                          ))));
+                          // if (i == 0) {
+                          //   return buildCollections(
+                          //       'Dragon Watch Heroes',
+                          //       1,
+                          //       'Nicole Boa',
+                          //       'assets/images/avatar2.jpg',
+                          //       'assets/collections/dragonwatchheroes.jpeg',
+                          //       defaultFontColor,
+                          //       isDarkMode,
+                          //       size,
+                          //       '');
+                          // } else if (i == 1) {
+                          //   return buildCollections(
+                          //       'Alpha Puppies',
+                          //       3,
+                          //       'Nicole Boa',
+                          //       'assets/images/avatar2.jpg',
+                          //       'assets/collections/alphapuppies.gif',
+                          //       defaultFontColor,
+                          //       isDarkMode,
+                          //       size,
+                          //       '');
+                          // } else if (i == 2) {
+                          //   return buildCollections(
+                          //       'Poker Neko',
+                          //       3,
+                          //       'Nicole Boa',
+                          //       'assets/images/avatar2.jpg',
+                          //       'assets/collections/kitties.png',
+                          //       defaultFontColor,
+                          //       isDarkMode,
+                          //       size,
+                          //       '');
+                          // } else {
+                          //   return buildCollections(
+                          //       'Solarians',
+                          //       0.2,
+                          //       'Ohme Ohmy',
+                          //       'assets/images/avatar1.jpg',
+                          //       'assets/images/solarians-profile.png',
+                          //       defaultFontColor,
+                          //       isDarkMode,
+                          //       size,
+                          //       '');
+                          // }
+                        },
+                      ),
                     ),
-                  ),
 
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
-                  buildCategory(
-                      "Ongoing Launches", "", true, defaultFontColor, size),
+                    buildCategory("Top Verified Collections", "", true,
+                        defaultFontColor, size),
 
-                  const SizedBox(height: 10),
+                    const SizedBox(height: 10),
 
-                  SizedBox(
-                    width: size.width,
-                    height: size.height * 0.25,
-                    child: ListView.builder(
-                      primary: false,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      itemBuilder: (context, i) {
-                        //! example bids
-                        if (i == 0) {
+                    SizedBox(
+                      width: size.width,
+                      height: size.height * 0.25,
+                      child: ListView.builder(
+                        primary: false,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: Auth.authProvider(context, listen: true)
+                            .topVerifiedCollections
+                            .length,
+                        itemBuilder: (context, i) {
+                          dynamic collection =
+                              Auth.authProvider(context, listen: true)
+                                  .topVerifiedCollections;
+
                           return buildCollections(
-                              'Solarians',
-                              0.2,
-                              'Ohme Ohmy',
-                              'assets/images/avatar1.jpg',
-                              'assets/images/solarians-profile.png',
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                              '');
-                        } else if (i == 1) {
-                          return buildCollections(
-                              'Alpha Puppies',
-                              3,
+                              collection[i]['name'],
+                              20.0,
                               'Nicole Boa',
                               'assets/images/avatar2.jpg',
-                              'assets/collections/alphapuppies.gif',
+                              checkImage(collection[i]['thumbnail'])
+                                  ? collection[i]['thumbnail']
+                                  : '$IMAGE_KIT_ENDPOINT_URL${collection[i]['thumbnail']}',
                               defaultFontColor,
                               isDarkMode,
                               size,
-                              '');
-                        } else if (i == 2) {
-                          return buildCollections(
-                              'Poker Neko',
-                              3,
-                              'Nicole Boa',
-                              'assets/images/avatar2.jpg',
-                              'assets/collections/kitties.png',
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                              '');
-                        } else {
-                          return buildCollections(
-                              'Dragon Watch Heroes',
-                              1,
-                              'Nicole Boa',
-                              'assets/images/avatar2.jpg',
-                              'assets/collections/dragonwatchheroes.jpeg',
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                              '');
-                        }
-                      },
+                              '',
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailsPage(
+                                            args: Args(
+                                              isDarkMode: isDarkMode,
+                                              collectionName: collection[i]
+                                                  ['name'],
+                                              collectionId: "solarians-1234",
+                                              collectionProfileImg:
+                                                  "assets/images/solarians.png",
+                                              size: size,
+                                              collectionImg: checkImage(
+                                                      collection[i]
+                                                          ['thumbnail'])
+                                                  ? collection[i]['thumbnail']
+                                                  : '$IMAGE_KIT_ENDPOINT_URL${collection[i]['thumbnail']}',
+                                            ),
+                                          ))));
+
+                          // AppNavigator.pushNamed(
+                          //   detailsViewRoute,
+                          //   arguments: Args(
+                          //     isDarkMode: isDarkMode,
+                          //     collectionName: 'Solarians',
+                          //     collectionId: "solarians-1234",
+                          //     collectionProfileImg: "assets/images/solarians.png",
+                          //     size: size,
+                          //   ),
+                          // )
+                          //! example bids
+                          // if (i == 0) {
+                          //   return buildCollections(
+                          //       'Solarians',
+                          //       0.2,
+                          //       'Ohme Ohmy',
+                          //       'assets/images/avatar1.jpg',
+                          //       'assets/images/solarians-profile.png',
+                          //       defaultFontColor,
+                          //       isDarkMode,
+                          //       size,
+                          //       '');
+                          // } else if (i == 1) {
+                          //   return buildCollections(
+                          //       'Alpha Puppies',
+                          //       3,
+                          //       'Nicole Boa',
+                          //       'assets/images/avatar2.jpg',
+                          //       'assets/collections/alphapuppies.gif',
+                          //       defaultFontColor,
+                          //       isDarkMode,
+                          //       size,
+                          //       '');
+                          // } else if (i == 2) {
+                          //   return buildCollections(
+                          //       'Poker Neko',
+                          //       3,
+                          //       'Nicole Boa',
+                          //       'assets/images/avatar2.jpg',
+                          //       'assets/collections/kitties.png',
+                          //       defaultFontColor,
+                          //       isDarkMode,
+                          //       size,
+                          //       '');
+                          // } else {
+                          //   return buildCollections(
+                          //       'Dragon Watch Heroes',
+                          //       1,
+                          //       'Nicole Boa',
+                          //       'assets/images/avatar2.jpg',
+                          //       'assets/collections/dragonwatchheroes.jpeg',
+                          //       defaultFontColor,
+                          //       isDarkMode,
+                          //       size,
+                          //       '');
+                          // }
+                        },
+                      ),
                     ),
-                  ),
 
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
-                  buildCategory(
-                      "Upcoming Launches", "", true, defaultFontColor, size),
-
-                  const SizedBox(height: 10),
-
-                  SizedBox(
-                    width: size.width,
-                    height: size.height * 0.25,
-                    child: ListView.builder(
-                      primary: false,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      itemBuilder: (context, i) {
-                        //! example bids
-                        if (i == 0) {
-                          return buildCollections(
-                              'Solarians',
-                              0.2,
-                              'Ohme Ohmy',
-                              'assets/images/avatar1.jpg',
-                              'assets/images/solarians-profile.png',
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                              '');
-                        } else if (i == 1) {
-                          return buildCollections(
-                              'Alpha Puppies',
-                              3,
-                              'Nicole Boa',
-                              'assets/images/avatar2.jpg',
-                              'assets/collections/alphapuppies.gif',
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                              '');
-                        } else if (i == 2) {
-                          return buildCollections(
-                              'Poker Neko',
-                              3,
-                              'Nicole Boa',
-                              'assets/images/avatar2.jpg',
-                              'assets/collections/kitties.png',
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                              '');
-                        } else {
-                          return buildCollections(
-                              'Dragon Watch Heroes',
-                              1,
-                              'Nicole Boa',
-                              'assets/images/avatar2.jpg',
-                              'assets/collections/dragonwatchheroes.jpeg',
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                              '');
-                        }
-                      },
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  buildCategory(
-                      "Top Solo Creators", "", true, defaultFontColor, size),
-
-                  const SizedBox(height: 10),
-
-                  SizedBox(
-                    width: size.width,
-                    height: 150,
-                    child: ListView.builder(
-                      primary: false,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 3,
-                      itemBuilder: (context, i) {
-                        //! example bids
-                        if (i == 0) {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: buildTopCreator(
-                              'Nicole Boa',
-                              'assets/images/avatar2.jpg',
-                              "1.2M",
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                            ),
-                          );
-                        } else if (i == 1) {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: buildTopCreator(
-                              'Nicole Boa',
-                              'assets/images/avatar2.jpg',
-                              "1.2M",
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                            ),
-                          );
-                        } else {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: buildTopCreator(
-                              'Nicole Boa',
-                              'assets/images/avatar2.jpg',
-                              "1.2M",
-                              defaultFontColor,
-                              isDarkMode,
-                              size,
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
+                    // buildCategory(
+                    //     "Upcoming Launches", "", true, defaultFontColor, size),
+                    //
+                    // const SizedBox(height: 10),
+                    //
+                    // SizedBox(
+                    //   width: size.width,
+                    //   height: size.height * 0.25,
+                    //   child: ListView.builder(
+                    //     primary: false,
+                    //     shrinkWrap: true,
+                    //     scrollDirection: Axis.horizontal,
+                    //     itemCount: 4,
+                    //     itemBuilder: (context, i) {
+                    //       //! example bids
+                    //       if (i == 0) {
+                    //         return buildCollections(
+                    //             'Solarians',
+                    //             0.2,
+                    //             'Ohme Ohmy',
+                    //             'assets/images/avatar1.jpg',
+                    //             'assets/images/solarians-profile.png',
+                    //             defaultFontColor,
+                    //             isDarkMode,
+                    //             size,
+                    //             '');
+                    //       } else if (i == 1) {
+                    //         return buildCollections(
+                    //             'Alpha Puppies',
+                    //             3,
+                    //             'Nicole Boa',
+                    //             'assets/images/avatar2.jpg',
+                    //             'assets/collections/alphapuppies.gif',
+                    //             defaultFontColor,
+                    //             isDarkMode,
+                    //             size,
+                    //             '');
+                    //       } else if (i == 2) {
+                    //         return buildCollections(
+                    //             'Poker Neko',
+                    //             3,
+                    //             'Nicole Boa',
+                    //             'assets/images/avatar2.jpg',
+                    //             'assets/collections/kitties.png',
+                    //             defaultFontColor,
+                    //             isDarkMode,
+                    //             size,
+                    //             '');
+                    //       } else {
+                    //         return buildCollections(
+                    //             'Dragon Watch Heroes',
+                    //             1,
+                    //             'Nicole Boa',
+                    //             'assets/images/avatar2.jpg',
+                    //             'assets/collections/dragonwatchheroes.jpeg',
+                    //             defaultFontColor,
+                    //             isDarkMode,
+                    //             size,
+                    //             '');
+                    //       }
+                    //     },
+                    //   ),
+                    // ),
+                    //
+                    // const SizedBox(height: 20),
+                    //
+                    // buildCategory(
+                    //     "Top Solo Creators", "", true, defaultFontColor, size),
+                    //
+                    // const SizedBox(height: 10),
+                    //
+                    // SizedBox(
+                    //   width: size.width,
+                    //   height: 150,
+                    //   child: ListView.builder(
+                    //     primary: false,
+                    //     shrinkWrap: true,
+                    //     scrollDirection: Axis.horizontal,
+                    //     itemCount: 3,
+                    //     itemBuilder: (context, i) {
+                    //       //! example bids
+                    //       if (i == 0) {
+                    //         return Padding(
+                    //           padding: const EdgeInsets.only(left: 20),
+                    //           child: buildTopCreator(
+                    //             'Nicole Boa',
+                    //             'assets/images/avatar2.jpg',
+                    //             "1.2M",
+                    //             defaultFontColor,
+                    //             isDarkMode,
+                    //             size,
+                    //           ),
+                    //         );
+                    //       } else if (i == 1) {
+                    //         return Padding(
+                    //           padding: const EdgeInsets.only(left: 20),
+                    //           child: buildTopCreator(
+                    //             'Nicole Boa',
+                    //             'assets/images/avatar2.jpg',
+                    //             "1.2M",
+                    //             defaultFontColor,
+                    //             isDarkMode,
+                    //             size,
+                    //           ),
+                    //         );
+                    //       } else {
+                    //         return Padding(
+                    //           padding: const EdgeInsets.only(left: 20),
+                    //           child: buildTopCreator(
+                    //             'Nicole Boa',
+                    //             'assets/images/avatar2.jpg',
+                    //             "1.2M",
+                    //             defaultFontColor,
+                    //             isDarkMode,
+                    //             size,
+                    //           ),
+                    //         );
+                    //       }
+                    //     },
+                    //   ),
+                    // ),
+                    //
+                    // const SizedBox(height: 20),
 
 //                BOTTOM SPACING
 
-                  const SizedBox(
-                    height: 80,
-                  )
-                ],
+                    const SizedBox(
+                      height: 80,
+                    )
+                  ],
+                ),
               ),
             ),
           ),

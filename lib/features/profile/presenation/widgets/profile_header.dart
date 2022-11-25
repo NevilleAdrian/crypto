@@ -1,21 +1,31 @@
 import 'dart:ui';
 
 import 'package:bottom_sheet/bottom_sheet.dart';
+import 'package:de_marketplace/core/providers/auth_provider/auth_provider.dart';
 import 'package:de_marketplace/features/profile/data/model/profile.dart';
+import 'package:de_marketplace/shared/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../shared/utils/fonts.dart';
 import '../../../../shared/utils/size_manager.dart';
 
-class ProfileHeader extends StatelessWidget {
+class ProfileHeader extends StatefulWidget {
   final Profile profile;
+  final String? image;
 
   const ProfileHeader({
     Key? key,
     required this.profile,
+    this.image,
   }) : super(key: key);
 
+  @override
+  State<ProfileHeader> createState() => _ProfileHeaderState();
+}
+
+class _ProfileHeaderState extends State<ProfileHeader> {
   @override
   Widget build(BuildContext context) {
     final topPadding = MediaQuery.of(context).padding.top;
@@ -26,6 +36,8 @@ class ProfileHeader extends StatelessWidget {
     bool isDarkMode = brightness == Brightness.dark;
 
     Color defaultFontColor = isDarkMode ? Colors.white : Colors.black;
+    var collectionDetails = Auth.authProvider(context).collectionDetails;
+    var listingTotal = Auth.authProvider(context).listingTotal;
 
     List<Widget> _children = [
       const _TextField(),
@@ -122,6 +134,15 @@ class ProfileHeader extends StatelessWidget {
       );
     }
 
+    Future<void> _launchInBrowser(Uri url) async {
+      if (!await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      )) {
+        throw 'Could not launch $url';
+      }
+    }
+
     return Container(
       height: SizeMg.height(headerHeight),
       decoration: BoxDecoration(
@@ -139,11 +160,16 @@ class ProfileHeader extends StatelessWidget {
           ClipRRect(
             child: Container(
               height: headerHeight,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/solarians.png"),
-                  fit: BoxFit.cover,
-                ),
+              decoration: BoxDecoration(
+                image: collectionDetails[0]['bannerUrl'] == ''
+                    ? const DecorationImage(
+                        image: AssetImage("assets/images/solarians.png"),
+                        fit: BoxFit.cover,
+                      )
+                    : DecorationImage(
+                        image: NetworkImage(collectionDetails[0]['bannerUrl']),
+                        fit: BoxFit.cover,
+                      ),
               ),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
@@ -193,84 +219,105 @@ class ProfileHeader extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 15.0),
-                  child: _buildTitle(isDarkMode),
+                  child: _buildTitle(isDarkMode, collectionDetails[0]['name']),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20.0),
-                  child: _buildAvatar(isDarkMode),
+                  child: _buildAvatar(
+                      isDarkMode, collectionDetails[0]['description']),
                 ),
-                Center(
-                  child: Container(
-                      // width: 170,
-                      margin: const EdgeInsets.only(bottom: 20.0),
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10),
+                collectionDetails[0]['verifeyed']
+                    ? Center(
+                        child: Container(
+                          padding: EdgeInsets.only(bottom: 20),
+                          child: Image.asset(
+                            'assets/icons/verif.png',
+                            height: 30,
+                            // width: width * 0.08,
+                          ),
                         ),
-                        color: Colors.blueAccent,
-                        border: Border.all(color: Colors.blueAccent, width: 1),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            CupertinoIcons.checkmark_shield_fill,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            "Verifeyed",
-                            style: TextStyle(color: Colors.white, fontSize: 15),
-                          ),
-                        ],
-                      )),
-                ),
+                      )
+                    : Container(),
                 Center(
                   child: Container(
                     margin: const EdgeInsets.only(bottom: 20.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        isDarkMode
-                            ? Image.asset(
-                                'assets/images/browser_white.png',
-                                height: 22,
-                              )
-                            : Image.asset(
-                                'assets/images/browser_black.png',
-                                height: 22,
-                              ),
+                        // InkWell(
+                        //   onTap: () => _launchInBrowser(
+                        //       Uri.parse(collectionDetails[0]['twitter'])),
+                        //   child: Column(
+                        //     children: [
+                        //       isDarkMode
+                        //           ? Image.asset(
+                        //               'assets/images/browser_white.png',
+                        //               height: 22,
+                        //             )
+                        //           : Image.asset(
+                        //               'assets/images/browser_black.png',
+                        //               height: 22,
+                        //             )
+                        //     ],
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   width: 10,
+                        // ),
+                        InkWell(
+                          onTap: () => _launchInBrowser(
+                              Uri.parse(collectionDetails[0]['twitter'])),
+                          child: Column(
+                            children: [
+                              isDarkMode
+                                  ? Image.asset(
+                                      'assets/images/twitter_white.png',
+                                      height: 22,
+                                    )
+                                  : Image.asset(
+                                      'assets/images/twitter_black.png',
+                                      height: 22,
+                                    )
+                            ],
+                          ),
+                        ),
+
                         SizedBox(
                           width: 10,
                         ),
-                        isDarkMode
-                            ? Image.asset(
-                                'assets/images/twitter_white.png',
-                                height: 22,
-                              )
-                            : Image.asset(
-                                'assets/images/twitter_black.png',
-                                height: 22,
-                              ),
-                        SizedBox(
-                          width: 10,
+
+                        InkWell(
+                          onTap: () => _launchInBrowser(
+                              Uri.parse(collectionDetails[0]['discord'])),
+                          child: Column(
+                            children: [
+                              isDarkMode
+                                  ? Image.asset(
+                                      'assets/images/discord_white.png',
+                                      height: 22,
+                                    )
+                                  : Image.asset(
+                                      'assets/images/discord_black.png',
+                                      height: 22,
+                                    )
+                            ],
+                          ),
                         ),
-                        isDarkMode
-                            ? Image.asset(
-                                'assets/images/discord_white.png',
-                                height: 22,
-                              )
-                            : Image.asset(
-                                'assets/images/discord_black.png',
-                                height: 29,
-                              ),
+                        // isDarkMode
+                        //     ? Image.asset(
+                        //         'assets/images/discord_white.png',
+                        //         height: 22,
+                        //       )
+                        //     : Image.asset(
+                        //         'assets/images/discord_black.png',
+                        //         height: 29,
+                        //       ),
                       ],
                     ),
                   ),
                 ),
-                _buildCollectionStats(isDarkMode),
+                _buildCollectionStats(
+                    isDarkMode, collectionDetails, listingTotal),
               ],
             ),
           ),
@@ -328,7 +375,7 @@ class ProfileHeader extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle(isDarkMode) {
+  Widget _buildTitle(bool isDarkMode, String name) {
     return Align(
         alignment: Alignment.centerLeft,
         child: SingleChildScrollView(
@@ -337,7 +384,7 @@ class ProfileHeader extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text("Solarians",
+                  Text(name,
                       style: TextStyle(
                           fontFamily: AppFontNames.timeBurner,
                           fontWeight: FontWeight.w700,
@@ -348,22 +395,20 @@ class ProfileHeader extends StatelessWidget {
   }
 
   /// The avatar consists of the profile image, the users name and location
-  Widget _buildAvatar(isDarkMode) {
+  Widget _buildAvatar(isDarkMode, String? description) {
     final subTextStyle = TextStyle(
         fontFamily: AppFontNames.timeBurner,
         fontSize: 16.0,
         color: isDarkMode ? Colors.white : Colors.black,
         fontWeight: FontWeight.w700);
-
     return Row(
       children: <Widget>[
         Container(
           width: 70.0,
           height: 60.0,
           decoration: BoxDecoration(
-            image: const DecorationImage(
-                image: AssetImage("assets/images/solarians-profile.png"),
-                fit: BoxFit.cover),
+            image: DecorationImage(
+                image: NetworkImage(widget.image!), fit: BoxFit.cover),
             borderRadius: const BorderRadius.all(Radius.circular(20.0)),
             boxShadow: <BoxShadow>[
               BoxShadow(
@@ -384,7 +429,7 @@ class ProfileHeader extends StatelessWidget {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Column(children: [
-                    Text(profile.topText, style: subTextStyle),
+                    Text(description ?? '', style: subTextStyle),
                   ]),
                 ),
               ),
@@ -395,7 +440,8 @@ class ProfileHeader extends StatelessWidget {
     );
   }
 
-  Widget _buildCollectionStats(isDarkMode) {
+  Widget _buildCollectionStats(
+      isDarkMode, dynamic collectionDetails, dynamic listingTotal) {
     return Center(
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -403,13 +449,14 @@ class ProfileHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            _buildCollectionStat("Floor", "◎315", isDarkMode),
+            _buildCollectionStat("Floor",
+                "◎${collectionDetails[0]['floorPrice'] / price}", isDarkMode),
             _buildVerticalDivider(isDarkMode),
-            _buildCollectionStat("Volume", "◎3150", isDarkMode),
-            _buildVerticalDivider(isDarkMode),
-            _buildCollectionStat("Supply", "10", isDarkMode),
-            _buildVerticalDivider(isDarkMode),
-            _buildCollectionStat("Listed", "10", isDarkMode),
+            // _buildCollectionStat("Volume", "◎3150", isDarkMode),
+            // _buildVerticalDivider(isDarkMode),
+            // _buildCollectionStat("Supply", "10", isDarkMode),
+            // _buildVerticalDivider(isDarkMode),
+            _buildCollectionStat("Listed", "$listingTotal", isDarkMode),
 
 //        _buildVerticalDivider(isDarkMode),
 //        _buildCollectionStat("Total Likes", profile.totalLikesString),

@@ -31,14 +31,14 @@ Padding buildCategory(String name, String featured, bool seeall,
                   fontWeight: FontWeight.bold,
                 ))
             : Container(),
-        seeall
-            ? Text("See all",
-                style: GoogleFonts.lato(
-                  color: defaultFontColor.withOpacity(0.7),
-                  fontSize: size.width * 0.045,
-                  fontWeight: FontWeight.bold,
-                ))
-            : Container(),
+        // seeall
+        //     ? Text("See all",
+        //         style: GoogleFonts.lato(
+        //           color: defaultFontColor.withOpacity(0.7),
+        //           fontSize: size.width * 0.045,
+        //           fontWeight: FontWeight.bold,
+        //         ))
+        //     : Container(),
       ],
     ),
   );

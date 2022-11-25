@@ -27,18 +27,18 @@ PreferredSize buildAppBar(Widget? leading, bool isDarkMode, Size size) {
         ),
       ),
       centerTitle: false,
-      actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(
-            right: 26,
-          ),
-          child: Icon(
-            UniconsLine.search,
-            color: isDarkMode ? Colors.white : Colors.black,
-            size: size.height * 0.025,
-          ),
-        ),
-      ],
+      // actions: <Widget>[
+      //   Padding(
+      //     padding: const EdgeInsets.only(
+      //       right: 26,
+      //     ),
+      //     child: Icon(
+      //       UniconsLine.search,
+      //       color: isDarkMode ? Colors.white : Colors.black,
+      //       size: size.height * 0.025,
+      //     ),
+      //   ),
+      // ],
     ),
   );
 }
