@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.13.0 <3.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -51,12 +51,14 @@ dependencies:
 #  get_time_ago:
   timeago: ^3.2.2
   uni_links: ^0.5.1
-  solana: ^0.26.0
+  solana: ^0.26.3
   bs58: ^1.0.2
   get: ^4.6.5
   firebase_dynamic_links: ^5.0.5
   firebase_core: ^2.2.0
   phantom_connect: ^0.0.8
+  json_rpc_client: ^1.0.2
+
 
 dev_dependencies:
   flutter_lints: ^1.0.0

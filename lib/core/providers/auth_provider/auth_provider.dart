@@ -113,18 +113,19 @@ class Auth extends ChangeNotifier {
     try {
       // setLoading(true);
       // notifyListeners();
-      await getTokenAccounts();
+      // await getTokenAccounts();
 
       final phantomConnectInstance = PhantomConnect(
         appUrl: "https://digitaleyes.market",
         deepLink: "https://mgogolowicz.page.link",
         // appUrl: "https://solgallery.vercel.app",
         // deepLink: "dapp://phantomconnect.io",
+        // deepLink: "dapp://digitaleyes.market",
       );
 
       Uri launchUri = phantomConnectInstance.generateConnectUri(
         cluster: 'mainnet-beta',
-        redirect: '/start',
+        redirect: '/connected',
         // cluster: 'devnet',
       );
       print('launchUri: $launchUri');
@@ -215,7 +216,12 @@ class Auth extends ChangeNotifier {
     ];
 
     // print('fil: ${fil.map((e) => e)}');
-
+//     JsonRpcClient jsonRpcClient = JsonRpcClient(
+//         'https://divine-black-tree.solana-mainnet.quiknode.pro/8f1e61d781177e4bafe7fc6801d5b8e5db6a264b/',
+//         response['access_token']);
+//
+// jsonRpcClient.request(method)
+//     https://api.mainnet-beta.solana.com/
     RpcClient rpc = RpcClient(
         'https://divine-black-tree.solana-mainnet.quiknode.pro/8f1e61d781177e4bafe7fc6801d5b8e5db6a264b/');
 

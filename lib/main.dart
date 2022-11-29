@@ -145,7 +145,7 @@ void initDynamicLink(BuildContext context) async {
 
     if (deepLink != null) {
       print('deeplinkUrl: ${deepLink.toString()}');
-      if (deepLink.toString() == 'https://mgogolowicz.page.link/start') {
+      if (deepLink.toString() == 'http://phantomconnect.io/connected') {
         AppNavigator.pushNamed('/profile');
         // Navigator.push(
         //     context,
