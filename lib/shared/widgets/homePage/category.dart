@@ -1,44 +1,33 @@
+import 'package:de_marketplace/shared/utils/textstyle.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 // TODO: CONVERT TO CLASS BASED
 
-Padding buildCategory(String name, String featured, bool seeall,
+Widget buildCategory(String name, String featured, bool seeall,
     Color defaultFontColor, Size size) {
   return Padding(
-    padding: EdgeInsets.fromLTRB(
-      size.width * 0.075,
-      size.height * 0.02,
-      featured != "" ? size.width * 0 : size.width * 0.075,
-      size.height * 0.005,
-    ),
+    padding: EdgeInsets.symmetric(horizontal: 15),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          name,
-          style: GoogleFonts.poppins(
-            color: defaultFontColor,
-            fontSize: size.width * 0.05,
-            fontWeight: FontWeight.bold,
-          ),
+        Row(
+          children: [
+            Image.asset(
+              'assets/images/asterisk.png',
+              height: 20,
+            ),
+            kVerySmallWidth,
+            Text(name, style: textStyleSmallBold.copyWith(fontSize: 14)),
+            featured != ""
+                ? Text(featured, style: textStyleSmall)
+                : Container(),
+          ],
         ),
-        featured != ""
-            ? Text(featured,
-                style: GoogleFonts.lato(
-                  color: defaultFontColor.withOpacity(0.9),
-                  fontSize: size.width * 0.055,
-                  fontWeight: FontWeight.bold,
-                ))
-            : Container(),
-        // seeall
-        //     ? Text("See all",
-        //         style: GoogleFonts.lato(
-        //           color: defaultFontColor.withOpacity(0.7),
-        //           fontSize: size.width * 0.045,
-        //           fontWeight: FontWeight.bold,
-        //         ))
-        //     : Container(),
+        seeall
+            ? Text("View all",
+                style: textStyleSmallBold.copyWith(
+                    fontSize: 14, foreground: Paint()..shader = linearGradient))
+            : Container()
       ],
     ),
   );

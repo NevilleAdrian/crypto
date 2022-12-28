@@ -1,8 +1,10 @@
+import 'package:de_marketplace/shared/utils/colors.dart';
+import 'package:de_marketplace/shared/utils/textstyle.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 // TODO: CONVERT TO CLASS BASED
-Padding buildCollections(
+Widget buildCollections(
     String title,
     double price,
     String author,
@@ -16,141 +18,119 @@ Padding buildCollections(
   double width = size.width * 0.6;
   double height = size.height * 0.2;
 
-  return Padding(
-    padding: aspect != 'slim'
-        ? EdgeInsets.only(left: size.width * 0.055)
-        : const EdgeInsets.all(6),
-    child: Container(
-      width: width - 90,
-      height: 100,
-      decoration: BoxDecoration(
-        color: isDarkMode
-            ? Colors.white.withOpacity(0.1)
-            : Colors.black.withOpacity(0.15),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10),
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: width,
-            decoration: BoxDecoration(
-              color: isDarkMode ? Colors.white.withOpacity(0.05) : Colors.black,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(10),
-              ),
-            ),
-            child: InkWell(
-              onTap: onTap,
-              child: Stack(
-                children: [
-                  aspect != 'slim'
-                      ? ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
-                          child: Image.network(
-                            nftImg != null || nftImg != ''
-                                ? nftImg!
-                                : 'https://images.pexels.com/photos/12638731/pexels-photo-12638731.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                            height: 150,
-                            fit: BoxFit.fitWidth,
-                            width: 300,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                height: height,
-                                width: width,
-                                decoration: BoxDecoration(
-                                  color: isDarkMode
-                                      ? Colors.white.withOpacity(0.05)
-                                      : Colors.black,
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(0),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        )
-                      : ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
-                          child: Image.asset(
-                            nftImg != null || nftImg != ''
-                                ? nftImg!
-                                : 'https://images.pexels.com/photos/12638731/pexels-photo-12638731.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-                            fit: BoxFit.fill,
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                height: height,
-                                width: width,
-                                decoration: BoxDecoration(
-                                  color: isDarkMode
-                                      ? Colors.white.withOpacity(0.05)
-                                      : Colors.black,
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(0),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                ],
-              ),
+  return Container(
+    margin: const EdgeInsets.all(6),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(15),
+      color: appColor,
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        InkWell(
+          onTap: onTap,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+            child: Image.network(
+              nftImg != null || nftImg != ''
+                  ? nftImg!
+                  : 'https://images.pexels.com/photos/12638731/pexels-photo-12638731.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+              height: 200,
+              fit: BoxFit.cover,
+              width: width,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  height: height,
+                  width: width,
+                  decoration: BoxDecoration(
+                    color: isDarkMode
+                        ? Colors.white.withOpacity(0.05)
+                        : Colors.black,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(0),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
-          Container(
-            width: width,
-            padding: EdgeInsets.only(top: 15),
-            // height: 0,
-            child: Row(
-              children: [
-                SizedBox(
-                  width: width * 1 / 2,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: width * 0.02),
+        ),
+        Container(
+          padding: EdgeInsets.all(20),
+          width: width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
                     child: Text(
                       title,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      style: GoogleFonts.poppins(
-                        color: defaultFontColor,
-                        fontSize: aspect != 'slim' ? width * 0.05 : 15,
-                        fontWeight: FontWeight.bold,
+                      style: textStyleBig.copyWith(fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  SvgPicture.asset('assets/images/svg/verified.svg')
+                ],
+              ),
+              kMediumHeight,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Floor Price',
+                    overflow: TextOverflow.ellipsis,
+                    style: textStyleBig.copyWith(color: greyColor),
+                  ),
+                  Text(
+                    '24H Volume',
+                    overflow: TextOverflow.ellipsis,
+                    style: textStyleBig.copyWith(color: greyColor),
+                  ),
+                ],
+              ),
+              kMediumHeight,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/sol.png',
+                        height: 14,
                       ),
-                    ),
+                      kSmallestWidth,
+                      Text(
+                        '0.5 SOL',
+                        overflow: TextOverflow.ellipsis,
+                        style: textStyleSmall.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
+                    ],
                   ),
-                ),
-                const Spacer(),
-                Container(
-                  height: height * 0.15,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5),
-                    ),
+                  Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/sol.png',
+                        height: 14,
+                      ),
+                      kSmallestWidth,
+                      Text(
+                        '10',
+                        overflow: TextOverflow.ellipsis,
+                        style: textStyleSmall.copyWith(
+                            fontSize: 14, fontWeight: FontWeight.w500),
+                      ),
+                    ],
                   ),
-                  child: Align(
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets/icons/verif.png',
-                          height: height * 0.2,
-                          width: width * 0.08,
-                        ),
-                        const SizedBox(width: 3),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                ],
+              ),
+            ],
           ),
-        ],
-      ),
+        )
+      ],
     ),
   );
 }

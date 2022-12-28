@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../profile/presenation/views/profile_page.dart';
 import '../../data/models/args.dart';
 
 class ListingPage extends StatefulWidget {
@@ -292,52 +293,66 @@ class _ListingPageState extends State<ListingPage> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: size.height * 0.005),
-                        child: InkWell(
-                          onTap: () => Auth.authProvider(context).connectWallet(
+                        child: CustomButton(
+                          size: size,
+                          defaultFontColor: defaultFontColor,
+                          onPressed: () async =>
+                              await Auth.authProvider(context).connectWallet(
                             context,
                             widget.args?.collectionId,
                             widget.args!.data['mint'],
                             widget.args!.data['pubkey'],
                           ),
-                          child: Center(
-                            child: Container(
-                              height: size.height * 0.075,
-                              width: size.width * 0.3,
-                              decoration: const BoxDecoration(
-                                color: Color(0xff4FBBEB),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                              child: Align(
-                                child: Auth.authProvider(context, listen: true)
-                                        .loading
-                                    ? SizedBox(
-                                        width: 20,
-                                        height: 20,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 1,
-                                          backgroundColor: Colors.grey,
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                                  defaultFontColor),
-                                        ),
-                                      )
-                                    : Text(
-                                        "Connect Wallet",
-                                        textAlign: TextAlign.center,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: GoogleFonts.poppins(
-                                          color: Colors.white,
-                                          fontSize: size.width * 0.03,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                              ),
-                            ),
-                          ),
                         ),
-                      ),
+                      )
+                      // Padding(
+                      //   padding: EdgeInsets.only(top: size.height * 0.005),
+                      //   child: InkWell(
+                      //     onTap: () => Auth.authProvider(context).connectWallet(
+                      //       context,
+                      //       widget.args?.collectionId,
+                      //       widget.args!.data['mint'],
+                      //       widget.args!.data['pubkey'],
+                      //     ),
+                      //     child: Center(
+                      //       child: Container(
+                      //         height: size.height * 0.075,
+                      //         width: size.width * 0.3,
+                      //         decoration: const BoxDecoration(
+                      //           color: Color(0xff4FBBEB),
+                      //           borderRadius: BorderRadius.all(
+                      //             Radius.circular(10),
+                      //           ),
+                      //         ),
+                      //         child: Align(
+                      //           child: Auth.authProvider(context, listen: true)
+                      //                   .loading
+                      //               ? SizedBox(
+                      //                   width: 20,
+                      //                   height: 20,
+                      //                   child: CircularProgressIndicator(
+                      //                     strokeWidth: 1,
+                      //                     backgroundColor: Colors.grey,
+                      //                     valueColor:
+                      //                         AlwaysStoppedAnimation<Color>(
+                      //                             defaultFontColor),
+                      //                   ),
+                      //                 )
+                      //               : Text(
+                      //                   "Connect Wallet",
+                      //                   textAlign: TextAlign.center,
+                      //                   overflow: TextOverflow.ellipsis,
+                      //                   style: GoogleFonts.poppins(
+                      //                     color: Colors.white,
+                      //                     fontSize: size.width * 0.03,
+                      //                     fontWeight: FontWeight.bold,
+                      //                   ),
+                      //                 ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

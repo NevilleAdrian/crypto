@@ -22,7 +22,7 @@
         <!--#docregion android-queries-->
     </queries>
    <application
-        android:label="nft_marketplace"
+        android:label="Kyzzen"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

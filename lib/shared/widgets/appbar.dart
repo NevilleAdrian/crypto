@@ -1,44 +1,63 @@
+import 'package:de_marketplace/features/profile/presenation/views/profile_page.dart';
+import 'package:de_marketplace/shared/utils/colors.dart';
+import 'package:de_marketplace/shared/utils/textstyle.dart';
 import 'package:flutter/material.dart';
-import 'package:unicons/unicons.dart';
 
 // TODO: CONVERT TO CLASS BASED
-PreferredSize buildAppBar(Widget? leading, bool isDarkMode, Size size) {
-  return PreferredSize(
-    preferredSize: const Size.fromHeight(40.0), //appbar size
-    child: AppBar(
-      shadowColor: Colors.transparent,
-      backgroundColor: isDarkMode
-          ? const Color(0xff06090d)
-          : const Color(0xfff8f8f8), //appbar bg color
+PreferredSize buildAppBar(BuildContext context) {
+  Size size = MediaQuery.of(context).size; //check the size of device
 
-      automaticallyImplyLeading: false,
-      titleSpacing: 0,
-      leadingWidth: size.width * 0.2,
-      title: Padding(
-        padding: const EdgeInsets.only(
-          left: 25,
-        ),
-        child: Image.asset(
-          isDarkMode
-              ? 'assets/icons/DEdark.png'
-              : 'assets/icons/DElight-2.png', //logo
-          height: size.height * 0.06,
-          width: size.width * 0.40,
-        ),
-      ),
-      centerTitle: false,
-      // actions: <Widget>[
-      //   Padding(
-      //     padding: const EdgeInsets.only(
-      //       right: 26,
-      //     ),
-      //     child: Icon(
-      //       UniconsLine.search,
-      //       color: isDarkMode ? Colors.white : Colors.black,
-      //       size: size.height * 0.025,
-      //     ),
-      //   ),
-      // ],
-    ),
-  );
+  return PreferredSize(
+      preferredSize: const Size.fromHeight(40.0), //appbar size
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RichText(
+                text: TextSpan(
+                  text: 'Volume total: ',
+                  style: textStyleGreySmall.copyWith(fontSize: 10),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: ' 24,554,996 SOL ',
+                        style: textStyleSmallBold.copyWith(
+                            color: primaryColor, fontSize: 10)),
+                    TextSpan(text: ' SOL/USD '),
+                    TextSpan(
+                        text: ' \$31.50',
+                        style: textStyleSmallBold.copyWith(
+                            color: primaryColor, fontSize: 10)),
+                    TextSpan(text: ' Solana Network: '),
+                    TextSpan(
+                        text: ' 2,857 TPS',
+                        style: textStyleSmallBold.copyWith(
+                            color: primaryColor, fontSize: 10)),
+                  ],
+                ),
+              )
+            ],
+          ),
+          kSmallHeight,
+          Container(
+              color: appColor,
+              padding: EdgeInsets.only(right: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset(
+                    'assets/icons/kyzzen.png',
+                    height: 70,
+                  ),
+                  CustomButton(
+                      size: Size(400, 600),
+                      defaultFontColor: whiteColor,
+                      onPressed: () async {
+                        print('hi');
+                        // await Auth.authProvider(context).getTokenAccounts();
+                      })
+                ],
+              )),
+        ],
+      ));
 }

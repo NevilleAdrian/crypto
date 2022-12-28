@@ -1,12 +1,12 @@
 import 'package:de_marketplace/core/providers/page_controller/page_controller.dart';
 import 'package:de_marketplace/features/dashboard/presentation/views/events.dart';
 import 'package:de_marketplace/features/profile/presenation/views/profile_page.dart';
+import 'package:de_marketplace/shared/utils/colors.dart';
+import 'package:de_marketplace/shared/utils/textstyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:unicons/unicons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../shared/widgets/appbar.dart';
 import '../../../collections/presentation/views/collections_explore.dart';
 import 'home_widget.dart';
 
@@ -30,47 +30,55 @@ class _DashboardState extends State<Dashboard> {
     const ProfilePage(),
   ];
 
-  List<BottomNavigationBarItem> _navBarsItems(isDarkMode) {
+  List<BottomNavigationBarItem> _navBarsItems() {
     return [
       BottomNavigationBarItem(
-          icon: const Icon(
-            CupertinoIcons.home,
-            color: CupertinoColors.systemGrey,
-          ),
+          icon: SvgPicture.asset('assets/images/svg/home.svg'),
           label: 'Home',
-          activeIcon: Icon(
-            CupertinoIcons.home,
-            color: isDarkMode ? CupertinoColors.white : CupertinoColors.black,
+          activeIcon: ShaderMask(
+            shaderCallback: (Rect bounds) {
+              return LinearGradient(
+                colors: <Color>[primaryColor, secondaryColor],
+                tileMode: TileMode.repeated,
+              ).createShader(bounds);
+            },
+            child: SvgPicture.asset('assets/images/svg/home.svg'),
           )),
       BottomNavigationBarItem(
-          icon: const Icon(
-            CupertinoIcons.table,
-            color: CupertinoColors.systemGrey,
-          ),
+          icon: Image.asset('assets/images/collections.png'),
           label: 'Collections',
-          activeIcon: Icon(
-            CupertinoIcons.table,
-            color: isDarkMode ? CupertinoColors.white : CupertinoColors.black,
+          activeIcon: ShaderMask(
+            shaderCallback: (Rect bounds) {
+              return LinearGradient(
+                colors: <Color>[primaryColor, secondaryColor],
+                tileMode: TileMode.repeated,
+              ).createShader(bounds);
+            },
+            child: Image.asset('assets/images/collections.png'),
           )),
       BottomNavigationBarItem(
-          icon: const Icon(
-            CupertinoIcons.calendar,
-            color: CupertinoColors.systemGrey,
-          ),
+          icon: SvgPicture.asset('assets/images/svg/calendar.svg'),
           label: 'Calendar',
-          activeIcon: Icon(
-            CupertinoIcons.calendar,
-            color: isDarkMode ? CupertinoColors.white : CupertinoColors.black,
+          activeIcon: ShaderMask(
+            shaderCallback: (Rect bounds) {
+              return LinearGradient(
+                colors: <Color>[primaryColor, secondaryColor],
+                tileMode: TileMode.repeated,
+              ).createShader(bounds);
+            },
+            child: SvgPicture.asset('assets/images/svg/calendar.svg'),
           )),
       BottomNavigationBarItem(
-          icon: const Icon(
-            CupertinoIcons.profile_circled,
-            color: CupertinoColors.systemGrey,
-          ),
-          label: 'Settings',
-          activeIcon: Icon(
-            CupertinoIcons.profile_circled,
-            color: isDarkMode ? CupertinoColors.white : CupertinoColors.black,
+          icon: SvgPicture.asset('assets/images/svg/profile.svg'),
+          label: 'Account',
+          activeIcon: ShaderMask(
+            shaderCallback: (Rect bounds) {
+              return LinearGradient(
+                colors: <Color>[primaryColor, secondaryColor],
+                tileMode: TileMode.repeated,
+              ).createShader(bounds);
+            },
+            child: SvgPicture.asset('assets/images/svg/profile.svg'),
           )),
     ];
   }
@@ -97,27 +105,12 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    PersistentTabController? _controller;
-    bool? _hideNavBar;
-
     Size size = MediaQuery.of(context).size; //check the size of device
     var brightness = MediaQuery.of(context).platformBrightness;
     bool isDarkMode = brightness == Brightness.dark;
-//  bool isDarkMode = true; //check if device is in dark or light mode
 
     return Scaffold(
       backgroundColor: Colors.transparent,
-      appBar: buildAppBar(
-        Icon(
-          UniconsLine.bars,
-          color: isDarkMode
-              ? Colors.white
-              : const Color(0xff3b22a1), //icon bg color
-          size: size.height * 0.025,
-        ),
-        isDarkMode,
-        size,
-      ),
       body: PageView(
         controller: _pageController,
         children: _buildScreens,
@@ -126,70 +119,14 @@ class _DashboardState extends State<Dashboard> {
       ),
       bottomNavigationBar: BottomNavigationBar(
           onTap: _onTapped,
-          backgroundColor: Colors.white,
+          backgroundColor: appColor,
           currentIndex: _selectedIndex!,
+          unselectedLabelStyle: textStyleSmallMedium,
+          selectedLabelStyle: textStyleSmallMedium.copyWith(
+              foreground: Paint()..shader = linearGradient),
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: isDarkMode
-              ? Colors.white.withOpacity(0.8)
-              : Colors.black.withOpacity(0.8),
           iconSize: 20,
-          items: _navBarsItems(isDarkMode)),
-//       body: PersistentTabView(
-//         context,
-//         controller: _controller,
-//         screens: _buildScreens(context),
-//         items: _navBarsItems(isDarkMode),
-//         confineInSafeArea: true,
-//         backgroundColor: isDarkMode
-//             ? Colors.black.withOpacity(0.8)
-//             : Colors.white.withOpacity(0.8),
-//         handleAndroidBackButtonPress: true,
-//         resizeToAvoidBottomInset: true,
-//         stateManagement: true,
-//         navBarHeight: MediaQuery.of(context).viewInsets.bottom > 0
-//             ? 0.0
-//             : kBottomNavigationBarHeight,
-//         hideNavigationBarWhenKeyboardShows: true,
-//         margin: EdgeInsets.zero,
-//         popActionScreens: PopActionScreensType.all,
-//         bottomScreenMargin: 0.0,
-//         onWillPop: (context) async {
-//           await showDialog(
-//             context: context!,
-//             useSafeArea: true,
-//             builder: (context) => Container(
-//               height: 50.0,
-//               width: 50.0,
-//               color: Colors.white,
-//               child: ElevatedButton(
-//                 child: const Text("Close"),
-//                 onPressed: () {
-//                   Navigator.pop(context);
-//                 },
-//               ),
-//             ),
-//           );
-//           return false;
-//         },
-//         selectedTabScreenContext: (context) {},
-//         hideNavigationBar: _hideNavBar,
-//         decoration: NavBarDecoration(
-//             colorBehindNavBar: Colors.indigo,
-// //            borderRadius: BorderRadius.circular(20.0)
-//             borderRadius: BorderRadius.circular(0.0)),
-//         popAllScreensOnTapOfSelectedTab: true,
-//         itemAnimationProperties: const ItemAnimationProperties(
-//           duration: Duration(milliseconds: 400),
-//           curve: Curves.ease,
-//         ),
-//         screenTransitionAnimation: const ScreenTransitionAnimation(
-//           animateTabTransition: true,
-//           curve: Curves.ease,
-//           duration: Duration(milliseconds: 200),
-//         ),
-//         navBarStyle:
-//             NavBarStyle.style12, // Choose the nav bar style with this property
-//       ),
+          items: _navBarsItems()),
     );
   }
 }

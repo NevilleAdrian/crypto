@@ -449,8 +449,10 @@ class _ProfileHeaderState extends State<ProfileHeader> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            _buildCollectionStat("Floor",
-                "◎${collectionDetails[0]['floorPrice'] / price}", isDarkMode),
+            _buildCollectionStat(
+                "Floor",
+                "◎${collectionDetails[0]['floorPrice'] ?? 0 / price}",
+                isDarkMode),
             _buildVerticalDivider(isDarkMode),
             // _buildCollectionStat("Volume", "◎3150", isDarkMode),
             // _buildVerticalDivider(isDarkMode),

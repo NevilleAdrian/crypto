@@ -1,4 +1,5 @@
 import 'package:de_marketplace/core/providers/app_provider/app_provider.dart';
+import 'package:de_marketplace/shared/utils/themedata.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +46,9 @@ class _AppState extends State<App> {
           return MaterialApp(
             navigatorKey: AppNavigator.key,
             debugShowCheckedModeBanner: false,
-            title: 'Digital Eyes Marketplace',
+            title: 'kyzzen',
             onGenerateRoute: AppRouter.generateRoutes,
+            theme: myThemeData(context),
           );
         },
       ),
