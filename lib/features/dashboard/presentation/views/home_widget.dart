@@ -1,20 +1,22 @@
 import 'package:de_marketplace/core/providers/auth_provider/auth_provider.dart';
 import 'package:de_marketplace/features/dashboard/data/models/args.dart';
 import 'package:de_marketplace/features/dashboard/presentation/views/collections_page.dart';
+import 'package:de_marketplace/shared/home/volume_card.dart';
 import 'package:de_marketplace/shared/ui_widgets/card_wizard.dart';
 import 'package:de_marketplace/shared/ui_widgets/future_helper.dart';
+import 'package:de_marketplace/shared/utils/colors.dart';
 import 'package:de_marketplace/shared/utils/constants.dart';
 import 'package:de_marketplace/shared/utils/functions.dart';
 import 'package:de_marketplace/shared/utils/textstyle.dart';
 import 'package:de_marketplace/shared/widgets/appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../shared/widgets/homePage/category.dart';
 import '../../../../shared/widgets/homePage/collections_verified.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -97,6 +99,109 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 buildAppBar(context),
                 const SizedBox(height: 500, child: CardWizardRoute()),
+                kSmallHeight,
+
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 7),
+                  padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(
+                      color: appColor,
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            height: 22,
+                            width: 22,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              gradient: LinearGradient(
+                                colors: <Color>[Color(0XFFBBE71F), Color(0XFF00C5FF)],
+                              ),
+                            ),
+                            child: Image.asset('assets/images/black_collection.png'),
+                          ),
+                          kVerySmallWidth,
+                          Text('Popular collections',
+                          style: textStyleBig.copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                          ),
+                          ),
+                          kMediumWidth,
+                          Container(
+                            padding: EdgeInsets.only(left: 5),
+                            width: 75,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                color: appColor,
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(' 24H',
+                                style: textStyleBig.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  letterSpacing: 0.5,
+                                ),
+                                ),
+                                Icon(
+                                  Icons.arrow_drop_down_rounded,
+                                  color: Colors.white,
+                                  size: 25,
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: 33,),
+                          InkWell(
+                            onTap: (){},
+                            child: GradientText(
+                              'View All',
+                              style: textStyleBig.copyWith(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                              ),
+                              gradient: LinearGradient(
+                                colors: <Color>[Color(0XFFBBE71F), Color(0XFF00C5FF)],
+                              ),
+                            ),
+                          ),
+
+                          /// couldn't use the textButton cos it's difficult to use
+                          /// a color gradient.
+                          // TextButton(
+                          //     onPressed: (){},
+                          //     child: Text('View All',
+                          //     style: textStyleBig.copyWith(
+                          //       fontWeight: FontWeight.w600,
+                          //       fontSize: 14,
+                          //
+                          //     ),
+                          //
+                          //     ),
+                          // ),
+                        ],
+                      ),
+                      SizedBox(height: 25,),
+                      VolumeCard(image: 'assets/images/image_nft 2.jpeg',),
+                      SizedBox(height: 12,),
+                      VolumeCard(image: 'assets/images/creative_nft.jpeg',),
+                      SizedBox(height: 12,),
+                      VolumeCard(image: 'assets/images/creative_nft2.jpeg',),
+                      SizedBox(height: 12,),
+                      VolumeCard(image: 'assets/images/creative_nft6.jpeg',),
+                    ],
+                  ),
+                ),
+
                 kLargeHeight,
                 Expanded(
                   child: CollectionCard("New Collections", defaultFontColor,
@@ -111,7 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(
                   child: CollectionCard("Top Verified Collections",
                       defaultFontColor, size, top, isDarkMode),
-                )
+                ),
 
                 // kSmallHeight,
                 // buildCategory("Trending Collections", "", true,
@@ -455,7 +560,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 //                BOTTOM SPACING
 
-                ,
+
                 const SizedBox(
                   height: 80,
                 )
@@ -467,8 +572,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Column CollectionCard(String name, Color defaultFontColor, Size size,
-      collection, bool isDarkMode) {
+  Column CollectionCard(
+      String name,
+      Color defaultFontColor,
+      Size size,
+      collection,
+      bool isDarkMode
+      ) {
     return Column(
       children: [
         buildCategory(name, "", false, defaultFontColor, size),
@@ -517,3 +627,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+

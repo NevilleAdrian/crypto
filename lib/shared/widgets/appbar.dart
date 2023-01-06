@@ -11,6 +11,7 @@ PreferredSize buildAppBar(BuildContext context) {
       preferredSize: const Size.fromHeight(40.0), //appbar size
       child: Column(
         children: [
+          SizedBox(height: 10,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -21,24 +22,36 @@ PreferredSize buildAppBar(BuildContext context) {
                   children: <TextSpan>[
                     TextSpan(
                         text: ' 24,554,996 SOL ',
-                        style: textStyleSmallBold.copyWith(
-                            color: primaryColor, fontSize: 10)),
+                        style: textStyleSmall.copyWith(
+                            color: lemonColor,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                        ),
+                    ),
                     TextSpan(text: ' SOL/USD '),
                     TextSpan(
                         text: ' \$31.50',
-                        style: textStyleSmallBold.copyWith(
-                            color: primaryColor, fontSize: 10)),
+                        style: textStyleSmall.copyWith(
+                            color: lemonColor,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                        ),
+                    ),
                     TextSpan(text: ' Solana Network: '),
                     TextSpan(
                         text: ' 2,857 TPS',
                         style: textStyleSmallBold.copyWith(
-                            color: primaryColor, fontSize: 10)),
+                            color: lemonColor,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w500,
+                        ),
+                    ),
                   ],
                 ),
               )
             ],
           ),
-          kSmallHeight,
+          SizedBox(height: 10,),
           Container(
               color: appColor,
               padding: EdgeInsets.only(right: 10),
@@ -57,7 +70,10 @@ PreferredSize buildAppBar(BuildContext context) {
                         // await Auth.authProvider(context).getTokenAccounts();
                       })
                 ],
-              )),
+              ),
+          ),
         ],
-      ));
+      ),
+  );
+
 }
