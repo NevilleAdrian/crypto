@@ -5,6 +5,7 @@ import 'package:de_marketplace/features/profile/presenation/views/profile_page.d
 import 'package:de_marketplace/main.dart';
 import 'package:de_marketplace/shared/collections/collections.dart';
 import 'package:de_marketplace/shared/collections/collections_card.dart';
+import 'package:de_marketplace/shared/collections/deGods_collection.dart';
 import 'package:de_marketplace/shared/collections/sales_card.dart';
 import 'package:de_marketplace/shared/ui_widgets/future_helper.dart';
 import 'package:de_marketplace/shared/utils/colors.dart';
@@ -28,7 +29,7 @@ class CollectionExplore extends StatefulWidget {
 
 class _CollectionExploreState extends State<CollectionExplore> {
   late Future<dynamic> futureData;
-  List<dynamic>? data;
+  // List<dynamic>? data;
 
 
 
@@ -73,211 +74,1526 @@ class _CollectionExploreState extends State<CollectionExplore> {
     var collections = Auth.authProvider(context).allCollections;
 
 
-    return Scaffold(
-      // backgroundColor: isDarkMode? Colors.black : const Color(0xfff8f8f8),
-      body: SafeArea(
 
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                color: appColor,
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10,),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      InkWell(
-                        child: Icon(Icons.arrow_back_ios,
-                          color: Colors.white,
-                        ),
-                        onTap: (){},
-                      ),
-                      SizedBox(width: 10,),
-                      Text('Collections',
-                        style: textStyleBig.copyWith(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.2,
-                        ),
-                        // TextStyle(
-                        //   color: Colors.white,
-                        //   fontWeight: FontWeight.bold,
-                        //   fontSize: 20,
-                        // ),
-                      ),
-                      Spacer(),
-                      Container(
-                        padding: EdgeInsets.all(7),
-                        decoration: BoxDecoration(
-                          color: backGroundColor,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Image.asset('assets/images/filter.png'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 10,),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+    return Scaffold(
+      body: SafeArea(
+        child: ListView(
+          scrollDirection: Axis.vertical,
+          children: [
+            Column(
+              children: [
+                Container(
+                  color: appColor,
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10,),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.asset('assets/images/image 54.png'),
-                        SizedBox(width: 15,),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text('DeGods',
-                                    style: textStyleBig.copyWith(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  SizedBox(width: 10,),
-                                  Image.asset('assets/images/Group 19653.png'),
-                                ],
-                              ),
-                              SizedBox(height: 3,),
-                              ConstrainedBox(
-                                  constraints: BoxConstraints(maxWidth: 280),
-                                  child: Text('DeGods is a digital art collection and global community of creators, developers, entrepreneurs, athletes, artists, experimenters and innovators.',
-                                    style: textStyleSmall.copyWith(fontWeight: FontWeight.w500, fontSize: 12),)),
-                            ],
+                        Text('Explore Collections',
+                          style: textStyleBig.copyWith(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 0.2,
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20,),
-                    Row(
-                      children: [
-                        Column(
-                          children: const [
-                            SalesCard(
-                              text: 'Price Floor',
-                              text2: '373',
-                              isShowing: true,
-                            ),
-                            SizedBox(height: 10,),
-                            SalesCard(
-                              text: 'Highest Scale',
-                              text2: '7,033',
-                              isShowing: true,
-                            ),
-                            SizedBox(height: 10,),
-                            SalesCard(
-                              text: 'Owners',
-                              text2: '4,395',
-                              isShowing: false,
-                            ),
-                          ],
-                        ),
-                        SizedBox(width: MediaQuery.of(context).size.width * 0.03,),
-                        Column(
-                          children: const [
-                            SalesCard(
-                              text: 'Volume',
-                              text2: '1.1M',
-                              isShowing: true,
-                            ),
-                            SizedBox(height: 10,),
-                            SalesCard(
-                              text: 'Listings',
-                              text2: '118',
-                              isShowing: false,
-                            ),
-                            SizedBox(height: 10,),
-                            SalesCard(
-                              text: 'Total Supply',
-                              text2: '10K',
-                              isShowing: false,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 30,),
-                    Row(
-                      children: [
-                        Container(
+                  ),
+                ),
+                SizedBox(height: 20,),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0,
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(15),
                             border: Border.all(
                               width: 1.5,
                               color: cardColor,
                             ),
                           ),
-                          child: Image.asset('assets/images/bitcoin-refresh.png'),
+                          child: Text('Search Collections',
+                            style: textStyleSmall,
+                          ),
                         ),
-                        SizedBox(width: 10,),
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.all(6),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                width: 1.5,
-                                color: cardColor,
-                              ),
+                      ),
+                      SizedBox(width: 10,),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        padding: EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                            width: 1.5,
+                            color: cardColor,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(width: 15,),
+                            Text('Last 1 HR',
+                              style: textStyleSmall,
                             ),
-                            child: Row(
-                              children: [
-                                SizedBox(width: 15,),
-                                Text('Recently Listed',
-                                  style: textStyleSmall,
-                                ),
-                                Spacer(),
-                                const Icon(Icons.keyboard_arrow_down_rounded,
-                                  color: Colors.white,),
+                            Spacer(),
+                            const Icon(Icons.keyboard_arrow_down_rounded,
+                              color: Colors.white,),
 
-                              ],
-                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10,),
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(
+                            top: 10,
+                          ),
+                          height: MediaQuery.of(context).size.height * 1,
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          decoration: BoxDecoration(
+                            color: backGroundColor,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 15.0,
+                                ),
+                                child: Text('Collections',
+                                style: textStyleSmall.copyWith(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 0.5,
+                                  color: lemonColor,
+                                ),
+                                ),
+                              ),
+                              SizedBox(height: 15,),
+                              Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    top: BorderSide(color: appColor),
+                                    bottom: BorderSide.none,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10.0,
+                                      ),
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          image: DecorationImage(image: AssetImage('assets/images/deGodsFace.png'),),
+                                        ),
+                                        child: Text(''),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DeGodsCollection()),);},
+                                      child: Text('DeGods',
+                                      style: textStyleSmall.copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 14,
+                                      ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    top: BorderSide(color: appColor),
+                                    bottom: BorderSide.none,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0,
+                                      ),
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          image: DecorationImage(image: AssetImage('assets/images/deGodsFace.png'),),
+                                        ),
+                                        child: Text(''),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DeGodsCollection()),);},
+                                      child: Text('DeGods',
+                                        style: textStyleSmall.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    top: BorderSide(color: appColor),
+                                    bottom: BorderSide.none,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0,
+                                      ),
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          image: DecorationImage(image: AssetImage('assets/images/deGodsFace.png'),),
+                                        ),
+                                        child: Text(''),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DeGodsCollection()),);},
+                                      child: Text('DeGods',
+                                        style: textStyleSmall.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    top: BorderSide(color: appColor),
+                                    bottom: BorderSide.none,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0,
+                                      ),
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          image: DecorationImage(image: AssetImage('assets/images/deGodsFace.png'),),
+                                        ),
+                                        child: Text(''),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DeGodsCollection()),);},
+                                      child: Text('DeGods',
+                                        style: textStyleSmall.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    top: BorderSide(color: appColor),
+                                    bottom: BorderSide.none,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0,
+                                      ),
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          image: DecorationImage(image: AssetImage('assets/images/deGodsFace.png'),),
+                                        ),
+                                        child: Text(''),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DeGodsCollection()),);},
+                                      child: Text('DeGods',
+                                        style: textStyleSmall.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    top: BorderSide(color: appColor),
+                                    bottom: BorderSide.none,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0,
+                                      ),
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          image: DecorationImage(image: AssetImage('assets/images/deGodsFace.png'),),
+                                        ),
+                                        child: Text(''),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DeGodsCollection()),);},
+                                      child: Text('DeGods',
+                                        style: textStyleSmall.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    top: BorderSide(color: appColor),
+                                    bottom: BorderSide.none,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0,
+                                      ),
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          image: DecorationImage(image: AssetImage('assets/images/deGodsFace.png'),),
+                                        ),
+                                        child: Text(''),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DeGodsCollection()),);},
+                                      child: Text('DeGods',
+                                        style: textStyleSmall.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    top: BorderSide(color: appColor),
+                                    bottom: BorderSide.none,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0,
+                                      ),
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          image: DecorationImage(image: AssetImage('assets/images/deGodsFace.png'),),
+                                        ),
+                                        child: Text(''),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DeGodsCollection()),);},
+                                      child: Text('DeGods',
+                                        style: textStyleSmall.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    top: BorderSide(color: appColor),
+                                    bottom: BorderSide.none,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10.0,
+                                      ),
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10),
+                                          image: DecorationImage(image: AssetImage('assets/images/deGodsFace.png'),),
+                                        ),
+                                        child: Text(''),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => DeGodsCollection()),);},
+                                      child: Text('DeGods',
+                                        style: textStyleSmall.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                            ],
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 20,),
-
-                    // CollectionsCard(collection: product[0]),
 
 
-                    GridView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                          childAspectRatio: 0.8,
-                          mainAxisSpacing: 20,
-                          crossAxisSpacing: 20 / 2,
-                        ),
-                        itemCount: product.length,
-                        itemBuilder: (context, index) => CollectionsCard(
-                          collection: product[index],
-                            ),
+                    SizedBox(
+                    height: MediaQuery.of(context).size.height * 1,
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                      top: 10,
+
+                                    ),
+                                    height: MediaQuery.of(context).size.height * 1,
+                                    width: MediaQuery.of(context).size.width * 0.25,
+                                    decoration: BoxDecoration(
+                                      color: backGroundColor,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10.0),
+                                          child: Text('Tokens',
+                                            style: textStyleSmall.copyWith(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w500,
+                                              letterSpacing: 0.5,
+                                              color: lemonColor,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: 15,),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('10,001',
+                                          style: textStyleSmall.copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 14,
+                                          ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('5,000',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('10,489',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('10,000',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('7,777',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('10,000',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('8,589',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('10,280',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('3,333',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                      top: 10,
+                                    ),
+                                    height: MediaQuery.of(context).size.height * 1,
+                                    width: MediaQuery.of(context).size.width * 0.25,
+                                    decoration: BoxDecoration(
+                                      color: backGroundColor,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10.0,
+                                          ),
+                                          child: Text('Owners',
+                                            style: textStyleSmall.copyWith(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w500,
+                                              letterSpacing: 0.5,
+                                              color: lemonColor,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: 15,),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 18,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png',),
+                                                  SizedBox(width: 3,),
+                                                  Text('1879',
+                                                  style: textStyleSmall.copyWith(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),),
+
+                                                ],
+                                              ),
+                                              SizedBox(height: 5,),
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png'),
+                                                  SizedBox(width: 3,),
+                                                  Text('1190',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 18,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png',),
+                                                  SizedBox(width: 3,),
+                                                  Text('1100',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                              SizedBox(height: 5,),
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png'),
+                                                  SizedBox(width: 3,),
+                                                  Text('1100',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 18,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png',),
+                                                  SizedBox(width: 3,),
+                                                  Text('1099',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                              SizedBox(height: 5,),
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png'),
+                                                  SizedBox(width: 3,),
+                                                  Text('3112',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 18,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png',),
+                                                  SizedBox(width: 3,),
+                                                  Text('500',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                              SizedBox(height: 5,),
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png'),
+                                                  SizedBox(width: 3,),
+                                                  Text('1789',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 18,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png',),
+                                                  SizedBox(width: 3,),
+                                                  Text('598',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                              SizedBox(height: 5,),
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png'),
+                                                  SizedBox(width: 3,),
+                                                  Text('3310',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 18,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png',),
+                                                  SizedBox(width: 3,),
+                                                  Text('8671',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                              SizedBox(height: 5,),
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png'),
+                                                  SizedBox(width: 3,),
+                                                  Text('3112',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 18,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png',),
+                                                  SizedBox(width: 3,),
+                                                  Text('3189',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                              SizedBox(height: 5,),
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png'),
+                                                  SizedBox(width: 3,),
+                                                  Text('1192',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 18,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png',),
+                                                  SizedBox(width: 3,),
+                                                  Text('1809',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                              SizedBox(height: 5,),
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png'),
+                                                  SizedBox(width: 3,),
+                                                  Text('1132',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 18,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png',),
+                                                  SizedBox(width: 3,),
+                                                  Text('2111',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                              SizedBox(height: 5,),
+                                              Row(
+                                                children: [
+                                                  Image.asset('assets/images/Vector2.png'),
+                                                  SizedBox(width: 3,),
+                                                  Text('2911',
+                                                    style: textStyleSmall.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),),
+
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                      top: 10,
+                                    ),
+                                    height: MediaQuery.of(context).size.height * 1,
+                                    width: MediaQuery.of(context).size.width * 0.25,
+                                    decoration: BoxDecoration(
+                                      color: backGroundColor,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10.0,
+                                          ),
+                                          child: Text('Tokens',
+                                            style: textStyleSmall.copyWith(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w500,
+                                              letterSpacing: 0.5,
+                                              color: lemonColor,
+                                            ),),
+                                        ),
+                                        SizedBox(height: 15,),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('10,001',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('5,000',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('10,489',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('9,450',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('7,863',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('10,001',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('10,231',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('9,867',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 30,
+                                          ),
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            border: Border(
+                                              top: BorderSide(color: appColor),
+                                              bottom: BorderSide.none,
+                                            ),
+                                          ),
+                                          child: Text('4,525',
+                                            style: textStyleSmall.copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                            ),),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-
-
                   ],
                 ),
-              ),
 
 
-            ],
-          ),
-        )
+              ],
+            ),
+          ],
+        ),
       ),
-
-
     );
+
+
+
+
+    // Row(
+    //   children: [
+    //     Container(
+    //       padding: EdgeInsets.symmetric(
+    //         vertical: 12,
+    //         horizontal: 12,
+    //       ),
+    //       height: 40,
+    //       width: MediaQuery.of(context).size.width *0.5,
+    //       decoration: BoxDecoration(
+    //         color: backGroundColor,
+    //       ),
+    //       child: Text('Collections',
+    //         style: textStyleSmall.copyWith(
+    //           fontSize: 15,
+    //           color: lemonColor,
+    //           fontWeight: FontWeight.w500,
+    //           letterSpacing: 0.5,
+    //         ),
+    //       ),
+    //     ),
+    //     SizedBox(
+    //       height: 45,
+    //       width: MediaQuery.of(context).size.width *0.5,
+    //       child: ListView(
+    //         scrollDirection: Axis.horizontal,
+    //         children: [
+    //           Row(
+    //             children: [
+    //               Container(
+    //                 padding: EdgeInsets.symmetric(
+    //                   vertical: 12,
+    //                   horizontal: 12,
+    //                 ),
+    //                 height: 40,
+    //                 width: MediaQuery.of(context).size.width *0.25,
+    //                 decoration: BoxDecoration(
+    //                   color: backGroundColor,
+    //                 ),
+    //                 child: Text('Tokens',
+    //                   style: textStyleSmall.copyWith(
+    //                     fontSize: 15,
+    //                     color: lemonColor,
+    //                     fontWeight: FontWeight.w500,
+    //                     letterSpacing: 0.5,
+    //                   ),
+    //                 ),
+    //               ),
+    //               Container(
+    //                 padding: EdgeInsets.symmetric(
+    //                   vertical: 12,
+    //                   horizontal: 12,
+    //                 ),
+    //                 height: 40,
+    //                 width: MediaQuery.of(context).size.width *0.25,
+    //                 decoration: BoxDecoration(
+    //                   color: backGroundColor,
+    //                 ),
+    //                 child: Text('Owners',
+    //                   style: textStyleSmall.copyWith(
+    //                     fontSize: 15,
+    //                     color: lemonColor,
+    //                     fontWeight: FontWeight.w500,
+    //                     letterSpacing: 0.5,
+    //                   ),
+    //                 ),
+    //               ),
+    //               Container(
+    //                 padding: EdgeInsets.symmetric(
+    //                   vertical: 12,
+    //                   horizontal: 12,
+    //                 ),
+    //                 height: 40,
+    //                 width: MediaQuery.of(context).size.width *0.25,
+    //                 decoration: BoxDecoration(
+    //                   color: backGroundColor,
+    //                 ),
+    //                 child: Text('Tokens',
+    //                   style: textStyleSmall.copyWith(
+    //                     fontSize: 15,
+    //                     color: lemonColor,
+    //                     fontWeight: FontWeight.w500,
+    //                     letterSpacing: 0.5,
+    //                   ),
+    //                 ),
+    //               ),
+    //               Container(
+    //                 padding: EdgeInsets.symmetric(
+    //                   vertical: 12,
+    //                   horizontal: 12,
+    //                 ),
+    //                 height: 40,
+    //                 width: MediaQuery.of(context).size.width *0.25,
+    //                 decoration: BoxDecoration(
+    //                   color: backGroundColor,
+    //                 ),
+    //                 child: Text('Owners',
+    //                   style: textStyleSmall.copyWith(
+    //                     fontSize: 15,
+    //                     color: lemonColor,
+    //                     fontWeight: FontWeight.w500,
+    //                     letterSpacing: 0.5,
+    //                   ),
+    //                 ),
+    //               ),
+    //             ],
+    //           )
+    //         ],
+    //       ),
+    //     ),
+    //
+    //   ],
+    // ),
+    // Row(
+    // children: [
+    // Container(
+    // padding: EdgeInsets.symmetric(
+    // vertical: 12,
+    // horizontal: 12,
+    // ),
+    // height: 60,
+    // width: MediaQuery.of(context).size.width *0.5,
+    // decoration: BoxDecoration(
+    // color: backGroundColor,
+    // ),
+    // child: Text('Collections',
+    // style: textStyleSmall.copyWith(
+    // fontSize: 15,
+    // color: lemonColor,
+    // fontWeight: FontWeight.w500,
+    // letterSpacing: 0.5,
+    // ),
+    // ),
+    // ),
+    // Padding(
+    // padding: const EdgeInsets.only(bottom: 1.0),
+    // child: SizedBox(
+    // height: 60,
+    // width: MediaQuery.of(context).size.width *0.5,
+    // child: ListView(
+    // scrollDirection: Axis.horizontal,
+    // children: [
+    // Row(
+    // children: [
+    // Container(
+    // padding: EdgeInsets.symmetric(
+    // vertical: 12,
+    // horizontal: 12,
+    // ),
+    // height: 60,
+    // width: MediaQuery.of(context).size.width *0.25,
+    // decoration: BoxDecoration(
+    // color: backGroundColor,
+    // ),
+    // child: Text('Tokens',
+    // style: textStyleSmall.copyWith(
+    // fontSize: 15,
+    // color: lemonColor,
+    // fontWeight: FontWeight.w500,
+    // letterSpacing: 0.5,
+    // ),
+    // ),
+    // ),
+    // Container(
+    // padding: EdgeInsets.symmetric(
+    // vertical: 12,
+    // horizontal: 12,
+    // ),
+    // height: 60,
+    // width: MediaQuery.of(context).size.width *0.25,
+    // decoration: BoxDecoration(
+    // color: backGroundColor,
+    // ),
+    // child: Text('Tokens',
+    // style: textStyleSmall.copyWith(
+    // fontSize: 15,
+    // color: lemonColor,
+    // fontWeight: FontWeight.w500,
+    // letterSpacing: 0.5,
+    // ),
+    // ),
+    // ),
+    // Container(
+    // padding: EdgeInsets.symmetric(
+    // vertical: 12,
+    // horizontal: 12,
+    // ),
+    // height: 60,
+    // width: MediaQuery.of(context).size.width *0.25,
+    // decoration: BoxDecoration(
+    // color: backGroundColor,
+    // ),
+    // child: Text('Tokens',
+    // style: textStyleSmall.copyWith(
+    // fontSize: 15,
+    // color: lemonColor,
+    // fontWeight: FontWeight.w500,
+    // letterSpacing: 0.5,
+    // ),
+    // ),
+    // ),
+    // Container(
+    // padding: EdgeInsets.symmetric(
+    // vertical: 12,
+    // horizontal: 12,
+    // ),
+    // height: 60,
+    // width: MediaQuery.of(context).size.width *0.25,
+    // decoration: BoxDecoration(
+    // color: backGroundColor,
+    // ),
+    // child: Text('Tokens',
+    // style: textStyleSmall.copyWith(
+    // fontSize: 15,
+    // color: lemonColor,
+    // fontWeight: FontWeight.w500,
+    // letterSpacing: 0.5,
+    // ),
+    // ),
+    // ),
+    // ],
+    // )
+    // ],
+    // ),
+    // ),
+    // ),
+    //
+    // ],
+    // ),
+
+
+
+
 
     // return Scaffold(
     //   // backgroundColor: isDarkMode ? Colors.black : const Color(0xfff8f8f8),

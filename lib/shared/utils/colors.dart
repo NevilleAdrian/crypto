@@ -14,6 +14,7 @@ var cardColor = HexColor("#101828");
 var firstCardColor = HexColor("#D0D5DD");
 var lemonColor = HexColor("#ABFF00");
 var calendarColor = HexColor("#1D2939");
+var lightcardColor = HexColor("#1D2939");
 
 class GradientText extends StatelessWidget {
   const GradientText(
@@ -37,6 +38,8 @@ class GradientText extends StatelessWidget {
     );
   }
 }
+
+
 
 
 

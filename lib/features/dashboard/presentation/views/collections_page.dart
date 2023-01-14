@@ -91,7 +91,8 @@ class _DetailsPageState extends State<DetailsPage> {
           loader: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [circularProgressIndicator(color: defaultFontColor)],
+            children: [circularProgressIndicator(color: defaultFontColor),
+            ],
           ),
           builder: (context, _) => ListView(
             shrinkWrap: true,
