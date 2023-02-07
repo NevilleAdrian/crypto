@@ -1,6 +1,7 @@
+import 'package:de_marketplace/core/providers/auth_provider/auth_provider.dart';
 import 'package:de_marketplace/core/providers/page_controller/page_controller.dart';
 import 'package:de_marketplace/features/dashboard/presentation/views/events.dart';
-import 'package:de_marketplace/features/profile/presenation/views/profile_page.dart';
+import 'package:de_marketplace/features/dashboard/presentation/views/wallet.dart';
 import 'package:de_marketplace/shared/utils/colors.dart';
 import 'package:de_marketplace/shared/utils/textstyle.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,7 +28,7 @@ class _DashboardState extends State<Dashboard> {
     const HomeScreen(),
     const CollectionExplore(),
     const EventScreen(),
-    const ProfilePage(),
+    const WalletPage(),
   ];
 
   List<BottomNavigationBarItem> _navBarsItems() {
@@ -54,7 +55,7 @@ class _DashboardState extends State<Dashboard> {
                 tileMode: TileMode.repeated,
               ).createShader(bounds);
             },
-            child: Image.asset('assets/images/collections.png'),
+            child: SvgPicture.asset('assets/images/svg/home.svg'),
           )),
       BottomNavigationBarItem(
           icon: SvgPicture.asset('assets/images/svg/calendar.svg'),
@@ -87,6 +88,7 @@ class _DashboardState extends State<Dashboard> {
     setState(() {
       _selectedIndex = index;
     });
+    Auth.authProvider(context).setAllOffset(0);
   }
 
   void _onTapped(int selectedIndex) {

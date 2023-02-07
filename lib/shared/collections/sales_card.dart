@@ -9,11 +9,9 @@ class SalesCard extends StatelessWidget {
     required this.text2,
     required this.isShowing,
   }) : super(key: key);
-  final String text;
-  final String text2;
+  final String? text;
+  final String? text2;
   final bool isShowing;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -27,16 +25,21 @@ class SalesCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Text(text,
+          Text(
+            text!,
             style: textStyleSmall,
           ),
           Spacer(),
-          Text(text2,
+          Text(
+            text2!,
             style: textStyleSmallMedium.copyWith(fontSize: 13),
           ),
-          SizedBox(width: 3,),
-          isShowing? Image.asset('assets/images/solana-sol-logo 33.png') : Text(''),
-
+          SizedBox(
+            width: 3,
+          ),
+          isShowing
+              ? Image.asset('assets/images/solana-sol-logo 33.png')
+              : Text(''),
         ],
       ),
     );

@@ -1,9 +1,7 @@
 import 'package:de_marketplace/core/providers/auth_provider/auth_provider.dart';
-import 'package:de_marketplace/features/profile/presenation/widgets/search_input.dart';
 import 'package:de_marketplace/shared/utils/colors.dart';
 import 'package:de_marketplace/shared/utils/textstyle.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -30,27 +28,33 @@ class _ProfilePageState extends State<ProfilePage> {
     Color defaultFontColor = isDarkMode ? Colors.white : Colors.black;
     Color oppositeFontColor = isDarkMode ? Colors.black : Colors.white;
 
-
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
             Container(
               color: appColor,
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10,),
+              padding: EdgeInsets.symmetric(
+                vertical: 20,
+                horizontal: 10,
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     InkWell(
-                      child: Icon(Icons.arrow_back_ios,
+                      child: Icon(
+                        Icons.arrow_back_ios,
                         color: Colors.white,
                       ),
-                      onTap: (){},
+                      onTap: () {},
                     ),
-                    SizedBox(width: 10,),
-                    Text('Profile',
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Profile',
                       style: textStyleBig.copyWith(
                         fontSize: 25,
                         fontWeight: FontWeight.w500,
@@ -68,14 +72,17 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             kMediumHeight,
             TextButton(
-                onPressed: (){},
-                child: Text('Connect your wallet',
+              onPressed: () async {
+                await Auth.authProvider(context).getTokenAccounts();
+              },
+              child: Text(
+                'Connect your wallet',
                 style: textStyleSmall.copyWith(
                   fontWeight: FontWeight.w500,
                   fontSize: 13,
                   letterSpacing: 0.5,
                 ),
-                ),
+              ),
             ),
             kMediumHeight,
             Row(
@@ -97,78 +104,61 @@ class _ProfilePageState extends State<ProfilePage> {
                           child: Row(
                             children: [
                               CircleAvatar(
-                                child: Image.asset('assets/images/NFT phantom 1.png'),
+                                child: Image.asset(
+                                    'assets/images/NFT phantom 1.png'),
                                 radius: 14,
                               ),
-                              SizedBox(width: 10,),
-                              Text('Phantom',
-                              style: textStyleSmall.copyWith(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: 0.5,
+                              SizedBox(
+                                width: 10,
                               ),
-                              ),
-
-                            ],
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: appColor,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(13.0),
-                          child: Row(
-                            children: [
-                              CircleAvatar(
-                                child: Image.asset('assets/images/NFT solflare 1.png'),
-                                radius: 14,
-                              ),
-                              SizedBox(width: 10,),
-                              Text('Solflare',
+                              Text(
+                                'Phantom',
                                 style: textStyleSmall.copyWith(
                                   fontSize: 13,
                                   fontWeight: FontWeight.w500,
                                   letterSpacing: 0.5,
                                 ),
                               ),
-
                             ],
                           ),
                         ),
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     border: Border.all(
+                        //       color: appColor,
+                        //     ),
+                        //   ),
+                        // ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(13.0),
+                        //   child: Row(
+                        //     children: [
+                        //       CircleAvatar(
+                        //         child: Image.asset('assets/images/NFT solflare 1.png'),
+                        //         radius: 14,
+                        //       ),
+                        //       SizedBox(width: 10,),
+                        //       Text('Solflare',
+                        //         style: textStyleSmall.copyWith(
+                        //           fontSize: 13,
+                        //           fontWeight: FontWeight.w500,
+                        //           letterSpacing: 0.5,
+                        //         ),
+                        //       ),
+                        //
+                        //     ],
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
                 )
               ],
             )
-
           ],
         ),
       ),
-
     );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // return Scaffold(
     //   body: Container(
@@ -363,60 +353,5 @@ class _ProfilePageState extends State<ProfilePage> {
     //     ),
     //   ),
     // );
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  const CustomButton({
-    Key? key,
-    required this.size,
-    required this.defaultFontColor,
-    required this.onPressed,
-  }) : super(key: key);
-
-  final Size size;
-  final Color defaultFontColor;
-  final Function() onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        height: size.height * 0.075,
-        width: size.width * 0.3,
-        decoration: const BoxDecoration(
-          color: Color(0xff4FBBEB),
-          gradient: LinearGradient(
-            colors: <Color>[Color(0XFFBBE71F), Color(0XFF00C5FF)],
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
-        ),
-        child: Align(
-          child: Auth.authProvider(context, listen: true).loading
-              ? SizedBox(
-                  width: 20,
-                  height: 20,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 1,
-                    backgroundColor: Colors.grey,
-                    valueColor: AlwaysStoppedAnimation<Color>(defaultFontColor),
-                  ),
-                )
-              : Text(
-                  "Connect Wallet",
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.poppins(
-                    color: const Color(0XFF122645),
-                    fontSize: size.width * 0.03,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-        ),
-      ),
-    );
   }
 }

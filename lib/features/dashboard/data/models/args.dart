@@ -9,6 +9,11 @@ class Args {
   final dynamic data;
   final dynamic metaData;
   final dynamic collectionImg;
+  final dynamic description;
+  final dynamic verified;
+  final dynamic floorPrice;
+  final dynamic totalVol;
+  final dynamic volume24hrs;
 
   const Args({
     required this.isDarkMode,
@@ -19,5 +24,10 @@ class Args {
     this.collectionImg,
     this.data,
     this.metaData,
+    this.description,
+    this.verified,
+    this.floorPrice,
+    this.totalVol,
+    this.volume24hrs,
   });
 }

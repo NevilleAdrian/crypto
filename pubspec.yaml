@@ -60,6 +60,8 @@ dependencies:
   json_rpc_client: ^1.0.2
   pinenacl: ^0.5.1
   hexcolor: ^2.0.5
+  intl: ^0.18.0
+
 
 
 

@@ -21,20 +21,24 @@ class Auth extends ChangeNotifier {
 
   bool _loading = false;
   dynamic _latestOffset = 10;
+  dynamic _allOffset = 0;
   dynamic _trendingOffset = 0;
   dynamic _verifiedOffset = 0;
   dynamic _latestCollections;
-  late dynamic _trendingCollections;
-  late dynamic _topVerifiedCollections;
-  late dynamic _collectionDetails;
+  dynamic _trendingCollections;
+  dynamic _topVerifiedCollections;
+  dynamic _collectionDetails;
   late dynamic _listingTotal;
   late dynamic _offerings;
+  dynamic _mint;
   late dynamic _transactions;
   late dynamic _allCollections = [];
   late StreamSubscription _sub;
+  late String? _dropValue = '24 H';
 
   bool get loading => _loading;
   dynamic get latestOffset => _latestOffset;
+  dynamic get allOffset => _allOffset;
   dynamic get trendingOffset => _trendingOffset;
   dynamic get verifiedOffset => _verifiedOffset;
   dynamic get latestCollections => _latestCollections;
@@ -43,12 +47,20 @@ class Auth extends ChangeNotifier {
   dynamic get collectionDetails => _collectionDetails;
   dynamic get listingTotal => _listingTotal;
   dynamic get offerings => _offerings;
+  dynamic get mint => _mint;
   dynamic get transactions => _transactions;
   dynamic get allCollections => _allCollections;
+  dynamic get dropValue => _dropValue;
 
   static BuildContext? _context;
 
   setLoading(bool loading) => _loading = loading;
+
+  setDropValue(String? value) {
+    _dropValue = value;
+    notifyListeners();
+  }
+
   setLatestOffset(dynamic latestOffset) async {
     _latestOffset = latestOffset;
     notifyListeners();
@@ -56,6 +68,20 @@ class Auth extends ChangeNotifier {
     List<dynamic> newList = List.from(latestCollections)..addAll(data);
     setLatestCollection(newList);
     notifyListeners();
+  }
+
+  setAllOffset(dynamic allOffset) async {
+    _allOffset = allOffset;
+    notifyListeners();
+    dynamic data = await getAllCollections('epoch');
+    if (allOffset != 0) {
+      List<dynamic> newList = List.from(allCollections)..addAll(data);
+      print('newList: ${newList.length}');
+      setAllCollections(newList);
+      notifyListeners();
+    } else {
+      setAllCollections(data);
+    }
   }
 
   setTrendingOffset(dynamic trendingOffset) async {
@@ -90,6 +116,7 @@ class Auth extends ChangeNotifier {
       _collectionDetails = collectionDetails;
   setListingTotal(dynamic listingTotal) => _listingTotal = listingTotal;
   setOfferings(dynamic offerings) => _offerings = offerings;
+  setMint(dynamic mint) => _mint = mint;
   setTransactions(dynamic transactions) => _transactions = transactions;
   setAllCollections(dynamic allCollections) => _allCollections = allCollections;
 //
@@ -266,9 +293,9 @@ class Auth extends ChangeNotifier {
     // ];
 
     // print('privarteKey: ${base58.encode(privateKey!.toUint8List())}');
-    print(
-        'privarteKey: ${Base32Encoder.instance.encode(privateKey!.toUint8List())}');
-    print('publicKey: ${publicKey.toString()}');
+    // print(
+    //     'privarteKey: ${Base32Encoder.instance.encode(privateKey!.toUint8List())}');
+    // print('publicKey: ${publicKey.toString()}');
     String pukKey = 'AvZBEmzyQeCtWerzo5zX3sp4aYFHPAMsFx64jbAiyKqz';
     String pukData =
         'P1aw3zoTU7Nwc7nr2VAQggVDpoNcu5n4z7R1SntRw9PjdPMhcfZeQGfKKte25dfuDLd4DnQDuEpWV6Bkw8zrKzbqkpBUb963fXWT6gkKNriGF25o9xvDdmCqBSvCFmQut7DipVAerx4QVRCE6kYrM3PskQcT3DZ83A6cyeZW53FxXmpijLuWvViX4xnbdPgMr2pnA2zPwg3Xy78y78jk7vr6tnJxG117vAQ2kY8gxrs2Gqxt6ocMDUAHJf9PABDG7X1zCZGyhWyYisKxW8Cyyg7tF6v3T8cYBv5i5WsSPPGEA14Ld4XE8su9TrWY78v8MjTPZxsJWYr4svwiivZKuEo3RTScz4utqQrv1vJgY6WkwN8vLmv4yD455Mfo4De163G4F2usbKF5ZLG2RT6odyWsL8bR6hTqw7XR5DnzQvVvhnrm2';
@@ -283,17 +310,84 @@ class Auth extends ChangeNotifier {
     // TweetNaCl.crypto_box_afternm(
     //     base58.decode(pukData), base58.decode(puknonce), sharedSecret, PineNaClUtils.randombytes(24), PineNaClUtils.randombytes(24));
 
-    Uint8List m = base58.decode(pukData);
+    privateKey = PrivateKey([
+      164,
+      118,
+      245,
+      189,
+      163,
+      6,
+      61,
+      98,
+      88,
+      194,
+      123,
+      228,
+      222,
+      36,
+      194,
+      117,
+      33,
+      11,
+      208,
+      106,
+      150,
+      15,
+      144,
+      111,
+      41,
+      160,
+      16,
+      143,
+      152,
+      237,
+      216,
+      217
+    ].toUint8List());
+    publicKey = privateKey?.publicKey;
 
-    final decoded = TweetNaCl.crypto_box_open(
-        m,
-        base58.decode(pukData),
-        base58.decode(pukData).length,
-        base58.decode(puknonce),
-        base58.decode(pukKey),
-        privateKey!.toUint8List());
+    // Uint8List m = base58.decode(pukData);
 
-    print('decoded: $decoded');
+    var b = BytesBuilder();
+    var l1 = base58.decode(puknonce);
+    var l2 = base58.decode(pukData);
+    b.add(l1);
+    b.add(l2);
+    // var combined = b.toBytes();
+    var combined = base58.decode(pukData);
+
+    final k = Uint8List(32);
+    final y = privateKey!.toUint8List();
+    final x = base58.decode(pukKey);
+
+    var c = Uint8List(16 + combined.length);
+    var m = Uint8List(c.length);
+    for (var i = 0; i < combined.length; i++) {
+      c[i + 16] = combined[i];
+    }
+
+    var boxOpen = TweetNaCl.crypto_box_beforenm(k, x, y);
+
+    print('boxOpen: ${base58.encode(boxOpen)}');
+    print('cL: ${combined.length}');
+
+    var boxAfter = TweetNaCl.crypto_box_open_afternm(
+        m, c, c.length, base58.decode(puknonce), k);
+
+    String s = String.fromCharCodes(boxAfter);
+
+    print('boxAfter: ${s}');
+
+    // final decoded = TweetNaCl.crypto_box_open(
+    //   m,
+    //   combined,
+    //   combined.length,
+    //   base58.decode(puknonce),
+    //   privateKey!.toUint8List(),
+    //   base58.decode(pukKey),
+    // );
+    //
+    // print('decoded: $decoded');
 
     List<ProgramDataFilter> fil = [
       ProgramDataFilter.dataSize(165),
@@ -380,11 +474,23 @@ class Auth extends ChangeNotifier {
     return data;
   }
 
-  Future<dynamic> getAllCollections() async {
+  Future<dynamic> getAllCollections(String type, [String? text]) async {
     _loading = true;
-    var data = await _helper.fetchAllCollections();
+    var data = await _helper.fetchAllCollections(allOffset, type, text);
     _loading = false;
 
+    notifyListeners();
+    return data;
+  }
+
+  Future<dynamic> getMintCalendar() async {
+    _loading = true;
+    var data = await _helper.fetchMintCalendar(allOffset);
+    _loading = false;
+
+    print('mint-data: $data');
+
+    setMint(data);
     notifyListeners();
     return data;
   }
@@ -433,9 +539,9 @@ class Auth extends ChangeNotifier {
     return data;
   }
 
-  Future<dynamic> getOfferings(String name) async {
+  Future<dynamic> getOfferings(String name, String orderBy) async {
     _loading = true;
-    var data = await _helper.fetchOfferings(name);
+    var data = await _helper.fetchOfferings(name, orderBy);
     print('getOfferings: $data');
     _loading = false;
 

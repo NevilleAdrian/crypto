@@ -1,17 +1,41 @@
-import 'package:de_marketplace/shared/calendar/calendar.dart';
 import 'package:de_marketplace/shared/utils/colors.dart';
+import 'package:de_marketplace/shared/utils/constants.dart';
+import 'package:de_marketplace/shared/utils/functions.dart';
 import 'package:de_marketplace/shared/utils/textstyle.dart';
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CalendarCard extends StatelessWidget {
   const CalendarCard({
-    Key? key, required this.calendar,
+    Key? key,
+    required this.calendar,
   }) : super(key: key);
-  final Calendar calendar;
+  final dynamic calendar;
 
   @override
   Widget build(BuildContext context) {
+    openBrowser(String url) {
+      launchUrl(
+        Uri.parse(url),
+        mode: LaunchMode.externalNonBrowserApplication,
+      );
+    }
+
+    String? formatDate(int timestamp, String? type) {
+      DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+      String? formattedDate;
+      if (type != 'time') {
+        formattedDate = DateFormat("MM-dd-yyyy").format(dateTime);
+      } else {
+        formattedDate = DateFormat("hh:mm").format(dateTime);
+      }
+
+      return formattedDate;
+    }
+
+
+
     return Container(
       height: 545,
       width: MediaQuery.of(context).size.width * 0.9,
@@ -27,8 +51,15 @@ class CalendarCard extends StatelessWidget {
               Expanded(
                 child: ClipRRect(
                   borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10), topRight: Radius.circular(10),),
-                  child: Image.asset(calendar.image, fit: BoxFit.contain,),
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10),
+                  ),
+                  child: Image.network(
+                  calendar['thumbnail'] == '' ? 'https://creator-hub-prod.s3.us-east-2.amazonaws.com/punkkidswtf_pfp_1662035897457.png' :  checkImage(calendar['thumbnail'])
+                        ? calendar['thumbnail']
+                        : '$IMAGE_KIT_ENDPOINT_URL${calendar['thumbnail']}',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ],
@@ -37,20 +68,26 @@ class CalendarCard extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('The Anime Sol',
+              Text(
+                calendar['name'],
                 style: textStyleBig.copyWith(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20
-                ),),
+                    fontWeight: FontWeight.w600, fontSize: 20),
+              ),
               kVerySmallHeight,
-              ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 360,),
-                child: Text('The Anime SOL is a sporadic NFT collection on solana of about 4444 hand-drawn full-body NF collections',
-                  style: textStyleSmall.copyWith(
-                    fontSize: 13,
-                    letterSpacing: 0.5,
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      calendar['description'],
+                      maxLines: 3,
+                      style: textStyleSmall.copyWith(
+                        fontSize: 13,
+                        letterSpacing: 0.5,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
             ],
           ),
@@ -67,7 +104,8 @@ class CalendarCard extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Text('10 Aug',
+                    Text(
+                      formatDate(calendar['launch_date'], 'year')!,
                       style: textStyleBig.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
@@ -78,12 +116,12 @@ class CalendarCard extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.02,
                       decoration: BoxDecoration(
                           border: Border.all(
-                            color: lemonColor,
-                          )
-                      ),
+                        color: lemonColor,
+                      )),
                     ),
                     kSmallestWidth,
-                    Text('02:20',
+                    Text(
+                      formatDate(calendar['launch_date'], 'time')!,
                       style: textStyleBig.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
@@ -91,21 +129,30 @@ class CalendarCard extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    Image.asset('assets/images/Internet3.png'),
+                    InkWell(
+                        onTap: () {
+                          openBrowser(calendar['website']);
+                        },
+                        child: Image.asset('assets/images/Internet3.png')),
                     kSmallestWidth,
-                    Image.asset('assets/images/Twitter.png'),
+                    InkWell(
+                        onTap: () {
+                          openBrowser(calendar['twitter']);
+                        },
+                        child: Image.asset('assets/images/Twitter.png')),
                     kSmallestWidth,
-                    Image.asset('assets/images/Discord.png'),
+                    InkWell(
+                        onTap: () {
+                          openBrowser(calendar['discord']);
+                        },
+                        child: Image.asset('assets/images/Discord.png')),
                   ],
                 ),
               ),
-
             ],
           ),
-
         ],
       ),
-
     );
   }
 }

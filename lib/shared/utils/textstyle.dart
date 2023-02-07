@@ -20,11 +20,23 @@ TextStyle textStyleSmallMedium = const TextStyle(
     fontFamily: "ClashDisplay",
     fontWeight: FontWeight.w500);
 
+TextStyle textStyleSmall14 = const TextStyle(
+    color: Colors.white,
+    fontSize: 14.0,
+    fontFamily: "ClashDisplay",
+    fontWeight: FontWeight.w500);
+
 TextStyle textStyleSmallBold = const TextStyle(
     color: Colors.white,
     fontSize: 12.0,
     fontFamily: "ClashDisplay",
     fontWeight: FontWeight.w700);
+
+TextStyle textStyleBigBold = const TextStyle(
+    color: Colors.white,
+    fontSize: 16.0,
+    fontFamily: "ClashDisplay",
+    fontWeight: FontWeight.w600);
 
 TextStyle textStyleBig = const TextStyle(
     color: Colors.white,
@@ -40,8 +52,9 @@ SizedBox kMediumWidth = SizedBox(width: 20.0);
 SizedBox kSmallestWidth = SizedBox(width: 6.0);
 SizedBox kSmallHeight = SizedBox(height: 20.0);
 SizedBox kMediumHeight = SizedBox(height: 12.0);
-SizedBox kNormalHeight = SizedBox(height: 30.0);
+SizedBox kNormalHeight = SizedBox(height: 10.0);
 SizedBox kLargeHeight = SizedBox(height: 50.0);
+SizedBox kBiggerHeight = SizedBox(height: 25.0);
 
 final Shader linearGradient = LinearGradient(
   colors: <Color>[primaryColor, secondaryColor],

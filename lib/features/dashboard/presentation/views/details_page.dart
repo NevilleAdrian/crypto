@@ -1,11 +1,11 @@
 import 'package:accordion/accordion.dart';
 import 'package:de_marketplace/core/providers/auth_provider/auth_provider.dart';
+import 'package:de_marketplace/features/dashboard/presentation/widgets/buttons/buttons.dart';
 import 'package:de_marketplace/shared/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../profile/presenation/views/profile_page.dart';
 import '../../data/models/args.dart';
 
 class ListingPage extends StatefulWidget {

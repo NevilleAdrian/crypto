@@ -28,28 +28,121 @@ class NetworkHelper {
     return queryResult.data!['collections']['nodes'];
   }
 
-  Future<dynamic> fetchAllCollections() async {
+  String filterOptions(String type) {
+    print('typess: $type');
+    if (type == 'search') {
+      return "name";
+    } else if (type == 'total') {
+      return "-volumeTotal";
+    } else if (type == 'vol24h') {
+      return "-volumePast24h";
+    } else if (type == 'epoch') {
+      return "publishedEpoch";
+    } else if (type == 'vol7D') {
+      return "-volumePast7days";
+    } else if (type == 'floorPriceH') {
+      return "floorPrice";
+    } else {
+      return '-floorPrice';
+    }
+  }
+
+  Future<dynamic> fetchMintCalendar(dynamic offset) async {
     print('queryResult: $url');
+    // print('filterOptions: ${filterOptions(type)}');
 
     HttpLink link = HttpLink(url);
     GraphQLClient qlClient =
         GraphQLClient(link: link, cache: GraphQLCache(store: HiveStore()));
 
+    QueryOptions options;
+
     try {
-      QueryResult queryResult = await qlClient
-          .query(QueryOptions(document: gql(""" query ExploreAllCollections {
-                            collections(limit: 10) {
+      options = QueryOptions(document: gql(""" query MintCalendar {
+                            mintCalendar(offset: 0 limit: 200 )
+                            {
+                            totalCount
+                              nodes {
+                                discord
+                                description
+                                price
+                                name
+                                twitter
+                                website
+                                logo_url
+                                thumbnail
+                                launch_date
+                                
+                              }
+                            }
+                          }"""));
+
+      print('properties : ${options.asRequest}');
+      QueryResult queryResult = await qlClient.query(options);
+
+      print('queryResult; ${queryResult.data}');
+      print('queryResult');
+
+      return queryResult.data!['mintCalendar']['nodes'];
+    } catch (ex) {
+      print('ex: $ex');
+    }
+  }
+
+  Future<dynamic> fetchAllCollections(dynamic offset, String type,
+      [String? name]) async {
+    print('queryResult: $url');
+    print('filterOptions: ${filterOptions(type)}');
+
+    HttpLink link = HttpLink(url);
+    GraphQLClient qlClient =
+        GraphQLClient(link: link, cache: GraphQLCache(store: HiveStore()));
+
+    QueryOptions options;
+
+    print('name: $name');
+    print('type: $type');
+    try {
+      if (name == null && type != 'search') {
+        options = QueryOptions(document: gql(""" query ExploreAllCollections {
+                            collections(offset: $offset, limit: 10,  orderBy: "${filterOptions(type)}")
+                            {
+                            totalCount
+                              nodes {
+                                name
+                                verifeyed
+                                description
+                                thumbnail
+                                isNsfw
+                                floorPrice
+                                volumePast24h
+                                volumeTotal
+                                
+                              }
+                            }
+                          }"""));
+      } else {
+        options = QueryOptions(document: gql(""" query ExploreAllCollections {
+                            collections(offset: $offset, limit: 10, orderBy: "name", name: ">=$name")
+                            {
                             totalCount
                               nodes {
                                 name
                                 verifeyed
                                 thumbnail
                                 isNsfw
+                                floorPrice
+                                volumePast24h
+                                volumeTotal
                               }
                             }
-                          }""")));
+                          }"""));
+      }
 
-      print('queryResult; $queryResult');
+      print('properties : ${options.asRequest}');
+      QueryResult queryResult = await qlClient.query(options);
+
+      print('queryResult; ${queryResult.data}');
       print('queryResult');
 
       return queryResult.data!['collections']['nodes'];
@@ -157,16 +250,16 @@ class NetworkHelper {
     }
   }
 
-  Future<dynamic> fetchOfferings(String name) async {
+  Future<dynamic> fetchOfferings(String name, String orderBy) async {
     HttpLink link = HttpLink(url);
 
     GraphQLClient qlClient =
         GraphQLClient(link: link, cache: GraphQLCache(store: HiveStore()));
     QueryResult queryResult;
     try {
-      queryResult = await qlClient
-          .query(QueryOptions(document: gql("""query GqlTotalOffersQuery {
-                                     offers(limit: 10, collection: "$name", orderBy: "price") {
+      QueryOptions options =
+          QueryOptions(document: gql("""query GqlTotalOffersQuery {
+                                     offers(limit: 10, collection: "$name", orderBy: "$orderBy") {
                                         nodes {
                                             collection
                                             offerName
@@ -189,7 +282,9 @@ class NetworkHelper {
                                           }
                                       }  
                                       }
-                                      """)));
+                                      """));
+      print('propertiess : ${options.asRequest}');
+      queryResult = await qlClient.query(options);
 
       print('resultt: ${queryResult.data}');
       return queryResult.data!['offers']['nodes'];

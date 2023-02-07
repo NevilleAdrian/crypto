@@ -45,7 +45,7 @@ class _DetailsPageState extends State<DetailsPage> {
     try {
       var result = await auth.getCollectionDetails(widget.args!.collectionName);
       await auth.getListingTotal(widget.args!.collectionName);
-      await auth.getOfferings(widget.args!.collectionName);
+      // await auth.getOfferings(widget.args!.collectionName);
       await auth.getActivities(widget.args!.collectionName);
 
       setState(() {});
@@ -61,9 +61,6 @@ class _DetailsPageState extends State<DetailsPage> {
   void initState() {
     futureData = futureTask();
 
-    // print('argsss:${widget.args!.collectionName}');
-
-    TabProvider.tab(context).changeTabBar('Items');
     super.initState();
   }
 
@@ -91,7 +88,8 @@ class _DetailsPageState extends State<DetailsPage> {
           loader: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [circularProgressIndicator(color: defaultFontColor),
+            children: [
+              circularProgressIndicator(color: defaultFontColor),
             ],
           ),
           builder: (context, _) => ListView(

@@ -1,7 +1,8 @@
-import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 var appColor = HexColor('#122645');
+var borderColor = HexColor('#122645');
 var backGroundColor = HexColor('#0F0F1E');
 var primaryColor = HexColor("#BBE71F");
 var secondaryColor = HexColor("#00C5FF");
@@ -18,10 +19,10 @@ var lightcardColor = HexColor("#1D2939");
 
 class GradientText extends StatelessWidget {
   const GradientText(
-      this.text, {
-        required this.gradient,
-        this.style,
-      });
+    this.text, {
+    required this.gradient,
+    this.style,
+  });
 
   final String text;
   final TextStyle? style;
@@ -38,8 +39,3 @@ class GradientText extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
