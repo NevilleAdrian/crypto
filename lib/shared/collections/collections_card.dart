@@ -145,7 +145,7 @@ class CollectionsCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      metadata['name'],
+                      metadata['name']?? 'Cyborg',
                       style: textStyleSmall.copyWith(
                           fontWeight: FontWeight.w500,
                           fontSize: 10.5,

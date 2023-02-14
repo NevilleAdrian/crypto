@@ -4,6 +4,12 @@ import 'package:de_marketplace/features/dashboard/presentation/widgets/textform/
 import 'package:de_marketplace/features/profile/presenation/views/profile_page.dart';
 import 'package:de_marketplace/shared/utils/colors.dart';
 import 'package:de_marketplace/shared/utils/textstyle.dart';
+import 'package:de_marketplace/wallet/domains/listed_domain/listed_domain_page.dart';
+import 'package:de_marketplace/wallet/domains/live_domain_bids/live_domain_page.dart';
+import 'package:de_marketplace/wallet/domains/owned_domain/owned_domain_page.dart';
+import 'package:de_marketplace/wallet/nfts/listed_nft/listed_nft_page.dart';
+import 'package:de_marketplace/wallet/nfts/offers_received/offers_received_page.dart';
+import 'package:de_marketplace/wallet/nfts/owned_nft/owned_nft_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -131,24 +137,28 @@ class _WalletPageState extends State<WalletPage> {
                       decoration: textStyleBigBold,
                       text: 'Total Portfolio Value',
                       subText: '373',
+
                     ),
                     kBiggerHeight,
                     TextRow(
                       decoration: textStyleSmall14,
                       text: 'Wallet Balance',
                       subText: '200',
+
                     ),
                     kBiggerHeight,
                     TextRow(
                       decoration: textStyleSmall14,
                       text: 'Bidding Account',
                       subText: '73',
+
                     ),
                     kBiggerHeight,
                     TextRow(
                       decoration: textStyleSmall14,
                       text: 'Total NFTs (Floor)',
                       subText: '100',
+
                     ),
                   ],
                 ),
@@ -232,25 +242,37 @@ class _WalletPageState extends State<WalletPage> {
                 child: type == Type.parent
                     ? Column(
                         children: [
-                          TextRow(
-                            decoration: textStyleSmall14,
-                            text: 'Owned  NFTs',
-                            subText: '10',
-                            showIcon: false,
+                          InkWell(
+                            onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => OwnedNftPage()));},
+                            child: TextRow(
+                              decoration: textStyleSmall14,
+                              text: 'Owned  NFTs',
+                              subText: '10',
+                              showIcon: false,
+
+                            ),
                           ),
                           kSmallHeight,
-                          TextRow(
-                            decoration: textStyleSmall14,
-                            text: 'Listed  NFTs',
-                            subText: '23',
-                            showIcon: false,
+                          InkWell(
+                            onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ListedNftPage()));},
+                            child: TextRow(
+                              decoration: textStyleSmall14,
+                              text: 'Listed  NFTs',
+                              subText: '23',
+                              showIcon: false,
+
+                            ),
                           ),
                           kSmallHeight,
-                          TextRow(
-                            decoration: textStyleSmall14,
-                            text: 'Offers  Received',
-                            subText: '5',
-                            showIcon: false,
+                          InkWell(
+                            onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => OffersReceivedPage()));},
+                            child: TextRow(
+                              decoration: textStyleSmall14,
+                              text: 'Offers  Received',
+                              subText: '5',
+                              showIcon: false,
+
+                            ),
                           ),
                           kSmallHeight,
                           TextRow(
@@ -258,6 +280,7 @@ class _WalletPageState extends State<WalletPage> {
                             text: 'Offers  Made',
                             subText: '101',
                             showIcon: false,
+
                           ),
                           kSmallHeight,
                           TextRow(
@@ -265,30 +288,52 @@ class _WalletPageState extends State<WalletPage> {
                             text: 'NFT Activities',
                             subText: '89',
                             showIcon: false,
+
                           ),
                         ],
                       )
                     : Column(
                         children: [
-                          TextRow(
-                            decoration: textStyleSmall14,
-                            text: 'Owned  Domains',
-                            subText: '10',
-                            showIcon: false,
+                          InkWell(
+                            onTap: (){Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => OwnedDomainPage()));},
+                            child: TextRow(
+                              decoration: textStyleSmall14,
+                              text: 'Owned  Domains',
+                              subText: '10',
+                              showIcon: false,
+
+                            ),
                           ),
                           kSmallHeight,
-                          TextRow(
-                            decoration: textStyleSmall14,
-                            text: 'Listed  Domains',
-                            subText: '10',
-                            showIcon: false,
+                          InkWell(
+                            onTap: (){Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ListedDomainPage()));},
+                            child: TextRow(
+                              decoration: textStyleSmall14,
+                              text: 'Listed  Domains',
+                              subText: '10',
+                              showIcon: false,
+
+                            ),
                           ),
                           kSmallHeight,
-                          TextRow(
-                            decoration: textStyleSmall14,
-                            text: "Live Domain Bids",
-                            subText: '10',
-                            showIcon: false,
+                          InkWell(
+                            onTap: (){Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => LiveDomainPage()));},
+                            child: TextRow(
+                              decoration: textStyleSmall14,
+                              text: "Live Domain Bids",
+                              subText: '10',
+                              showIcon: false,
+
+                            ),
                           ),
                         ],
                       ),
@@ -306,6 +351,7 @@ class _WalletPageState extends State<WalletPage> {
                       decoration: textStyleBigBold.copyWith(fontSize: 15),
                       text: 'Bidding Account',
                       subText: '0',
+
                     ),
                     kSmallHeight,
                     Row(
@@ -364,12 +410,14 @@ class TextRow extends StatelessWidget {
     required this.subText,
     required this.decoration,
     this.showIcon = true,
+
   }) : super(key: key);
 
   final String text;
   final String subText;
   final TextStyle decoration;
   final bool showIcon;
+
 
   @override
   Widget build(BuildContext context) {

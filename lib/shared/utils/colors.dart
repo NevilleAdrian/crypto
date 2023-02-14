@@ -16,17 +16,21 @@ var firstCardColor = HexColor("#D0D5DD");
 var lemonColor = HexColor("#ABFF00");
 var calendarColor = HexColor("#1D2939");
 var lightcardColor = HexColor("#1D2939");
+var firstGradientColor = HexColor("#FA709A");
+var secondGradientColor = HexColor("#FEE140");
+var babyBlue = HexColor("#40C9FF");
 
 class GradientText extends StatelessWidget {
   const GradientText(
     this.text, {
     required this.gradient,
-    this.style,
+    this.style,  this.icon,
   });
 
   final String text;
   final TextStyle? style;
   final Gradient gradient;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +39,12 @@ class GradientText extends StatelessWidget {
       shaderCallback: (bounds) => gradient.createShader(
         Rect.fromLTWH(0, 0, bounds.width, bounds.height),
       ),
-      child: Text(text, style: style),
+      child: Row(
+        children: [
+          Icon(icon),
+          Text(text, style: style),
+        ],
+      )
     );
   }
 }

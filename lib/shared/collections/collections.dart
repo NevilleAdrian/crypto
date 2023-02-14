@@ -12,7 +12,7 @@ class Collections {
 
 
 
-List<Collections> product = [
+List<Collections> collection = [
   Collections(
       id: 1,
       image: "assets/images/image 62.png",

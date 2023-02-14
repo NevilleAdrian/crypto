@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           const SizedBox(
-                            width: 33,
+                            width: 20,
                           ),
                           InkWell(
                             onTap: () {
