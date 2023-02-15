@@ -19,6 +19,10 @@ var lightcardColor = HexColor("#1D2939");
 var firstGradientColor = HexColor("#FA709A");
 var secondGradientColor = HexColor("#FEE140");
 var babyBlue = HexColor("#40C9FF");
+var walletGrey = HexColor("#475467");
+
+
+
 
 class GradientText extends StatelessWidget {
   const GradientText(

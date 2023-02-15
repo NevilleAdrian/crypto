@@ -8,7 +8,9 @@ import 'package:de_marketplace/wallet/domains/listed_domain/listed_domain_page.d
 import 'package:de_marketplace/wallet/domains/live_domain_bids/live_domain_page.dart';
 import 'package:de_marketplace/wallet/domains/owned_domain/owned_domain_page.dart';
 import 'package:de_marketplace/wallet/nfts/listed_nft/listed_nft_page.dart';
-import 'package:de_marketplace/wallet/nfts/offers_received/offers_received_page.dart';
+import 'package:de_marketplace/wallet/nfts/nft_activities/nft_activities_page.dart';
+import 'package:de_marketplace/wallet/nfts/offers/offers_made_page.dart';
+import 'package:de_marketplace/wallet/nfts/offers/offers_received_page.dart';
 import 'package:de_marketplace/wallet/nfts/owned_nft/owned_nft_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -275,20 +277,26 @@ class _WalletPageState extends State<WalletPage> {
                             ),
                           ),
                           kSmallHeight,
-                          TextRow(
-                            decoration: textStyleSmall14,
-                            text: 'Offers  Made',
-                            subText: '101',
-                            showIcon: false,
+                          InkWell(
+                            onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => OffersMadePage()));},
+                            child: TextRow(
+                              decoration: textStyleSmall14,
+                              text: 'Offers  Made',
+                              subText: '101',
+                              showIcon: false,
 
+                            ),
                           ),
                           kSmallHeight,
-                          TextRow(
-                            decoration: textStyleSmall14,
-                            text: 'NFT Activities',
-                            subText: '89',
-                            showIcon: false,
+                          InkWell(
+                            onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => NftActivitiesPage()));},
+                            child: TextRow(
+                              decoration: textStyleSmall14,
+                              text: 'NFT Activities',
+                              subText: '89',
+                              showIcon: false,
 
+                            ),
                           ),
                         ],
                       )
