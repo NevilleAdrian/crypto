@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:bs58/bs58.dart';
 import 'package:de_marketplace/core/network_helper/network_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:pinenacl/api.dart';
 import 'package:pinenacl/tweetnacl.dart';
 // import 'package:pinenacl/ed25519.dart';
@@ -262,7 +264,12 @@ class Auth extends ChangeNotifier {
     }
   }
 
-  Future<List<ProgramAccount>> getTokenAccounts() async {
+  uriConverter() {
+    return Uri.parse(
+        'https://us-central1-digitaleyes-prod.cloudfunctions.net/go-qn-proxy');
+  }
+
+  getTokenAccounts() async {
     print('hi');
     // setLoading(true);
     // var response;
@@ -378,21 +385,12 @@ class Auth extends ChangeNotifier {
 
     print('boxAfter: ${s}');
 
-    // final decoded = TweetNaCl.crypto_box_open(
-    //   m,
-    //   combined,
-    //   combined.length,
-    //   base58.decode(puknonce),
-    //   privateKey!.toUint8List(),
-    //   base58.decode(pukKey),
-    // );
-    //
-    // print('decoded: $decoded');
+    var data = jsonDecode(s);
+    print('dataa: ${data['public_key'].toString()}');
 
     List<ProgramDataFilter> fil = [
       ProgramDataFilter.dataSize(165),
-      ProgramDataFilter.memcmpBase58(
-          offset: 32, bytes: '3aJwoUPin3BmSDA47KDXhwS4wvP7XBUTEYTwWMoHShRT')
+      ProgramDataFilter.memcmpBase58(offset: 32, bytes: data['public_key'])
     ];
 
     // print('fil: ${fil.map((e) => e)}');
@@ -402,17 +400,111 @@ class Auth extends ChangeNotifier {
 //
 // jsonRpcClient.request(method)
 //     https://api.mainnet-beta.solana.com/
+
     RpcClient rpc = RpcClient(
         // 'https://divine-black-tree.solana-mainnet.quiknode.pro/8f1e61d781177e4bafe7fc6801d5b8e5db6a264b/'
         // 'https://api.mainnet-beta.solana.com/'
         'https://us-central1-digitaleyes-prod.cloudfunctions.net/go-qn-proxy');
 
-    final prKey = await rpc.getProgramAccounts(TokenProgram.programId,
-        encoding: Encoding.base64, filters: fil);
+    Map<String, String> _headers() {
+      return {'Content-type': 'application/json'};
+    }
 
-    print('prKey: $prKey');
+    // print('program-id: ${TokenProgram.id}');
+    final config = GetProgramAccountsConfig(
+        commitment: Commitment.finalized,
+        encoding: Encoding.jsonParsed,
+        // dataSlice: DataSlice(offset: 0, length: 0),
+        filters: fil);
 
-    return prKey;
+    print('Token${data['public_key']}');
+    print(TokenProgram.programId);
+
+    var response = await http.post(uriConverter(),
+        headers: _headers(),
+        body: json.encode({
+          "jsonrpc": "2.0",
+          "id": 1,
+          "method": "getProgramAccounts",
+          "params": <dynamic>[
+            TokenProgram.programId,
+            config,
+          ]
+        }));
+
+    var decoded = jsonDecode(response.body);
+
+    // print('decoded: ${decoded['result'].length}');
+
+    print('resultData: ${decoded}');
+
+    var mints = [];
+    var listedMint = [];
+    var unListedMint = [];
+    var collectionId = [];
+    var unListedCollectionIds;
+    var unListedCollectionNames;
+    var fetchOwnedItems;
+    var finalMintArray = [];
+
+    decoded['result'].forEach((element) async {
+      var parsedData = element['account']['data'];
+      var mintAddress = parsedData['parsed']['info']['mint'];
+      try {
+        var data = await _helper.fetchMints(mintAddress);
+
+        var stringType = '"${mintAddress}"';
+
+        print('stringType: $stringType');
+
+        // print('keyss:${}');
+
+        print("mint-data: ${data}");
+
+        print(data);
+        if (data.length != 0) {
+          listedMint.add(stringType);
+        } else {
+          unListedMint.add(stringType);
+        }
+
+        print('unListedMint: $unListedMint');
+        if (unListedMint.isNotEmpty) {
+          List<dynamic> ownedNft = await _helper.fetchOwnedNft(unListedMint);
+          print('ownedNft: $ownedNft');
+          unListedCollectionIds = ownedNft.map((e) => '"${e['collectionId']}"');
+          unListedCollectionNames = ownedNft.map((e) => '"${e['collection']}"');
+
+          fetchOwnedItems =
+              await _helper.fetchOwnedItems(unListedCollectionIds.toList());
+
+          print('fetchOwnedItems: $fetchOwnedItems');
+
+          List uniqueList = removeDuplicates(unListedCollectionNames.toList());
+
+          print('unListedCollectionNames: ${uniqueList}');
+
+          finalMintArray = data.map((e) {
+            var metaData;
+            if (e['metadata']) {
+              metaData = jsonDecode(e['metadata']);
+            }
+          });
+        }
+      } catch (ex) {
+        print('exception: ${ex.toString()}');
+      }
+    });
+  }
+
+  List removeDuplicates(List list) {
+    List newList = [];
+    for (var item in list) {
+      if (!newList.contains(item)) {
+        newList.add(item);
+      }
+    }
+    return newList;
   }
 
   connectWallet(

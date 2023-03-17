@@ -1,3 +1,4 @@
+import 'package:de_marketplace/core/providers/auth_provider/auth_provider.dart';
 import 'package:de_marketplace/features/dashboard/presentation/widgets/buttons/buttons.dart';
 import 'package:de_marketplace/shared/utils/colors.dart';
 import 'package:de_marketplace/shared/utils/textstyle.dart';
@@ -71,7 +72,7 @@ PreferredSize buildAppBar(BuildContext context) {
                   defaultFontColor: whiteColor,
                   onPressed: () async {
                     print('hi');
-                    // await Auth.authProvider(context).getTokenAccounts();
+                    await Auth.authProvider(context).getTokenAccounts();
                   })
             ],
           ),

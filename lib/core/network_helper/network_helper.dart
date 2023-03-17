@@ -28,6 +28,75 @@ class NetworkHelper {
     return queryResult.data!['collections']['nodes'];
   }
 
+  Future<dynamic> fetchMints(String mint) async {
+    HttpLink link = HttpLink(url);
+    GraphQLClient qlClient =
+        GraphQLClient(link: link, cache: GraphQLCache(store: HiveStore()));
+
+    QueryResult queryResult =
+        await qlClient.query(QueryOptions(document: gql(""" query MyMintQuery {
+                            offers(mint: "$mint") {
+                            totalCount
+                              nodes {
+                              id
+                              metadata
+                              mint
+                              owner
+                              price
+                              }
+                            }
+                          }""")));
+
+    return queryResult.data!['offers']['nodes'];
+  }
+
+  Future<dynamic> fetchOwnedNft(List<dynamic> keys) async {
+    print('keys: $keys');
+    HttpLink link = HttpLink(url);
+    GraphQLClient qlClient =
+        GraphQLClient(link: link, cache: GraphQLCache(store: HiveStore()));
+
+    QueryResult queryResult =
+        await qlClient.query(QueryOptions(document: gql(""" query MyMintQuery {
+                            mints(keys: $keys) {
+                           
+                              nodes {
+                               collection
+                               collectionId
+                               id
+                              }
+                            }
+                          }""")));
+
+    print('resultt: ${queryResult}');
+
+    return queryResult.data!['mints']['nodes'];
+  }
+
+  Future<dynamic> fetchOwnedItems(List<dynamic> keys) async {
+    print('keys: $keys');
+    HttpLink link = HttpLink(url);
+    GraphQLClient qlClient =
+        GraphQLClient(link: link, cache: GraphQLCache(store: HiveStore()));
+
+    QueryResult queryResult =
+        await qlClient.query(QueryOptions(document: gql(""" query MyMintQuery {
+                            collections(keys: $keys) {
+                           
+                              nodes {
+                               thumbnailUrl
+                               floorPrice
+                               name
+                               verifeyed
+                              }
+                            }
+                          }""")));
+
+    print('resultt: ${queryResult}');
+
+    return queryResult.data!['collections']['nodes'];
+  }
+
   String filterOptions(String type) {
     print('typess: $type');
     if (type == 'search') {

@@ -61,6 +61,7 @@ dependencies:
   pinenacl: ^0.5.1
   hexcolor: ^2.0.5
   intl: ^0.18.0
+  web3dart: ^2.5.0
 
 
 
