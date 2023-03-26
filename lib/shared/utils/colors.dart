@@ -4,6 +4,7 @@ import 'package:hexcolor/hexcolor.dart';
 var appColor = HexColor('#122645');
 var borderColor = HexColor('#122645');
 var backGroundColor = HexColor('#0F0F1E');
+var opaqueBackGroundColor = HexColor('#101828');
 var primaryColor = HexColor("#BBE71F");
 var secondaryColor = HexColor("#00C5FF");
 var darkPrimaryColor = HexColor("#BBE71F").withOpacity(0.5);
@@ -21,14 +22,12 @@ var secondGradientColor = HexColor("#FEE140");
 var babyBlue = HexColor("#40C9FF");
 var walletGrey = HexColor("#475467");
 
-
-
-
 class GradientText extends StatelessWidget {
   const GradientText(
     this.text, {
     required this.gradient,
-    this.style,  this.icon,
+    this.style,
+    this.icon,
   });
 
   final String text;
@@ -39,16 +38,15 @@ class GradientText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShaderMask(
-      blendMode: BlendMode.srcIn,
-      shaderCallback: (bounds) => gradient.createShader(
-        Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-      ),
-      child: Row(
-        children: [
-          Icon(icon),
-          Text(text, style: style),
-        ],
-      )
-    );
+        blendMode: BlendMode.srcIn,
+        shaderCallback: (bounds) => gradient.createShader(
+              Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+            ),
+        child: Row(
+          children: [
+            Icon(icon),
+            Text(text, style: style),
+          ],
+        ));
   }
 }

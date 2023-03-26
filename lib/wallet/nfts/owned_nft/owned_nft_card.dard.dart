@@ -104,10 +104,10 @@ class OwnedNftCard extends StatelessWidget {
                     letterSpacing: 0.5,
                   ),
                 ),
-                Image.asset(
-                  'assets/images/eye.png',
-                  scale: 0.8,
-                ),
+                // Image.asset(
+                //   'assets/images/eye.png',
+                //   scale: 0.8,
+                // ),
               ],
             ),
           ),

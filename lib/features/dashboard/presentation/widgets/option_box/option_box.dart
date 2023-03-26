@@ -18,7 +18,7 @@ class TabMenu extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 15),
+          padding: EdgeInsets.symmetric(vertical: 20),
           decoration: decoration,
           child: Text(
             text!,

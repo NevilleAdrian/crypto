@@ -22,7 +22,7 @@ TextStyle textStyleSmallMedium = const TextStyle(
 
 TextStyle textStyleSmall14 = const TextStyle(
     color: Colors.white,
-    fontSize: 14.0,
+    fontSize: 12.0,
     fontFamily: "ClashDisplay",
     fontWeight: FontWeight.w500);
 
@@ -34,9 +34,15 @@ TextStyle textStyleSmallBold = const TextStyle(
 
 TextStyle textStyleBigBold = const TextStyle(
     color: Colors.white,
-    fontSize: 16.0,
+    fontSize: 15.0,
     fontFamily: "ClashDisplay",
     fontWeight: FontWeight.w600);
+
+TextStyle textStyleBig500 = const TextStyle(
+    color: Colors.white,
+    fontSize: 15.0,
+    fontFamily: "ClashDisplay",
+    fontWeight: FontWeight.w400);
 
 TextStyle textStyleBig = const TextStyle(
     color: Colors.white,
@@ -48,6 +54,7 @@ SizedBox kSmallWidth = SizedBox(width: 20.0);
 SizedBox kLargeWidth = SizedBox(width: 50.0);
 SizedBox kVerySmallHeight = SizedBox(height: 5.0);
 SizedBox kVerySmallWidth = SizedBox(width: 15.0);
+SizedBox kModerateWidth = SizedBox(width: 13.0);
 SizedBox kMediumWidth = SizedBox(width: 20.0);
 SizedBox kSmallestWidth = SizedBox(width: 6.0);
 SizedBox kSmallHeight = SizedBox(height: 20.0);

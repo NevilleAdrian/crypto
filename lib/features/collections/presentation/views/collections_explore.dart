@@ -285,6 +285,7 @@ class _CollectionExploreState extends State<CollectionExplore> {
                             },
                             textInputType: TextInputType.text,
                             labelText: "Search Collections",
+                            fillColor: Colors.transparent,
                             focusNode: textFocus,
                             hintColor: whiteColor),
                       ),

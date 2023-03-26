@@ -5,15 +5,16 @@ import 'package:de_marketplace/shared/utils/textstyle.dart';
 import 'package:flutter/material.dart';
 
 class CollectionsCard extends StatelessWidget {
-  const CollectionsCard({
-    Key? key,
-    required this.collection,
-    required this.title,
-    this.collectionName,
-    required this.amount,
-    required this.nftImg,
-    this.metadata,
-  }) : super(key: key);
+  const CollectionsCard(
+      {Key? key,
+      required this.collection,
+      required this.title,
+      this.collectionName,
+      required this.amount,
+      required this.nftImg,
+      this.metadata,
+      this.remove = false})
+      : super(key: key);
 
   final dynamic collection;
   final String title;
@@ -21,6 +22,7 @@ class CollectionsCard extends StatelessWidget {
   final double amount;
   final String nftImg;
   final dynamic metadata;
+  final bool remove;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class CollectionsCard extends StatelessWidget {
         );
       },
       child: Container(
-        height: 230,
+        height: 100,
         width: MediaQuery.of(context).size.width * 0.4,
         margin: const EdgeInsets.all(6),
         decoration: BoxDecoration(
@@ -72,19 +74,21 @@ class CollectionsCard extends StatelessWidget {
                         fit: BoxFit.cover)),
                 child: Stack(
                   children: [
-                    Positioned(
-                      left: 10,
-                      top: 12,
-                      child: Image.asset('assets/images/Group 19070.png'),
+                    remove
+                        ? Container()
+                        : Positioned(
+                            left: 10,
+                            top: 12,
+                            child: Image.asset('assets/images/Group 19070.png'),
 
-                      /// The image has an issue
-                      // child: CircleAvatar(
-                      //   radius: 17,
-                      //   backgroundColor: firstCardColor.withOpacity(0.5),
-                      //   child: Image.asset('KYZZEN GRAD ICON 1.png'),
-                      //
-                      // ),
-                    ),
+                            /// The image has an issue
+                            // child: CircleAvatar(
+                            //   radius: 17,
+                            //   backgroundColor: firstCardColor.withOpacity(0.5),
+                            //   child: Image.asset('KYZZEN GRAD ICON 1.png'),
+                            //
+                            // ),
+                          ),
                     Positioned(
                       bottom: 10,
                       left: 15,
@@ -145,7 +149,7 @@ class CollectionsCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      metadata['name']?? 'Cyborg',
+                      metadata['name'] ?? 'Cyborg',
                       style: textStyleSmall.copyWith(
                           fontWeight: FontWeight.w500,
                           fontSize: 10.5,

@@ -29,8 +29,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     //Make call to get videos
     try {
-      var result =await auth.getOfferings('', '-addEpoch');
-
+      var result = await auth.getOfferings('', '-addEpoch');
 
       setState(() {});
 
@@ -40,8 +39,6 @@ class _ProfilePageState extends State<ProfilePage> {
       return Future.value(result);
     } catch (ex) {}
   }
-
-
 
   @override
   void initState() {
@@ -69,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
         child: FutureHelper(
           task: futureData,
           loader:
-          Center(child: circularProgressIndicator(color: defaultFontColor)),
+              Center(child: circularProgressIndicator(color: defaultFontColor)),
           builder: (context, _) => ListView(
             scrollDirection: Axis.vertical,
             children: [
@@ -84,23 +81,30 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Profile',
-                            style: textStyleBig.copyWith(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0.2,
+                      child: InkWell(
+                        onTap: () => Navigator.pop(context),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.arrow_back_ios,
+                              color: Colors.white,
                             ),
-                            // TextStyle(
-                            //   color: Colors.white,
-                            //   fontWeight: FontWeight.bold,
-                            //   fontSize: 20,
-                            // ),
-                          ),
-                        ],
+                            Text(
+                              'Profile',
+                              style: textStyleBig.copyWith(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 0.2,
+                              ),
+                              // TextStyle(
+                              //   color: Colors.white,
+                              //   fontWeight: FontWeight.bold,
+                              //   fontSize: 20,
+                              // ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -128,8 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                            ],
+                            children: [],
                           ),
                         ),
                       ),
@@ -138,12 +141,15 @@ class _ProfilePageState extends State<ProfilePage> {
                         left: 20,
                         child: CircleAvatar(
                           radius: 36,
-                          backgroundImage: AssetImage('assets/images/ajayi.png'),
+                          backgroundImage:
+                              AssetImage('assets/images/ajayi.png'),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -157,7 +163,10 @@ class _ProfilePageState extends State<ProfilePage> {
                             Radius.circular(10),
                           ),
                           gradient: LinearGradient(
-                            colors: <Color>[Color(0XFFBBE71F), Color(0XFF00C5FF)],
+                            colors: <Color>[
+                              Color(0XFFBBE71F),
+                              Color(0XFF00C5FF)
+                            ],
                           ),
                         ),
                         child: Container(
@@ -174,7 +183,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               Radius.circular(10),
                             ),
                           ),
-                          child:  GradientText(
+                          child: GradientText(
                             'Edit Profile',
                             style: GoogleFonts.poppins(
                               color: Color(0XFFBBE71F),
@@ -183,75 +192,88 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             icon: Icons.note_alt_outlined,
                             gradient: const LinearGradient(
-                              colors: <Color>[Color(0XFFBBE71F), Color(0XFF00C5FF)],
+                              colors: <Color>[
+                                Color(0XFFBBE71F),
+                                Color(0XFF00C5FF)
+                              ],
                             ),
                           ),
-
                         ),
                       ),
                     ],
                   ),
                   Row(
                     children: [
-                      SizedBox(width: 20,),
-                      Text('Nuel Ajayi',
-                      style: textStyleBig.copyWith(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
+                      SizedBox(
+                        width: 20,
                       ),
+                      Text(
+                        'Nuel Ajayi',
+                        style: textStyleBig.copyWith(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                      SizedBox(width: 10,),
-                      Image.asset('assets/images/Vector.png'),
-
+                      SizedBox(
+                        width: 10,
+                      ),
+                      // Image.asset('assets/images/Vector.png'),
                     ],
                   ),
-                  SizedBox(height: 5,),
+                  SizedBox(
+                    height: 5,
+                  ),
                   Row(
                     children: [
-                      SizedBox(width: 20,),
-                      Text('CZnNK...ToE',
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        'CZnNK...ToE',
                         style: textStyleSmall.copyWith(
-                          fontSize: 13,
-                          color: babyBlue
-                        ),
+                            fontSize: 13, color: babyBlue),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(
+                        width: 10,
+                      ),
                       Stack(
                         clipBehavior: Clip.none,
                         children: [
                           Image.asset('assets/images/Vector_up.png'),
                           Positioned(
                             top: 2.5,
-                              left: -4.5,
-                              bottom: -3,
-                              right: 1,
-                              child: Image.asset('assets/images/Vector_down.png'),
+                            left: -4.5,
+                            bottom: -3,
+                            right: 1,
+                            child: Image.asset('assets/images/Vector_down.png'),
                           ),
-
                         ],
                       ),
                     ],
                   ),
-                  SizedBox(height: 25,),
+                  SizedBox(
+                    height: 25,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0,
+                      horizontal: 20.0,
                     ),
                     child: ConstrainedBox(
                       constraints: BoxConstraints(maxWidth: 350),
-                      child: Text('An awesome NFT trader in  Califonia. Product Designer, Product Manger and Visual Designer',
-                      style: textStyleSmall.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w300,
-                      ),
+                      child: Text(
+                        'An awesome NFT trader in  Califonia. Product Designer, Product Manger and Visual Designer',
+                        style: textStyleSmall.copyWith(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 25
-                    ),
+                    margin: EdgeInsets.symmetric(horizontal: 25),
                     width: MediaQuery.of(context).size.width * 0.55,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -259,40 +281,50 @@ class _ProfilePageState extends State<ProfilePage> {
                         Stack(
                           clipBehavior: Clip.none,
                           children: [
-                            Image.asset('assets/images/image_up.png',),
+                            Image.asset(
+                              'assets/images/image_up.png',
+                            ),
                             Positioned(
-                              bottom: -4,
+                                bottom: -4,
                                 left: -3.5,
-                                child: Image.asset('assets/images/image_down.png')),
+                                child: Image.asset(
+                                    'assets/images/image_down.png')),
                           ],
                         ),
-                        Text('www.nuelajayi_sol.com',
-                        style: textStyleSmall.copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: babyBlue,
-                          letterSpacing: 0.5,
-
-                        ),),
-                        Image.asset('assets/images/Twitter.png',
-                        color: Colors.grey,),
-                        Image.asset('assets/images/Discord.png',
-                        color: Colors.grey,),
+                        Text(
+                          'www.nuelajayi_sol.com',
+                          style: textStyleSmall.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: babyBlue,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                        Image.asset(
+                          'assets/images/Twitter.png',
+                          color: Colors.grey,
+                        ),
+                        Image.asset(
+                          'assets/images/Discord.png',
+                          color: Colors.grey,
+                        ),
                         Stack(
                           clipBehavior: Clip.none,
                           children: [
                             Image.asset('assets/images/Instagram_outer.png'),
                             Positioned(
                               bottom: 3,
-                                left: 3,
-                                child: Image.asset('assets/images/Instagram_inner.png'),
+                              left: 3,
+                              child: Image.asset(
+                                  'assets/images/Instagram_inner.png'),
                             ),
                           ],
                         )
-
                       ],
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Container(
                     margin: EdgeInsets.symmetric(
                       horizontal: 20,
@@ -301,31 +333,35 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('158',
-                        style: textStyleBig.copyWith(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 13
-                        ),),
-                        Text('Followers',
+                        Text(
+                          '158',
                           style: textStyleBig.copyWith(
-                              fontSize: 13,
-                            color: Colors.grey
-                          ),),
-                        SizedBox(width: 5,),
-                        Text('500',
+                              fontWeight: FontWeight.w500, fontSize: 13),
+                        ),
+                        Text(
+                          'Followers',
                           style: textStyleBig.copyWith(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 13
-                          ),),
-                        Text('Followers',
+                              fontSize: 13, color: Colors.grey),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          '500',
                           style: textStyleBig.copyWith(
-                              fontSize: 13,
-                              color: Colors.grey
-                          ),),
+                              fontWeight: FontWeight.w500, fontSize: 13),
+                        ),
+                        Text(
+                          'Followers',
+                          style: textStyleBig.copyWith(
+                              fontSize: 13, color: Colors.grey),
+                        ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 15,),
+                  SizedBox(
+                    height: 15,
+                  ),
                   Container(
                     height: 1,
                     width: double.infinity,
@@ -333,69 +369,81 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: appColor,
                     ),
                   ),
-                  SizedBox(height: 25,),
+                  SizedBox(
+                    height: 25,
+                  ),
                   Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 20
-                    ),
+                    margin: EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 13,
-                            horizontal: 20,
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 13,
+                              horizontal: 20,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: lemonColor,
+                            ),
+                            child: Text(
+                              'Collections',
+                              textAlign: TextAlign.center,
+                              style: textStyleSmall.copyWith(
+                                color: Colors.black,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: lemonColor,
-                          ),
-                          child: Text('Collections',
-                          style: textStyleSmall.copyWith(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-
-                          ),),
                         ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 13,
-                            horizontal: 25,
+                        kSmallestWidth,
+                        // Container(
+                        //   padding: EdgeInsets.symmetric(
+                        //     vertical: 13,
+                        //     horizontal: 25,
+                        //   ),
+                        //   decoration: BoxDecoration(
+                        //     borderRadius: BorderRadius.circular(10),
+                        //     color: lightcardColor,
+                        //   ),
+                        //   child: Text(
+                        //     'Creations',
+                        //     style: textStyleSmall.copyWith(
+                        //       color: Colors.white,
+                        //       fontSize: 15,
+                        //       fontWeight: FontWeight.w400,
+                        //     ),
+                        //   ),
+                        // ),
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 13,
+                              horizontal: 32,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: lightcardColor,
+                            ),
+                            child: Text(
+                              'Listings',
+                              textAlign: TextAlign.center,
+                              style: textStyleSmall.copyWith(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
                           ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: lightcardColor,
-                          ),
-                          child: Text('Creations',
-                            style: textStyleSmall.copyWith(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-
-                            ),),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 13,
-                            horizontal: 32,
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: lightcardColor,
-                          ),
-                          child: Text('Listings',
-                            style: textStyleSmall.copyWith(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-
-                            ),),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 25,),
+                  SizedBox(
+                    height: 25,
+                  ),
                   Container(
                     height: 1,
                     width: double.infinity,
@@ -403,14 +451,16 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: appColor,
                     ),
                   ),
-                  SizedBox(height: 25,),
+                  SizedBox(
+                    height: 25,
+                  ),
                   GridView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
-                      childAspectRatio: 0.8,
+                      childAspectRatio: 0.9,
                       mainAxisSpacing: 20,
                       crossAxisSpacing: 20 / 2,
                     ),
@@ -426,12 +476,14 @@ class _ProfilePageState extends State<ProfilePage> {
                       );
                       var newPrice = (data[index]['price'] / price);
                       return CollectionsCard(
-                          collection: data[index],
-                          title: 'Cyborg',
-                          amount: newPrice,
-                          nftImg: metaData['image']?? "https://metadata.y00ts.com/y/14010.png",
-                          metadata: metaData,
-                          collectionName: 'Neville',
+                        collection: data[index],
+                        remove: true,
+                        title: 'Cyborg',
+                        amount: newPrice,
+                        nftImg: metaData['image'] ??
+                            "https://metadata.y00ts.com/y/14010.png",
+                        metadata: metaData,
+                        collectionName: 'Neville',
                       );
                     },
                   ),
@@ -538,7 +590,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   //     ],
                   //   ),
                   // ),
-
                 ],
               ),
             ],
@@ -548,5 +599,3 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
-
-

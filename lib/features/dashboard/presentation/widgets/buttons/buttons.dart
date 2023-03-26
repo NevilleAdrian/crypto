@@ -143,9 +143,9 @@ class GreyButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        height: size!.height * 0.075,
-        width: size!.width * 0.3,
-        padding: EdgeInsets.symmetric(vertical: 10),
+        // height: size!.height * 0.075,
+        // width: size!.width * 0.3,
+        padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         decoration: const BoxDecoration(
           color: Color(0xff1D2939),
           borderRadius: BorderRadius.all(

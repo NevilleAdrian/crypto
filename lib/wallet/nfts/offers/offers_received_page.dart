@@ -1,17 +1,10 @@
-import 'package:de_marketplace/core/providers/auth_provider/auth_provider.dart';
-import 'package:de_marketplace/features/dashboard/data/models/args.dart';
-import 'package:de_marketplace/shared/collections/deGods_collection.dart';
 import 'package:de_marketplace/shared/utils/colors.dart';
-import 'package:de_marketplace/shared/utils/constants.dart';
-import 'package:de_marketplace/shared/utils/functions.dart';
 import 'package:de_marketplace/shared/utils/textstyle.dart';
 import 'package:de_marketplace/wallet/nfts/components/wallet_offers.dart';
 import 'package:flutter/material.dart';
 
 class OffersReceivedPage extends StatelessWidget {
   const OffersReceivedPage({Key? key}) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +26,17 @@ class OffersReceivedPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       InkWell(
-                        onTap: (){Navigator.pop(context);},
-                        child: Icon(Icons.arrow_back_ios, color: Colors.white,
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
                         ),
                       ),
-                      SizedBox(width: 5,),
+                      SizedBox(
+                        width: 5,
+                      ),
                       Text(
                         'Wallet',
                         style: textStyleBig.copyWith(
@@ -60,14 +59,16 @@ class OffersReceivedPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Offers Received',
+                    Text(
+                      'Offers Received',
                       style: textStyleBig.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
                         letterSpacing: 0.5,
                       ),
                     ),
-                    Text('10 Offers',
+                    Text(
+                      '10 Offers',
                       style: textStyleBig.copyWith(
                         fontWeight: FontWeight.w500,
                         fontSize: 20,
@@ -77,65 +78,75 @@ class OffersReceivedPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 6
-                      ).copyWith(right: 2),
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: appColor,
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Show All Offers',
-                            style: textStyleSmall.copyWith(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0.5,
-                            ),),
-                          SizedBox(width: 15,),
-                          Icon(Icons.arrow_drop_down_rounded,
-                            color: Colors.white,
-                            size: 30,),
-                        ],
-                      ),
-                    ),
-
-                  ],
-                ),
-              ),
+              // Container(
+              //   margin: EdgeInsets.symmetric(
+              //     horizontal: 20,
+              //   ),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       Container(
+              //         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 6)
+              //             .copyWith(right: 2),
+              //         width: MediaQuery.of(context).size.width * 0.9,
+              //         decoration: BoxDecoration(
+              //           borderRadius: BorderRadius.circular(12),
+              //           border: Border.all(
+              //             color: appColor,
+              //           ),
+              //         ),
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             Text(
+              //               'Show All Offers',
+              //               style: textStyleSmall.copyWith(
+              //                 fontSize: 12,
+              //                 fontWeight: FontWeight.w500,
+              //                 letterSpacing: 0.5,
+              //               ),
+              //             ),
+              //             SizedBox(
+              //               width: 15,
+              //             ),
+              //             Icon(
+              //               Icons.arrow_drop_down_rounded,
+              //               color: Colors.white,
+              //               size: 30,
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Container(
                 margin: EdgeInsets.all(25).copyWith(right: 30, left: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Item',
-                    style: textStyleBig.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),),
+                    Text(
+                      'Item',
+                      style: textStyleBig.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                     Spacer(),
-                    Text('Offer Amt',
+                    Text(
+                      'Offer Amt',
                       style: textStyleBig.copyWith(
                         fontWeight: FontWeight.w500,
-                      ),),
-                    SizedBox(width: 30,),
-                    Text('Status',
+                      ),
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Text(
+                      'Status',
                       style: textStyleBig.copyWith(
                         fontWeight: FontWeight.w500,
-                      ),),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -214,5 +225,3 @@ class OffersReceivedPage extends StatelessWidget {
     );
   }
 }
-
-
