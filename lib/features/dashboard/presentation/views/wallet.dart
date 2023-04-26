@@ -131,7 +131,7 @@ class _WalletPageState extends State<WalletPage> {
                       ],
                     ),
                   ),
-                  kBiggerHeight,
+                  kNormalHeight,
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     padding: const EdgeInsets.all(20),
@@ -200,8 +200,8 @@ class _WalletPageState extends State<WalletPage> {
                                   )
                                 : LinearGradient(
                                     colors: <Color>[
-                                      backGroundColor,
-                                      backGroundColor
+                                      opaqueBackGroundColor,
+                                      opaqueBackGroundColor
                                     ],
                                   ),
                           ),
@@ -391,7 +391,7 @@ class _WalletPageState extends State<WalletPage> {
             SingleChildScrollView(
               child: Container(
                 color: backGroundColor,
-                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                padding: const EdgeInsets.only(bottom: 10),
                 child: Column(
                   children: [
                     Divider(
@@ -399,50 +399,58 @@ class _WalletPageState extends State<WalletPage> {
                       height: 30,
                       color: borderColor,
                     ),
-                    TextRow(
-                      decoration: textStyleBig500,
-                      text: 'Bidding Account',
-                      subText: '0',
-                    ),
-                    kSmallHeight,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: MyTextForm(
-                            onChangedCallback: (String value) async {},
-                            textInputType: TextInputType.text,
-                            labelText: "Enter amount",
-                            focusNode: textFocus,
-                            textColor: Colors.white.withOpacity(0.4),
-                            fillColor: backGroundColor,
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        children: [
+                          TextRow(
+                            decoration: textStyleBig500,
+                            text: 'Bidding Account',
+                            subText: '0',
                           ),
-                        ),
-                        kSmallestWidth,
-                        Row(
-                          children: [
-                            GreyButton(
-                                size: const Size(400, 600),
-                                text: 'Deposit',
-                                defaultFontColor: whiteColor,
-                                onPressed: () async {
-                                  print('hi');
-                                  // await Auth.authProvider(context).getTokenAccounts();
-                                }),
-                            kSmallestWidth,
-                            GreyButton(
-                                size: const Size(400, 600),
-                                text: 'Withdraw',
-                                defaultFontColor: whiteColor,
-                                onPressed: () async {
-                                  print('hi');
-                                  // await Auth.authProvider(context).getTokenAccounts();
-                                }),
-                          ],
-                        ),
-                      ],
-                    )
+                          kSmallHeight,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: MyTextForm(
+                                  onChangedCallback: (String value) async {},
+                                  textInputType: TextInputType.text,
+                                  labelText: "Enter amount",
+                                  focusNode: textFocus,
+                                  textColor: Colors.white.withOpacity(0.4),
+                                  fillColor: backGroundColor,
+                                ),
+                              ),
+                              kSmallestWidth,
+                              Row(
+                                children: [
+                                  GreyButton(
+                                      size: const Size(400, 600),
+                                      text: 'Deposit',
+                                      defaultFontColor: whiteColor,
+                                      onPressed: () async {
+                                        print('hi');
+                                        // await Auth.authProvider(context).getTokenAccounts();
+                                      }),
+                                  kSmallestWidth,
+                                  GreyButton(
+                                      size: const Size(400, 600),
+                                      text: 'Withdraw',
+                                      defaultFontColor: whiteColor,
+                                      onPressed: () async {
+                                        print('hi');
+                                        // await Auth.authProvider(context).getTokenAccounts();
+                                      }),
+                                ],
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                    kNormalHeight,
                   ],
                 ),
               ),

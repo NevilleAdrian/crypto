@@ -149,7 +149,7 @@ class _MyTextFormState extends State<MyTextForm> {
                   labelText: widget.labelText,
                   labelStyle: TextStyle(
                     color: widget.textColor ?? Colors.white,
-                    fontSize: 12,
+                    fontSize: 14,
                   ),
                   prefixIcon: widget.prefix,
                   suffixIcon: widget.suffix,

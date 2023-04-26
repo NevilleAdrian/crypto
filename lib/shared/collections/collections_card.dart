@@ -64,9 +64,10 @@ class CollectionsCard extends StatelessWidget {
                 height: 160,
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
-                    ),
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10)),
                     image: DecorationImage(
                         image: NetworkImage(
                           nftImg,

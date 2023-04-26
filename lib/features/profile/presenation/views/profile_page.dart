@@ -339,7 +339,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               fontWeight: FontWeight.w500, fontSize: 13),
                         ),
                         Text(
-                          'Followers',
+                          'Following',
                           style: textStyleBig.copyWith(
                               fontSize: 13, color: Colors.grey),
                         ),

@@ -144,7 +144,7 @@ class GreyButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         // height: size!.height * 0.075,
-        // width: size!.width * 0.3,
+        width: size!.width * 0.25,
         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         decoration: const BoxDecoration(
           color: Color(0xff1D2939),
@@ -169,7 +169,7 @@ class GreyButton extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.poppins(
                     color: Colors.white,
-                    fontSize: size!.width * 0.03,
+                    fontSize: size!.width * 0.029,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

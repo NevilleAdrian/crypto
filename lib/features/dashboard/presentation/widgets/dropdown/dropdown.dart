@@ -37,18 +37,21 @@ class _DropDownItemState extends State<DropDownItem> {
             items: widget.values.map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      value,
-                      style: textStyleBig.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                        letterSpacing: 0.5,
+                child: Container(
+                  padding: EdgeInsets.only(left: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        value,
+                        style: textStyleBig.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          letterSpacing: 0.5,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               );
             }).toList(),

@@ -1,4 +1,5 @@
 import 'package:de_marketplace/core/providers/auth_provider/auth_provider.dart';
+import 'package:de_marketplace/features/collections/presentation/views/collection_table.dart';
 import 'package:de_marketplace/features/dashboard/data/models/args.dart';
 import 'package:de_marketplace/features/dashboard/presentation/widgets/dropdown/dropdown.dart';
 import 'package:de_marketplace/features/dashboard/presentation/widgets/textform/textform.dart';
@@ -123,136 +124,136 @@ class _CollectionExploreState extends State<CollectionExplore> {
       '24 Hrs Vol',
       'Floor Price',
     ];
-
-    List<Widget> _buildCells(int count, dynamic collections) {
-      return List.generate(
-        count,
-        (i) => InkWell(
-          onTap: () {
-            navigateToNextScreen(i, collections);
-          },
-          child: Container(
-            alignment: Alignment.center,
-            width: 120.0,
-            height: 60.0,
-            // color: Colors.white,
-            margin: EdgeInsets.all(4.0),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                  ),
-                  child: Container(
-                    height: 40,
-                    width: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      image: DecorationImage(
-                        image: NetworkImage(checkImage(
-                                collections[i]['thumbnail'])
-                            ? collections[i]['thumbnail']
-                            : '$IMAGE_KIT_ENDPOINT_URL${collections[i]['thumbnail']}'),
-                      ),
-                    ),
-                    child: Text(''),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    collections[i]['name'],
-                    style: textStyleSmall.copyWith(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        overflow: TextOverflow.ellipsis),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    }
-
-    Widget tableBody(String type, String amount, String vol, int totalVol,
-        String floorPrice) {
-      if (type == 'Tokens') {
-        return Text(
-          '10,100',
-          style: textStyleSmall.copyWith(
-              fontWeight: FontWeight.w500,
-              fontSize: 14,
-              overflow: TextOverflow.ellipsis),
-        );
-      } else if (type == 'Listed') {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '142',
-              style: textStyleSmall.copyWith(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14,
-                  overflow: TextOverflow.ellipsis),
-            ),
-            // kVerySmallHeight,
-            // Text(
-            //   '30.45%',
-            //   style: textStyleSmall.copyWith(
-            //       fontWeight: FontWeight.w500,
-            //       fontSize: 10,
-            //       overflow: TextOverflow.ellipsis),
-            // ),
-          ],
-        );
-      } else {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text(
-                  type == 'Total Vol'
-                      ? vol
-                      : (type == '24 Hrs Vol'
-                          ? (totalVol / 10000000000).ceilToDouble().toString()
-                          : vol),
-                  style: textStyleSmall.copyWith(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      overflow: TextOverflow.ellipsis),
-                ),
-                kSmallestWidth,
-                Image.asset(
-                  "assets/images/solana-sol-logo 1.png",
-                ),
-              ],
-            )
-          ],
-        );
-      }
-    }
-
-    List<Widget> _buildRows(int count, int i, dynamic collections) {
-      return List.generate(
-          count,
-          (index) => InkWell(
-                onTap: () {
-                  navigateToNextScreen(index, collections);
-                },
-                child: Container(
-                  height: 68,
-                  width: 100,
-                  child: tableBody(
-                      rowTabs[i],
-                      collections[index]['name'],
-                      collections[index]['volumePast24h'].toString(),
-                      collections[index]['volumePast24h'],
-                      collections[index]['floorPrice'].toString()),
-                ),
-              ));
-    }
+    //
+    // List<Widget> _buildCells(int count, dynamic collections) {
+    //   return List.generate(
+    //     count,
+    //     (i) => InkWell(
+    //       onTap: () {
+    //         navigateToNextScreen(i, collections);
+    //       },
+    //       child: Container(
+    //         alignment: Alignment.center,
+    //         width: 120.0,
+    //         height: 60.0,
+    //         // color: Colors.white,
+    //         margin: EdgeInsets.all(4.0),
+    //         child: Row(
+    //           children: [
+    //             Padding(
+    //               padding: const EdgeInsets.symmetric(
+    //                 horizontal: 10.0,
+    //               ),
+    //               child: Container(
+    //                 height: 40,
+    //                 width: 40,
+    //                 decoration: BoxDecoration(
+    //                   borderRadius: BorderRadius.circular(10),
+    //                   image: DecorationImage(
+    //                     image: NetworkImage(checkImage(
+    //                             collections[i]['thumbnail'])
+    //                         ? collections[i]['thumbnail']
+    //                         : '$IMAGE_KIT_ENDPOINT_URL${collections[i]['thumbnail']}'),
+    //                   ),
+    //                 ),
+    //                 child: Text(''),
+    //               ),
+    //             ),
+    //             Expanded(
+    //               child: Text(
+    //                 collections[i]['name'],
+    //                 style: textStyleSmall.copyWith(
+    //                     fontWeight: FontWeight.w500,
+    //                     fontSize: 14,
+    //                     overflow: TextOverflow.ellipsis),
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     ),
+    //   );
+    // }
+    //
+    // Widget tableBody(String type, String amount, String vol, int totalVol,
+    //     String floorPrice) {
+    //   if (type == 'Tokens') {
+    //     return Text(
+    //       '10,100',
+    //       style: textStyleSmall.copyWith(
+    //           fontWeight: FontWeight.w500,
+    //           fontSize: 14,
+    //           overflow: TextOverflow.ellipsis),
+    //     );
+    //   } else if (type == 'Listed') {
+    //     return Column(
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       // mainAxisAlignment: MainAxisAlignment.center,
+    //       children: [
+    //         Text(
+    //           '142',
+    //           style: textStyleSmall.copyWith(
+    //               fontWeight: FontWeight.w500,
+    //               fontSize: 14,
+    //               overflow: TextOverflow.ellipsis),
+    //         ),
+    //         // kVerySmallHeight,
+    //         // Text(
+    //         //   '30.45%',
+    //         //   style: textStyleSmall.copyWith(
+    //         //       fontWeight: FontWeight.w500,
+    //         //       fontSize: 10,
+    //         //       overflow: TextOverflow.ellipsis),
+    //         // ),
+    //       ],
+    //     );
+    //   } else {
+    //     return Column(
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       children: [
+    //         Row(
+    //           children: [
+    //             Text(
+    //               type == 'Total Vol'
+    //                   ? vol
+    //                   : (type == '24 Hrs Vol'
+    //                       ? (totalVol / 10000000000).ceilToDouble().toString()
+    //                       : vol),
+    //               style: textStyleSmall.copyWith(
+    //                   fontWeight: FontWeight.w500,
+    //                   fontSize: 14,
+    //                   overflow: TextOverflow.ellipsis),
+    //             ),
+    //             kSmallestWidth,
+    //             Image.asset(
+    //               "assets/images/solana-sol-logo 1.png",
+    //             ),
+    //           ],
+    //         )
+    //       ],
+    //     );
+    //   }
+    // }
+    //
+    // List<Widget> _buildRows(int count, int i, dynamic collections) {
+    //   return List.generate(
+    //       count,
+    //       (index) => InkWell(
+    //             onTap: () {
+    //               navigateToNextScreen(index, collections);
+    //             },
+    //             child: Container(
+    //               height: 68,
+    //               width: 100,
+    //               child: tableBody(
+    //                   rowTabs[i],
+    //                   collections[index]['name'],
+    //                   collections[index]['volumePast24h'].toString(),
+    //                   collections[index]['volumePast24h'],
+    //                   collections[index]['floorPrice'].toString()),
+    //             ),
+    //           ));
+    // }
 
     return Scaffold(
       body: SafeArea(
@@ -266,6 +267,7 @@ class _CollectionExploreState extends State<CollectionExplore> {
               children: [
                 const ExploreHeader(),
                 kSmallHeight,
+
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 15.0,
@@ -322,7 +324,7 @@ class _CollectionExploreState extends State<CollectionExplore> {
                               borderRadius: BorderRadius.circular(15),
                               border: Border.all(
                                 width: 1.5,
-                                color: cardColor,
+                                color: whiteColor.withOpacity(0.3),
                               ),
                             )),
                       ),
@@ -330,70 +332,77 @@ class _CollectionExploreState extends State<CollectionExplore> {
                   ),
                 ),
                 kNormalHeight,
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 15.0,
-                      ),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Collections',
-                            style: textStyleSmall.copyWith(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0.5,
-                              color: lemonColor,
-                            ),
-                          ),
-                          Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children:
-                                  _buildCells(collections.length, collections)),
-                        ],
-                      ),
-                    ),
-                    kVerySmallWidth,
-                    Expanded(
-                      child: Container(
-                        height: Auth.authProvider(context).allOffset == 0
-                            ? 900
-                            : (Auth.authProvider(context).allOffset == 10
-                                ? 1500
-                                : (Auth.authProvider(context).allOffset == 20
-                                    ? 2300
-                                    : (MediaQuery.of(context).size.height *
-                                        ((Auth.authProvider(context).allOffset /
-                                            10))))),
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: rowTabs.length,
-                          itemBuilder: (context, i) => Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                rowTabs[i],
-                                style: textStyleSmall.copyWith(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  letterSpacing: 0.5,
-                                  color: lemonColor,
-                                ),
-                              ),
-                              kBiggerHeight,
-                              Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: _buildRows(
-                                      collections.length, i, collections)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                Container(
+                  height: MediaQuery.of(context).size.height / 1.3,
+                  child: CollectionTable(
+                    collections: collections,
+                  ),
+                )
+
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: <Widget>[
+                //     Padding(
+                //       padding: const EdgeInsets.only(
+                //         left: 15.0,
+                //       ),
+                //       child: Column(
+                //         children: [
+                //           Text(
+                //             'Collections',
+                //             style: textStyleSmall.copyWith(
+                //               fontSize: 15,
+                //               fontWeight: FontWeight.w500,
+                //               letterSpacing: 0.5,
+                //               color: lemonColor,
+                //             ),
+                //           ),
+                //           Column(
+                //               crossAxisAlignment: CrossAxisAlignment.start,
+                //               children:
+                //                   _buildCells(collections.length, collections)),
+                //         ],
+                //       ),
+                //     ),
+                //     kVerySmallWidth,
+                //     Expanded(
+                //       child: Container(
+                //         height: Auth.authProvider(context).allOffset == 0
+                //             ? 900
+                //             : (Auth.authProvider(context).allOffset == 10
+                //                 ? 1500
+                //                 : (Auth.authProvider(context).allOffset == 20
+                //                     ? 2300
+                //                     : (MediaQuery.of(context).size.height *
+                //                         ((Auth.authProvider(context).allOffset /
+                //                             10))))),
+                //         child: ListView.builder(
+                //           scrollDirection: Axis.horizontal,
+                //           itemCount: rowTabs.length,
+                //           itemBuilder: (context, i) => Column(
+                //             crossAxisAlignment: CrossAxisAlignment.start,
+                //             children: [
+                //               Text(
+                //                 rowTabs[i],
+                //                 style: textStyleSmall.copyWith(
+                //                   fontSize: 15,
+                //                   fontWeight: FontWeight.w500,
+                //                   letterSpacing: 0.5,
+                //                   color: lemonColor,
+                //                 ),
+                //               ),
+                //               kBiggerHeight,
+                //               Column(
+                //                   crossAxisAlignment: CrossAxisAlignment.start,
+                //                   children: _buildRows(
+                //                       collections.length, i, collections)),
+                //             ],
+                //           ),
+                //         ),
+                //       ),
+                //     )
+                //   ],
+                // ),
               ],
             ),
           ),

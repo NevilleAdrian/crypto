@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 15,
                             ),
                           ),
-                          kMediumWidth,
+                          kModerateWidth,
                           DropDownItem(
                             values: values,
                             onPressed: (String? value) {

@@ -45,24 +45,25 @@ dependencies:
   persistent_bottom_nav_bar: ^4.0.2
   pull_to_refresh: ^2.0.0
   unicons: ^2.0.2
-  provider: ^5.0.0
+  provider: ^6.0.5
   http: ^0.13.3
   url_launcher:
 #  get_time_ago:
   timeago: ^3.2.2
   uni_links: ^0.5.1
-  solana: ^0.26.3
+  solana: ^0.29.1
   bs58: ^1.0.2
   get: ^4.6.5
   firebase_dynamic_links: ^5.0.5
   firebase_core: ^2.2.0
-  phantom_connect: ^0.0.8
+#  phantom_connect:
   json_rpc_client: ^1.0.2
   pinenacl: ^0.5.1
   hexcolor: ^2.0.5
   intl: ^0.18.0
   web3dart: ^2.5.0
-
+  data_table_2: 2.3.10
+  horizontal_data_table: ^4.2.0
 
 
 
@@ -126,4 +127,4 @@ flutter:
         - asset: assets/fonts/ClashDisplay-Bold.otf
           weight: 700
   # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+  # see https://flutter.dev/custom-fonts/#from-pa
